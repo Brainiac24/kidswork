@@ -1,51 +1,55 @@
-<?php 
+<?php
 namespace Kidswork\Backend;
+
 use Kidswork\cKidswork;
 
-class cBackend extends mBackend {
+class cBackend extends mBackend
+{
     
     //<editor-fold defaultstate="collapsed" desc="$fBackend">
     public $fBackend;
 
-    public function get_fBackend() {
+    public function get_fBackend()
+    {
         return $this->fBackend;
     }
 
-    public function set_fBackend($fBackend) {
+    public function set_fBackend($fBackend)
+    {
         $this->fBackend = $fBackend;
     }
 
-    //</editor-fold>        
+    //</editor-fold>
 
-    public function __construct($fBackend = NULL) {
-        if ($fBackend == NULL) {
+    public function __construct($fBackend = null)
+    {
+        if ($fBackend == null) {
             $this->fBackend = new fBackend();
         } else {
             $this->fBackend = $fBackend;
         }
     }
 
-    function Init($fControllers=null) {
-        if ($fControllers != NULL) {
+    function Init($fControllers = null)
+    {
+        if ($fControllers != null) {
             if (!is_array($fControllers)) {
                 $this->get_fBackend()->add_controllers_array($fControllers);
-            }else{
+            } else {
                 foreach ($fControllers as $fController) {
                     $this->get_fBackend()->add_controllers_array($fController);
                 }
             }
         }
-        var_dump((new cKidswork())->Init_Full()) ; 
+        var_dump((new cKidswork())->Init_Full()) ;
         return $this->get_fBackend()->get_final_struct();
     }
 
-    function Init_Full($fSite) {
-        
+    function Init_Full($fSite)
+    {
     }
 
-    function Init_Ajax($fSite) {
-        
+    function Init_Ajax($fSite)
+    {
     }
 }
-
-?>

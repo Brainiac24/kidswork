@@ -2,8 +2,8 @@
     
 namespace Kidswork;
 
-class mKidswork{
-    
+class mKidswork extends mAutoloader{
+
     
     
 }

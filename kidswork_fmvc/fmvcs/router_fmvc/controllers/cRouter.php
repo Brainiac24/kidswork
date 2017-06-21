@@ -1,34 +1,39 @@
-<?php 
+<?php
 namespace Kidswork;
 
-class cRouter extends mRouter {
+class cRouter extends mRouter
+{
     
     //<editor-fold defaultstate="collapsed" desc="$fRouter">
     public $fRouter;
 
-    public function get_fRouter() {
+    public function get_fRouter()
+    {
         return $this->fRouter;
     }
 
-    public function set_fRouter($fRouter) {
+    public function set_fRouter($fRouter)
+    {
         $this->fRouter = $fRouter;
     }
 
-    //</editor-fold>        
+    //</editor-fold>
 
-    public function __construct($fRouter = NULL) {
-        if ($fRouter == NULL) {
+    public function __construct($fRouter = null)
+    {
+        if ($fRouter == null) {
             $this->fRouter = new fRouter();
         } else {
             $this->fRouter = $fRouter;
         }
     }
 
-    function Init($fControllers=null) {
-        if ($fControllers != NULL) {
+    function Init($fControllers = null)
+    {
+        if ($fControllers != null) {
             if (!is_array($fControllers)) {
                 $this->get_fRouter()->add_controllers_array($fControllers);
-            }else{
+            } else {
                 foreach ($fControllers as $fController) {
                     $this->get_fRouter()->add_controllers_array($fController);
                 }
@@ -37,13 +42,11 @@ class cRouter extends mRouter {
         return $this->get_fRouter()->get_final_struct();
     }
 
-    function Init_Full($fSite) {
-        
+    function Init_Full($fSite)
+    {
     }
 
-    function Init_Ajax($fSite) {
-        
+    function Init_Ajax($fSite)
+    {
     }
 }
-
-?>

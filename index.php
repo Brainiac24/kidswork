@@ -2,7 +2,7 @@
 
 namespace Kidswork;
 
-require_once 'autoloader.php';
-echo (new cKidswork())->Init(array(new fConfigs(), new fConfigs()));
-
-?>  
+require_once __DIR__."/mAutoloader.php";
+require_once __DIR__."/fConfigs.php";
+new fConfigs();
+echo (new cKidswork())->Init();
