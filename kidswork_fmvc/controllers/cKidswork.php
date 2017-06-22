@@ -2,22 +2,19 @@
 
 namespace Kidswork;
 
+use Kidswork\Backend;
+
 class cKidswork extends mKidswork
 {
+   
     //----------------------------------------------
-    public $fKidswork;
-    public function get_fKidswork()
+    public function __construct($fKidswork = null)
     {
-        return $this->fKidswork;
-    }
-    public function set_fKidswork($fKidswork)
-    {
-        $this->fKidswork = $fKidswork;
+        parent::__construct($fKidswork);
     }
     //----------------------------------------------
-    public function __construct($fControllers = null)
+    function Init($fControllers = null)
     {
-        
         if ($fControllers != null) {
             if (!is_array($fControllers)) {
                 $this->get_fKidswork()->add_controllers_array($fControllers);
@@ -27,21 +24,9 @@ class cKidswork extends mKidswork
                 }
             }
         }
-    }
-    //----------------------------------------------
-    function Init($fKidswork = null)
-    {
-        if ($fKidswork == null) {
-            $this->fKidswork = new fKidswork();
-        } else {
-            $this->fKidswork = $fKidswork;
-        }
 
-        if ($fKidswork->get_fmvc_array() != null) {
-            foreach ($fKidswork->get_fmvc_array() as $fmvc_item) {
-                autoload(__DIR__, $fmvc_item);
-            }
-        }
+        $cBackend = new Backend\cBackend();
+        $this->fKidswork->set_struct($cBackend->init());
         
         return $this->get_fKidswork()->get_final_struct();
     }

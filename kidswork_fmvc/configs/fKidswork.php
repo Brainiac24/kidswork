@@ -2,9 +2,14 @@
 
 namespace Kidswork;
 
-class fKidswork extends fConfigs
+class fKidswork
 {
 
+    private $pdo_dsn = 'mysql:dbname=dbr_limits;host=127.0.0.1';
+    private $pdo_username = 'root';
+    private $pdo_password = '123';
+    private $admin_key = 'daler';
+    private $session_key = '1';
     private $fmvc_array = array('backend_fmvc');
 
     public $struct_start = null;
@@ -12,10 +17,41 @@ class fKidswork extends fConfigs
     public $struct_array = array();
     public $struct_end = null;
     public $controllers_array = array();
+    
 
-    public function __construct()
+    function __construct()
     {
         
+    }
+
+    public function get_pdo_dsn()
+    {
+        return $this->pdo_dsn;
+    }
+
+    public function get_pdo_username()
+    {
+        return $this->pdo_username;
+    }
+
+    public function get_pdo_password()
+    {
+        return $this->pdo_password;
+    }
+
+    public function get_admin_key()
+    {
+        return $this->admin_key;
+    }
+
+    public function get_session_key()
+    {
+        return $this->session_key;
+    }
+
+    public function get_fmvc_array()
+    {
+        return $this->fmvc_array;
     }
     
     public function get_struct_start()
