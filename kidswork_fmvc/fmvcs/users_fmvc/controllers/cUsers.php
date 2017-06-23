@@ -2,7 +2,7 @@
 namespace Kidswork\Backend;
 
 
-class cConstructor extends mConstructor
+class cUsers extends mUsers
 {
     
 
@@ -26,6 +26,6 @@ class cConstructor extends mConstructor
 
     public function Render()
     {
-        return $this->fConstructor->get_final_struct();
+        return $this->fUsers->get_final_struct();
     }
 }

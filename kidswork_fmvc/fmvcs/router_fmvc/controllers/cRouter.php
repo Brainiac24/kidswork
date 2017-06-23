@@ -1,43 +1,19 @@
 <?php
-namespace Kidswork;
+namespace Kidswork\Backend;
+
 
 class cRouter extends mRouter
 {
     
-    public $fRouter;
 
-    public function get_fRouter()
-    {
-        return $this->fRouter;
+    public function __construct($cKidswork)
+    {   
+        parent::__construct($cKidswork);
     }
 
-    public function set_fRouter($fRouter)
+    function Init()
     {
-        $this->fRouter = $fRouter;
-    }
-
-
-    public function __construct($fRouter = null)
-    {
-        if ($fRouter == null) {
-            $this->fRouter = new fRouter();
-        } else {
-            $this->fRouter = $fRouter;
-        }
-    }
-
-    function Init($fControllers = null)
-    {
-        if ($fControllers != null) {
-            if (!is_array($fControllers)) {
-                $this->get_fRouter()->add_controllers_array($fControllers);
-            } else {
-                foreach ($fControllers as $fController) {
-                    $this->get_fRouter()->add_controllers_array($fController);
-                }
-            }
-        }
-        return $this->get_fRouter()->get_final_struct();
+        return $this;
     }
 
     function Init_Full($fSite)
@@ -46,5 +22,10 @@ class cRouter extends mRouter
 
     function Init_Ajax($fSite)
     {
+    }
+
+    public function Render()
+    {
+        return $this->fRouter->get_final_struct();
     }
 }

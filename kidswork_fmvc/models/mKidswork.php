@@ -18,7 +18,7 @@ class mKidswork
     }
     //----------------------------------------------
 
-    protected function Import($fKidswork, $init = true)
+    protected function Import($fKidswork, $init = true, $number = "")
     {
         if ($fKidswork->get_fmvc_array() != null) {
             foreach ($fKidswork->get_fmvc_array() as $fmvc_item => $namespase) {
@@ -26,7 +26,7 @@ class mKidswork
                     return $this->autoload($className, dirname($fKidswork->get_path()));
                 });
                 if ($init) {
-                    $this->Construct_Controller($fmvc_item, $namespase);
+                    $this->Construct_Controller($fmvc_item, $namespase, $number);
                 }
             }
         }
@@ -94,9 +94,9 @@ class mKidswork
     protected function Construct_Controller($name_mvc, $namespace, $number = "")
     {
         $class = ucfirst(strtolower(substr($name_mvc, 0, strlen($name_mvc) - 5)));
-        $class_res = $namespace."c" . $class;
+        $class_res = "\\".$namespace."\\c" . $class;
         $class_name = "c" .$class.$number;
-        $this->fKidswork->add_controllers_array($class_name, new $class_res($this->fKidswork));
-        $this->fKidswork->get_controllers_array()["cBackend"]->Init();
+        $this->fKidswork->add_controllers_array($class_name, new $class_res($this));
+        
     }
 }

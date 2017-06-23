@@ -1,8 +1,8 @@
 <?php
-namespace Kidswork\Backend;
+namespace Kidswork;
 
 
-class cConstructor extends mConstructor
+class cValidation extends mValidation
 {
     
 
@@ -26,6 +26,6 @@ class cConstructor extends mConstructor
 
     public function Render()
     {
-        return $this->fConstructor->get_final_struct();
+        return $this->fValidation->get_final_struct();
     }
 }

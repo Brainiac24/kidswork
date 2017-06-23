@@ -11,9 +11,12 @@ class cKidswork extends mKidswork
         parent::__construct($fKidswork);
     }
     //----------------------------------------------
-    function Init($fControllers = null)
+    function Init($Configs = null)
     {
+        //($cBackend = $this->fKidswork->get_controllers_array()["cBackend"])->Init();
+
         $cBackend = $this->fKidswork->get_controllers_array()["cBackend"];
+        $cBackend->Init();
         $this->fKidswork->set_struct($cBackend->Render());
         
         return $this;
@@ -28,9 +31,9 @@ class cKidswork extends mKidswork
     {
     }
 
-    public function Import($fKidswork, $init = true)
+    public function Import($fKidswork, $init = true, $number = "")
     {
-        parent::Import($fKidswork, $init);
+        parent::Import($fKidswork, $init, $number);
     }
 
     public function Render()

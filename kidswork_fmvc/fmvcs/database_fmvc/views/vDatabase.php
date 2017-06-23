@@ -1,7 +1,7 @@
 <?php 
 namespace Kidswork\Backend;
     
-class vRouter{
+class vDatabase{
     
     function Init(){
     

@@ -20,7 +20,6 @@ class structure {
                 mkdir($path_mvc . "/" . $name_folder);
                 switch ($name_folder) {
                     case"configs":
-                        file_put_contents($path_mvc . "/" . $name_folder . "/fAutoload.php", $this->AddPhpScriptsToAutoload());
                         file_put_contents($path_mvc . "/" . $name_folder . "/f{$path}.php", $this->AddPhpScriptsToConfig($path));
                         break;
                     case"controllers":
@@ -38,170 +37,89 @@ class structure {
         return 1;
     }
 
-    private function AddPhpScriptsToAutoload() {
-        return'<?php
-    spl_autoload_register(function($className){return autoload($className,dirname(__DIR__));});
-    ///Add_Path(__DIR__,"ModuleName_fmvc");;
-?>';
-    }
 
     private function AddPhpScriptsToConfig($name) {
-        return'<?php 
+        return'<?php
+
 namespace Kidswork;
 
-class f' . $name . '{
-    
-    public function __construct() {
-        
+class f'.$name.' extends fConfigs
+{
+    private $fmvc_array = array();
+   
+    function __construct()
+    {
+        /*
+        $this->fmvc_array["NAME_fmvc"] = "Kidswork\NAME";
+        $this->set_fmvc_array($this->fmvc_array);
+        $this->set_path(__DIR__);
+        */
     }
-
-    public $struct_start = null;
-    public $struct = null;
-    public $struct_array = array();
-    public $struct_end = null;
-    public $controllers_array = array();
-    
-    public function get_struct_start() {
-        return $this->struct_start;
-    }
-
-    public function get_struct() {
-        return $this->struct;
-    }
-
-    public function get_struct_array() {
-        return $this->struct_array;
-    }
-
-    public function get_struct_end() {
-        return $this->struct_end;
-    }
-
-    public function get_controllers_array() {
-        return $this->controllers_array;
-    }
-
-    public function set_struct_start($struct_start) {
-        $this->struct_start = $struct_start;
-    }
-
-    public function set_struct($struct) {
-        $this->struct = $struct;
-    }
-
-    public function set_struct_array($struct_array) {
-        $this->struct_array = $struct_array;
-    }
-
-    public function set_struct_end($struct_end) {
-        $this->struct_end = $struct_end;
-    }
-
-    public function set_controllers_array($controllers_array) {
-        $this->controllers_array = $controllers_array;
-    }
-
-    public function add_struct_array($struct_array, $struct_name = null) {
-        $this->struct_array[$struct_name] = $struct_array;
-    }
-    
-    public function add_controllers_array($controllers_class) {
-        $this->controllers_array[get_class($controllers_class)] = $controllers_class;
-    }
-        
-    function get_final_struct() {
-        return $this->struct_start . $this->struct . implode("", $this->struct_array) .  $this->struct_end;
-    }
-}
-
-?>';
+}';
     }
 
     private function AddPhpScriptsToControllers($name) {
-        return'<?php 
+        return'<?php
 namespace Kidswork;
 
-class c' . $name . ' extends m' . $name . ' {
+
+class c'.$name.' extends m'.$name.'
+{
     
-    //<editor-fold defaultstate="collapsed" desc="$f' . $name . '">
-    public $f' . $name . ';
 
-    public function get_f' . $name . '() {
-        return $this->f' . $name . ';
+    public function __construct($cKidswork)
+    {   
+        parent::__construct($cKidswork);
     }
 
-    public function set_f' . $name . '($f' . $name . ') {
-        $this->f' . $name . ' = $f' . $name . ';
+    function Init()
+    {
+        return $this;
     }
 
-    //</editor-fold>        
-
-    public function __construct($f' . $name . ' = NULL) {
-        if ($f' . $name . ' == NULL) {
-            $this->f' . $name . ' = new f' . $name . '();
-        } else {
-            $this->f' . $name . ' = $f' . $name . ';
-        }
+    function Init_Full($fSite)
+    {
     }
 
-    function Init($fControllers=null) {
-        if ($fControllers != NULL) {
-            if (!is_array($fControllers)) {
-                $this->get_f' . $name . '()->add_controllers_array($fControllers);
-            }else{
-                foreach ($fControllers as $fController) {
-                    $this->get_f' . $name . '()->add_controllers_array($fController);
-                }
-            }
-        }
-        return $this->get_f' . $name . '()->get_final_struct();
+    function Init_Ajax($fSite)
+    {
     }
 
-    function Init_Full($fSite) {
-        
-    }
-
-    function Init_Ajax($fSite) {
-        
+    public function Render()
+    {
+        return $this->f'.$name.'->get_final_struct();
     }
 }
-
-?>';
+';
     }
 
     private function AddPhpScriptsToModels($name) {
-        return'<?php 
+        return'<?php
 namespace Kidswork;
 
-class m' . $name . '{
-    
-    
-}
+class m'.$name.'
+{
+    public $f'.$name.';
 
-?>';
+    public function __construct($cKidswork)
+    {
+        $this->f'.$name.' = new f'.$name.'();
+        //$cKidswork->Import($this->f'.$name.');
+    }
+}';
     }
 
     private function AddPhpScriptsToView($name) {
         return'<?php 
 namespace Kidswork;
-
-class v' . $name . '{
     
-    static function Init(){
+class v'.$name.'{
     
-    }
-    
-    static function Init_Full(){
+    function Init(){
     
     }
     
-    static function Init_Ajax(){
-    
-    }
-    
-}
-
-?>';
+}';
     }
 
 }

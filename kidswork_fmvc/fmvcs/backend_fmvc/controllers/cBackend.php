@@ -6,15 +6,14 @@ class cBackend extends mBackend
 {
     
 
-    public function __construct($fKidswork)
+    public function __construct($cKidswork)
     {   
-        parent::__construct($fKidswork);
+        parent::__construct($cKidswork);
     }
 
-    function Init($fControllers = null)
+    function Init()
     {
-        $this->fBackend->set_struct = '123';
-        
+        return $this;
     }
 
     function Init_Full($fSite)

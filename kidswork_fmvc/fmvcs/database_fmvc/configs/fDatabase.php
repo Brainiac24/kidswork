@@ -2,7 +2,7 @@
 
 namespace Kidswork;
 
-class fRouter extends fConfigs
+class fDatabase extends fConfigs
 {
     private $fmvc_array = array();
    
