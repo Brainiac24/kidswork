@@ -10,12 +10,13 @@ class fKidswork
     private $pdo_password = '123';
     private $admin_key = 'daler';
     private $session_key = '1';
-    private $fmvc_array = array('backend_fmvc');
 
+    private $fmvc_array = array('backend_fmvc'=>"\\Kidswork\\Backend\\");
+    public $path = __DIR__;
     public $struct_start = null;
     public $struct = null;
-    public $struct_array = array();
     public $struct_end = null;
+    public $struct_array = array();
     public $controllers_array = array();
     
 
@@ -79,6 +80,11 @@ class fKidswork
         return $this->controllers_array;
     }
 
+    public function get_path()
+    {
+        return $this->path;
+    }
+
     public function set_struct_start($struct_start)
     {
         $this->struct_start = $struct_start;
@@ -87,6 +93,11 @@ class fKidswork
     public function set_struct($struct)
     {
         $this->struct = $struct;
+    }
+
+    public function set_path($path)
+    {
+        $this->path = $path;
     }
 
     public function set_struct_array($struct_array)
@@ -109,13 +120,16 @@ class fKidswork
         $this->struct_array[$struct_name] = $struct_array;
     }
     
-    public function add_controllers_array($controllers_class)
+    public function add_controllers_array($controllers_class, $controllers_res)
     {
-        $this->controllers_array[get_class($controllers_class)] = $controllers_class;
+        //echo $controllers_res."----";
+        $this->controllers_array[$controllers_class] = $controllers_res;
     }
         
     function get_final_struct()
     {
         return $this->struct_start . $this->struct . implode("", $this->struct_array) .  $this->struct_end;
     }
+
+    
 }

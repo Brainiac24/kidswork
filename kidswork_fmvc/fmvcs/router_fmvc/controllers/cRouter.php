@@ -4,7 +4,6 @@ namespace Kidswork;
 class cRouter extends mRouter
 {
     
-    //<editor-fold defaultstate="collapsed" desc="$fRouter">
     public $fRouter;
 
     public function get_fRouter()
@@ -17,7 +16,6 @@ class cRouter extends mRouter
         $this->fRouter = $fRouter;
     }
 
-    //</editor-fold>
 
     public function __construct($fRouter = null)
     {

@@ -2,8 +2,6 @@
 
 namespace Kidswork;
 
-use Kidswork\Backend;
-
 class cKidswork extends mKidswork
 {
    
@@ -15,20 +13,10 @@ class cKidswork extends mKidswork
     //----------------------------------------------
     function Init($fControllers = null)
     {
-        if ($fControllers != null) {
-            if (!is_array($fControllers)) {
-                $this->get_fKidswork()->add_controllers_array($fControllers);
-            } else {
-                foreach ($fControllers as $fController) {
-                    $this->get_fKidswork()->add_controllers_array($fController);
-                }
-            }
-        }
-
-        $cBackend = new Backend\cBackend();
-        $this->fKidswork->set_struct($cBackend->init());
+        $cBackend = $this->fKidswork->get_controllers_array()["cBackend"];
+        $this->fKidswork->set_struct($cBackend->Render());
         
-        return $this->get_fKidswork()->get_final_struct();
+        return $this;
     }
 
     function Init_Full()
@@ -38,5 +26,15 @@ class cKidswork extends mKidswork
 
     function Init_Ajax($fSite)
     {
+    }
+
+    public function Import($fKidswork, $init = true)
+    {
+        parent::Import($fKidswork, $init);
+    }
+
+    public function Render()
+    {
+        return $this->fKidswork->get_final_struct();
     }
 }

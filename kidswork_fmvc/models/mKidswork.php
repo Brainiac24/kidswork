@@ -5,49 +5,52 @@ namespace Kidswork;
 class mKidswork
 {
 
-    // #region----------------------------------------------
     protected $fKidswork;
-    protected function get_fKidswork()
-    {
-        return $this->fKidswork;
-    }
-    protected function set_fKidswork($fKidswork)
-    {
-        $this->fKidswork = $fKidswork;
-    }
-    //#endregion----------------------------------------------
+
     protected function __construct($fKidswork = null)
     {
         if ($fKidswork == null) {
-            $this->set_fKidswork(new fKidswork());
+            $this->fKidswork = new fKidswork();
         } else {
-            $this->set_fKidswork($fKidswork);
+            $this->fKidswork = $fKidswork;
         }
-
-        if ($this->get_fKidswork()->get_fmvc_array() != null) {
-            foreach ($this->get_fKidswork()->get_fmvc_array() as $fmvc_item) {
-                spl_autoload_register(function ($className) {
-                    return $this->autoload($className, dirname(__DIR__));
-                });
-            }
-        }
+        $this->Import($this->fKidswork);
     }
     //----------------------------------------------
 
+    protected function Import($fKidswork, $init = true)
+    {
+        if ($fKidswork->get_fmvc_array() != null) {
+            foreach ($fKidswork->get_fmvc_array() as $fmvc_item => $namespase) {
+                spl_autoload_register(function ($className) use ($fKidswork) {
+                    return $this->autoload($className, dirname($fKidswork->get_path()));
+                });
+                if ($init) {
+                    $this->Construct_Controller($fmvc_item, $namespase);
+                }
+            }
+        }
+    }
 
     protected function autoload($className, $base_path)
     {
         $path = "";
-        $class = substr($className, strrpos($className, '\\') + 1);
+        $pos = strrpos($className, '\\');
+        if ($pos>0) {
+            $class = substr($className, $pos + 1);
+        } else {
+            $class = substr($className, $pos);
+        }
         $char = substr($class, 0, 1);
         $mvc = strtolower(substr("$class", 1, strlen($class)-1));
+        //var_dump($className);
         switch ($char) {
             case "f":
                 $path = $base_path . "/fmvcs/" . $mvc . "_fmvc/configs/" . $class . '.php';
                 break;
             case "c":
                 $path = $base_path . "/fmvcs/" . $mvc . "_fmvc/controllers/" . $class . '.php';
-                //echo $path;
+                //echo $path."-----";
                 break;
             case "m":
                 $path = $base_path . "/fmvcs/" . $mvc . "_fmvc/models/" . $class . '.php';
@@ -86,5 +89,14 @@ class mKidswork
                 require_once $path[$i];
             }
         }
+    }
+
+    protected function Construct_Controller($name_mvc, $namespace, $number = "")
+    {
+        $class = ucfirst(strtolower(substr($name_mvc, 0, strlen($name_mvc) - 5)));
+        $class_res = $namespace."c" . $class;
+        $class_name = "c" .$class.$number;
+        $this->fKidswork->add_controllers_array($class_name, new $class_res($this->fKidswork));
+        $this->fKidswork->get_controllers_array()["cBackend"]->Init();
     }
 }

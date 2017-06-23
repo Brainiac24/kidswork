@@ -1,48 +1,20 @@
 <?php
 namespace Kidswork\Backend;
 
-use Kidswork\cKidswork;
 
 class cBackend extends mBackend
 {
     
-    //<editor-fold defaultstate="collapsed" desc="$fBackend">
-    public $fBackend;
 
-    public function get_fBackend()
-    {
-        return $this->fBackend;
-    }
-
-    public function set_fBackend($fBackend)
-    {
-        $this->fBackend = $fBackend;
-    }
-
-    //</editor-fold>
-
-    public function __construct($fBackend = null)
-    {
-        if ($fBackend == null) {
-            $this->fBackend = new fBackend();
-        } else {
-            $this->fBackend = $fBackend;
-        }
+    public function __construct($fKidswork)
+    {   
+        parent::__construct($fKidswork);
     }
 
     function Init($fControllers = null)
     {
-        if ($fControllers != null) {
-            if (!is_array($fControllers)) {
-                $this->get_fBackend()->add_controllers_array($fControllers);
-            } else {
-                foreach ($fControllers as $fController) {
-                    $this->get_fBackend()->add_controllers_array($fController);
-                }
-            }
-        }
-        var_dump((new cKidswork())->Init_Full()) ;
-        return $this->get_fBackend()->get_final_struct();
+        $this->fBackend->set_struct = '123';
+        
     }
 
     function Init_Full($fSite)
@@ -51,5 +23,10 @@ class cBackend extends mBackend
 
     function Init_Ajax($fSite)
     {
+    }
+
+    public function Render()
+    {
+        return $this->fBackend->get_final_struct();
     }
 }
