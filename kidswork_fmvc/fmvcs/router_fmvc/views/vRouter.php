@@ -1,5 +1,5 @@
 <?php 
-namespace Kidswork\Backend;
+namespace Kidswork;
     
 class vRouter{
     

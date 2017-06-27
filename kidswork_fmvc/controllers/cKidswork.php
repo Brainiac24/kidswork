@@ -11,24 +11,26 @@ class cKidswork extends mKidswork
         parent::__construct($fKidswork);
     }
     //----------------------------------------------
-    function Init($Configs = null)
+    function Init($fClass=null)
     {
-        //($cBackend = $this->fKidswork->get_controllers_array()["cBackend"])->Init();
+        parent::Init($fClass);
 
-        $cBackend = $this->fKidswork->get_controllers_array()["cBackend"];
-        $cBackend->Init();
-        $this->fKidswork->set_struct($cBackend->Render());
+        $cRouter = $this->fKidswork->get_controllers_array()["cRouter"];
         
-        return $this;
+        return !isset($cRouter->get_requests()["ajax"]) ? $this->Init_Full() : $this->Init_Ajax();
+
     }
 
     function Init_Full()
     {
-        return '123';
+        //$this->fKidswork->add_struct("123");
+
+        return $this->Print();
     }
 
-    function Init_Ajax($fSite)
+    function Init_Ajax()
     {
+        $this->fKidswork->add_struct("ajax");
     }
 
     public function Import($fKidswork, $init = true, $number = "")
@@ -36,7 +38,7 @@ class cKidswork extends mKidswork
         parent::Import($fKidswork, $init, $number);
     }
 
-    public function Render()
+    public function Print()
     {
         return $this->fKidswork->get_final_struct();
     }

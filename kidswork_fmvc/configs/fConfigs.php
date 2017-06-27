@@ -72,6 +72,11 @@ class fConfigs
         $this->struct = $struct;
     }
 
+    public function add_struct($struct)
+    {
+        $this->struct .= $struct;
+    }
+
     public function set_path($path)
     {
         $this->path = $path;
@@ -92,9 +97,14 @@ class fConfigs
         $this->controllers_array = $controllers_array;
     }
 
-    public function add_struct_array($struct_array, $struct_name = null)
+    public function add_named_struct_array($struct_array, $struct_name)
     {
         $this->struct_array[$struct_name] = $struct_array;
+    }
+
+    public function add_struct_array($struct_array)
+    {
+        $this->struct_array[] = $struct_array;
     }
     
     public function add_controllers_array($controllers_class, $controllers_res)
@@ -104,6 +114,6 @@ class fConfigs
         
     function get_final_struct()
     {
-        return $this->struct_start . $this->struct . implode("", $this->struct_array) .  $this->struct_end;
+        return $this->struct_start . $this->struct . implode("", $this->struct_array) . $this->struct_end;
     }
 }

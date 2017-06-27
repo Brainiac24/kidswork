@@ -1,5 +1,5 @@
 <?php
-namespace Kidswork\Backend;
+namespace Kidswork;
 
 
 class cRouter extends mRouter
@@ -11,20 +11,26 @@ class cRouter extends mRouter
         parent::__construct($cKidswork);
     }
 
-    function Init()
+    function Init($controllers=null)
     {
+        parent::Init($controllers);
+        $cValidation = $this->cKidswork->fKidswork->get_controllers_array()["cValidation"];
+        foreach ($this->get_rules() as $key => $value) {
+           $this->add_requests($key, $cValidation->Request($key, $value)->get_value());
+        }
+
         return $this;
     }
 
-    function Init_Full($fSite)
+    function Init_Full()
     {
     }
 
-    function Init_Ajax($fSite)
+    function Init_Ajax()
     {
     }
 
-    public function Render()
+    public function Print()
     {
         return $this->fRouter->get_final_struct();
     }

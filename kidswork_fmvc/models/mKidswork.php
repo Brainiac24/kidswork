@@ -2,10 +2,19 @@
     
 namespace Kidswork;
 
-class mKidswork
+class mKidswork extends mModels
 {
 
-    protected $fKidswork;
+    public $fKidswork;
+
+    public function get_request_rules()
+    {
+        return $this->fKidswork->get_request_rules();
+    }
+    public function set_request_rules($request_rules)
+    {
+        $this->fKidswork->get_request_rules($request_rules);
+    }
 
     protected function __construct($fKidswork = null)
     {
@@ -18,15 +27,20 @@ class mKidswork
     }
     //----------------------------------------------
 
-    protected function Import($fKidswork, $init = true, $number = "")
+    function Init($fClass)
+    {
+        parent::Init($this->fKidswork);
+    }
+
+    protected function Import($fKidswork, $load = true, $copy = "")
     {
         if ($fKidswork->get_fmvc_array() != null) {
             foreach ($fKidswork->get_fmvc_array() as $fmvc_item => $namespase) {
                 spl_autoload_register(function ($className) use ($fKidswork) {
                     return $this->autoload($className, dirname($fKidswork->get_path()));
                 });
-                if ($init) {
-                    $this->Construct_Controller($fmvc_item, $namespase, $number);
+                if ($load) {
+                    $this->Construct_Controller($fmvc_item, $namespase, $copy);
                 }
             }
         }
@@ -97,6 +111,5 @@ class mKidswork
         $class_res = "\\".$namespace."\\c" . $class;
         $class_name = "c" .$class.$number;
         $this->fKidswork->add_controllers_array($class_name, new $class_res($this));
-        
     }
 }

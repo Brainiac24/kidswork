@@ -2,7 +2,6 @@
 
 namespace Kidswork;
 
-
 require_once __DIR__."\configs.php";
 
-echo (new cKidswork())->Init()->Render();
+echo (new cKidswork())->Init();

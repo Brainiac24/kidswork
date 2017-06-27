@@ -1,20 +1,10 @@
 <?php 
-namespace Kidswork;
-
+namespace Kidswork\Backend;
+    
 class vBackend{
     
-    static function Init(){
-    
-    }
-    
-    static function Init_Full(){
-    
-    }
-    
-    static function Init_Ajax(){
+    function Init(){
     
     }
     
 }
-
-?>

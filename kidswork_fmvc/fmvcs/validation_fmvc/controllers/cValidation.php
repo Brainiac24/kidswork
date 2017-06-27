@@ -16,16 +16,21 @@ class cValidation extends mValidation
         return $this;
     }
 
-    function Init_Full($fSite)
+    function Init_Full()
     {
     }
 
-    function Init_Ajax($fSite)
+    function Init_Ajax()
     {
     }
 
-    public function Render()
+    public function Print()
     {
         return $this->fValidation->get_final_struct();
+    }
+
+    public function Request($var_name, $conditions, $mode = 'request')
+    {
+        return $this->Validate($var_name, $conditions, $mode);
     }
 }
