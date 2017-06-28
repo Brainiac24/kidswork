@@ -5,10 +5,12 @@ class mModels
 {
     protected $cKidswork;
 
-    protected function get_cKidswork() {
+    protected function get_cKidswork()
+    {
         return $this->cKidswork;
     }
-    protected function set_cKidswork($cKidswork) {
+    protected function set_cKidswork($cKidswork)
+    {
         $this->cKidswork = $cKidswork;
     }
 

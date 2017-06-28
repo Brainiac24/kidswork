@@ -26,8 +26,8 @@ class cLeftmenu extends mLeftmenu
         $start .= $cHtml->Start_Left_Menu();
          
         $this->fLeftmenu->add_struct_array(array("Лимиты касс филиалов","#2","2"));
-        $this->fLeftmenu->add_struct_array(array("Лимиты касс МХБ","#3",""));
-        $this->fLeftmenu->add_struct_array(array("Лимиты банкоматов","#2","1",true));
+        $this->fLeftmenu->add_struct_array(array("Лимиты касс МХБ","#3","",true));
+        $this->fLeftmenu->add_struct_array(array("Лимиты банкоматов","#2","1"));
 
         $struct_array=null;
         //var_dump($this->fLeftmenu->get_struct_array());
@@ -38,7 +38,7 @@ class cLeftmenu extends mLeftmenu
             } else {
                 //, "m-items-a"
                 $res .= $cHtml->Start_Left_Menu_Item($array[0], $array[1]);
-                $res .=$cHtml->Left_Menu_Triangle();
+                $res .= $cHtml->Left_Menu_Triangle();
             }
             
             if (isset($array[2]) && $array[2]!="") {

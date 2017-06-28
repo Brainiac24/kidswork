@@ -111,10 +111,12 @@ class m'.$name.' extends mModels
 {
     public $f'.$name.';
     public $cKidswork;
+    public $cRouter;
 
     public function __construct($cKidswork)
     {
         $this->cKidswork = $cKidswork;
+        $this->cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
         $this->f'.$name.' = new f'.$name.'();
         //$cKidswork->Import($this->f'.$name.');
     }

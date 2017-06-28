@@ -24,9 +24,7 @@ class cTopmenu2 extends mTopmenu2
         $start = '';
         $end = '';
         $start .= $cHtml->Start_Top_Menu_2();
-        $this->fTopmenu2->add_struct_array(array("Новости","#2","",true));
-        $this->fTopmenu2->add_struct_array(array("Заявки","#3",""));
-        $this->fTopmenu2->add_struct_array(array("Вопросы","#2","1"));
+        //$this->fTopmenu2->add_struct_array(array("Заявки","#3",""));
 
         $struct_array=null;
         //var_dump($this->fTopmenu2->get_struct_array());

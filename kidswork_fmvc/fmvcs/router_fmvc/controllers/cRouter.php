@@ -14,12 +14,16 @@ class cRouter extends mRouter
     function Init($controllers=null)
     {
         parent::Init($controllers);
+        $this->Add_Request($this->get_rules());
+        return $this;
+    }
+
+    public function Add_Request($rules)
+    {
         $cValidation = $this->cKidswork->fKidswork->get_controllers_array()["cValidation"];
-        foreach ($this->get_rules() as $key => $value) {
+        foreach ($rules as $key => $value) {
            $this->add_requests($key, $cValidation->Request($key, $value)->get_value());
         }
-
-        return $this;
     }
 
     function Init_Full()

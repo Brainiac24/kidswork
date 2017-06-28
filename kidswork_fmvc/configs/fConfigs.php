@@ -12,6 +12,7 @@ class fConfigs
     private $struct_array = array();
     private $controllers_array = array();
     private $configs = null;
+    private $router_rules = array();
 
     public function get_configs()
     {
@@ -22,6 +23,15 @@ class fConfigs
     {
     }
 
+    public function get_router_rules() {
+        return $this->router_rules;
+    }
+    public function set_router_rules($router_rules) {
+        $this->router_rules = $router_rules;
+    }
+    public function add_router_rules($router_name,$router_rule) {
+        $this->router_rules[$router_name] = $router_rule;
+    }
     public function get_fmvc_array()
     {
         return $this->fmvc_array;

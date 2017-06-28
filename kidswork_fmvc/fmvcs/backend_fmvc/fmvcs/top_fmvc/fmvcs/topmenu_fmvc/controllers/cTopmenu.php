@@ -24,20 +24,19 @@ class cTopmenu extends mTopmenu
         $end = '';
         $start .= $cHtml->Start_Top_Center();
         $start .= $cHtml->Start_Top_Menu();
-        $this->fTopmenu->add_struct_array(array("Новости","#2","2"));
-        $this->fTopmenu->add_struct_array(array("Заявки","#3","",true));
-        $this->fTopmenu->add_struct_array(array("Вопросы","#2","1"));
+        //$this->fTopmenu->add_struct_array(array("Вопросы","#2","1"));
 
         $struct_array=null;
         //var_dump($this->fTopmenu->get_struct_array());
+        $active = "";
         foreach ($this->fTopmenu->get_struct_array() as $array) {
             $res = '';
-            if (!isset($array[3])) {
-                $res .= $cHtml->Start_Top_Menu_Item($array[0], $array[1]);
-            } else {
-                $res .= $cHtml->Start_Top_Menu_Item($array[0], $array[1], "top-menu-li-a");
+            $is_active = isset($array[3]) ?? null;
+            if ($is_active!=null) {
+                $active="top-menu-li-a";
             }
-            
+            $res .= $cHtml->Start_Top_Menu_Item($array[0], $array[1], $active);
+            $active="";
             if (isset($array[2]) && $array[2]!="") {
                 $res .= $cHtml->Top_Menu_Badge($array[2]);
             }
