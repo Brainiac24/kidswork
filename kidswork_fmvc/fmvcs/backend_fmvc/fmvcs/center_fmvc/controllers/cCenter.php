@@ -9,13 +9,20 @@ class cCenter extends mCenter
         parent::__construct($cKidswork);
     }
 
-    function Init()
+    function Init($fClass=null)
     {
-        return $this;
+        parent::Init($fClass);
+        $cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
+        return !isset($cRouter->get_requests()["ajax"]) ? $this->Init_Full() : $this->Init_Ajax();
     }
 
     function Init_Full()
     {
+        $cHtml = $this->cKidswork->fKidswork->get_controllers_array()["cHtml"];
+        $cBackend = $this->cKidswork->fKidswork->get_controllers_array()["cBackend"];
+        $this->fCenter->set_struct_start($cHtml->Start_Middle_Center());
+        $this->fCenter->set_struct_End($cHtml->End_Middle_Center());
+        $cBackend->fBackend->add_struct($this->Print());
     }
 
     function Init_Ajax()

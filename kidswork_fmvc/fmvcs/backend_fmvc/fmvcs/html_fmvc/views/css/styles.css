@@ -137,6 +137,7 @@ div{
 .middle-center{
     margin-left: 18%;
     width: 82%;
+    margin-top: 85px;
 }
 
 .m-left-name {
@@ -225,6 +226,8 @@ ul {
     padding: 10px 20px 18px 20px;
     cursor: default;
     table-layout: auto;
+    height: 80%;
+    overflow: auto;
 }
 
 th{

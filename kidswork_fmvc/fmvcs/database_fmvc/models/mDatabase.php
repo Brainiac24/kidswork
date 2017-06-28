@@ -2,6 +2,7 @@
 namespace Kidswork;
 
 use \Kidswork\mModels;
+use \PDO;
 
 class mDatabase
 {
@@ -26,7 +27,7 @@ class mDatabase
     protected function Connection()
     {
         try {
-            return new PDO($this->fDatabase->get_pdo_dsn(), $this->fDatabase->get_pdo_username(), $this->fDatabase->get_pdo_password(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            return new \PDO($this->fDatabase->get_pdo_dsn(), $this->fDatabase->get_pdo_username(), $this->fDatabase->get_pdo_password(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         } catch (PDOException $e) {
             return 'Connection error: ' . $e->getMessage();
         } catch (Exception $e) {
@@ -61,6 +62,7 @@ class mDatabase
             $this->fDatabase->set_last_inserted_id($this->fDatabase->get_pdo()->lastInsertId());
             $this->fDatabase->set_pdo_error_code($this->fDatabase->get_pdo_stmt()->errorCode());
             $this->fDatabase->set_pdo_error_info($this->fDatabase->get_pdo_stmt()->errorInfo());
+            //var_dump($this->fDatabase->get_pdo_stmt());
         }
         return $this;
     }

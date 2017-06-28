@@ -177,4 +177,78 @@ class vHtml
     {
         return '<div class="triangle-left"></div>';
     }
+
+    function Start_Datatable()
+    {
+        return '<div class="datatable">
+                    <table class="table-1">';
+    }
+
+    function End_Datatable()
+    {
+        return '</table>
+                </div>';
+    }
+
+    function Start_Datatable_Head()
+    {
+        return '<thead>';
+    }
+
+    function End_Datatable_Head()
+    {
+        return '</thead>';
+    }
+
+    function Start_Datatable_Body()
+    {
+        return '<tbody>';
+    }
+
+    function End_Datatable_Body()
+    {
+        return '</tbody>';
+    }
+
+    function Start_Datatable_Tr()
+    {
+        return '<tr>';
+    }
+
+    function End_Datatable_Tr()
+    {
+        return '</tr>';
+    }
+
+    function Start_Datatable_Th()
+    {
+        return '<th>';
+    }
+
+    function End_Datatable_Th()
+    {
+        return '</th>';
+    }
+
+    function Start_Datatable_Td()
+    {
+        return '<td>';
+    }
+
+    function End_Datatable_Td()
+    {
+        return '</td>';
+    }
+
+    function Start_Middle_Center()
+    {
+        return '<div class="middle-center">';
+    }
+
+    function End_Middle_Center()
+    {
+        return '</div>';
+    }
+
+
 }

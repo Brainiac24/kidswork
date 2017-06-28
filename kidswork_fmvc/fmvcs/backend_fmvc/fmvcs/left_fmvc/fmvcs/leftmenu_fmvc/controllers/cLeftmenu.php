@@ -24,11 +24,11 @@ class cLeftmenu extends mLeftmenu
         $start .= $cHtml->Start_Left();
         $start .= $cHtml->Left_Logo();
         $start .= $cHtml->Start_Left_Menu();
-         
+        /*
         $this->fLeftmenu->add_struct_array(array("Лимиты касс филиалов","#2","2"));
         $this->fLeftmenu->add_struct_array(array("Лимиты касс МХБ","#3","",true));
         $this->fLeftmenu->add_struct_array(array("Лимиты банкоматов","#2","1"));
-
+        */
         $struct_array=null;
         //var_dump($this->fLeftmenu->get_struct_array());
         foreach ($this->fLeftmenu->get_struct_array() as $array) {

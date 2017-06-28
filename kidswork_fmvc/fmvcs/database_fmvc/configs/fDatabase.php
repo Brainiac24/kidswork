@@ -236,7 +236,7 @@ class fDatabase extends fConfigs
     function get_query_imploded_2($start_query, $array, $if_array_count_zero_echo = '')
     {
         if ($array != null && count($array) > 0) {
-            return ' ' . $start_query . ' ' . implode(' ' . $implode_char . ' ', $array);
+            return ' ' . $start_query . ' ' . implode(' ', $array);
         }
         return ' ' . $if_array_count_zero_echo . ' ';
     }
@@ -284,7 +284,7 @@ class fDatabase extends fConfigs
     {
         $a = $array;
         if ($a != null) {
-            array_walk($a, array('fDatabase', 'set_array_walked_2'));
+            array_walk($a, array('\Kidswork\fDatabase', 'set_array_walked_2'));
         }
         return $a;
     }

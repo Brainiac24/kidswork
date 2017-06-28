@@ -184,4 +184,84 @@ class cHtml extends mHtml
     {
         return $this->vHtml->Left_Menu_Triangle();
     }
+
+    function Start_Datatable()
+    {
+        return $this->vHtml->Start_Datatable();
+    }
+
+    function End_Datatable()
+    {
+        return $this->vHtml->End_Datatable();
+    }
+
+    function Start_Datatable_Head()
+    {
+       return $this->vHtml->Start_Datatable_Head();
+    }
+
+    function End_Datatable_Head()
+    {
+        return $this->vHtml->End_Datatable_Head();
+    }
+
+    function Start_Datatable_Body()
+    {
+        return $this->vHtml->Start_Datatable_Body();
+    }
+
+    function End_Datatable_Body()
+    {
+        return $this->vHtml->End_Datatable_Body();
+    }
+
+    function Start_Datatable_Tr()
+    {
+        return $this->vHtml->Start_Datatable_Tr();
+    }
+
+    function End_Datatable_Tr()
+    {
+        return $this->vHtml->End_Datatable_Tr();
+    }
+
+    function Start_Datatable_Th()
+    {
+        return $this->vHtml->Start_Datatable_Th();
+    }
+
+    function End_Datatable_Th()
+    {
+        return $this->vHtml->End_Datatable_Th();
+    }
+
+    function Datatable_Th($val)
+    {
+       return $this->vHtml->Start_Datatable_Th().$val.$this->vHtml->End_Datatable_Th();
+    }
+
+    function Start_Datatable_Td()
+    {
+       return $this->vHtml->Start_Datatable_Td();
+    }
+
+    function End_Datatable_Td()
+    {
+        return $this->vHtml->End_Datatable_Td();
+    }
+
+    function Datatable_Td($val)
+    {
+       return $this->vHtml->Start_Datatable_Td().$val.$this->vHtml->End_Datatable_Td();
+    }
+
+    function Start_Middle_Center()
+    {
+         return $this->vHtml->Start_Middle_Center();
+    }
+
+    function End_Middle_Center()
+    {
+        return $this->vHtml->End_Middle_Center();
+    }
 }

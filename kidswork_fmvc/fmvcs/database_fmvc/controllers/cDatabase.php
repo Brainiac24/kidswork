@@ -42,4 +42,5 @@ class cDatabase extends mDatabase
     function Convert_Date_To_Label($date_string) {
         return parent::Convert_Date_To_Label($date_string);
     }
+
 }
