@@ -13,6 +13,29 @@ class fConfigs
     private $controllers_array = array();
     private $configs = null;
     private $router_rules = array();
+    private $columns = NULL;
+
+    function get_columns() {
+        return $this->columns;
+    }
+
+    function set_columns($columns) {
+        $this->columns = $columns;
+    }
+
+    function add_column($name, $value) {
+        if (!isset($this->columns[$name])) {
+            $this->columns[$name] = $value;
+        }
+    }
+
+    function get_column($col_name = '') {
+        $res = $col_name;
+        if (isset($this->columns[$col_name])) {
+            $res = $this->columns[$col_name];
+        }
+        return $res;
+    }
 
     public function get_configs()
     {

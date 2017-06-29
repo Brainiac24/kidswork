@@ -50,6 +50,7 @@ class vHtml
                 <link rel="stylesheet" href="' . self::Path() . 'css/styles.css">
                 <script type="text/javascript" src="' . self::Path() . 'js/jquery-2.1.3.min.js"></script>
                 <script type="text/javascript" src="' . self::Path() . 'js/jquery.form.min.js"></script>
+                <script type="text/javascript" src="' . self::Path() . 'js/stickytableheaders.js"></script>
                 <script type="text/javascript" src="' . self::Path() . 'js/jscripts.js"></script>';
 
         //<script type="text/javascript" src="' . self::Path() . 'js/jssor.slider.mini.js"></script>
@@ -180,14 +181,22 @@ class vHtml
 
     function Start_Datatable()
     {
-        return '<div class="datatable">
-                    <table class="table-1">';
+        return '<div class="datatable">';
     }
 
     function End_Datatable()
     {
-        return '</table>
-                </div>';
+        return '</div>';
+    }
+
+    function Start_Table()
+    {
+        return '<table class="table-1">';
+    }
+
+    function End_Table()
+    {
+        return '</table>';
     }
 
     function Start_Datatable_Head()
@@ -248,6 +257,83 @@ class vHtml
     function End_Middle_Center()
     {
         return '</div>';
+    }
+
+    function Start_Module_Row_2($name_category, $show) {
+        return '<div class="m-b-l-r-10 pure-g ' . $show . ' ' . $name_category . ' ">';
+    }
+
+    function End_Module_Row() {
+        return '</div>';
+    }
+
+    function Start_Table_Sticky($classes = '', $table_name) {
+        return '<div class="sticky-headers ">
+                    <div class="sticky-table ">
+                    </div>
+                    <div class="sticky-filters ">
+                    </div>
+                </div>
+                <div class="sticky-filters-list ">
+                    <div class="sticky-table ">
+                    </div>
+                </div>
+            <div class="sticky-cont">
+            <table class = "' . $classes . '" data-table="' . $table_name . '">'
+        ;
+    }
+
+    function Start_Thead_Element() {
+        return '<thead>';
+    }
+
+    function End_Thead_Element() {
+        return '</thead> <tbody class="filtered-tbody">
+                    </tbody><tbody class="orig-tbody">';
+    }
+
+    function Start_Tr_Element($class) {
+        return '<tr class = "' . $class . '">';
+    }
+
+    function End_Tr_Element() {
+        return '</tr>';
+    }
+
+    function Start_Td_Element() {
+        return '<td>';
+    }
+
+    function End_Td_Element() {
+        return '</td>';
+    }
+
+    function Start_Th_Element($class, $datatype, $attr = '') {
+        return '<th class = "' . $class . '" data-type="' . $datatype . '" ' . $attr . '>';
+    }
+
+    function End_Th_Element() {
+        return '</th>';
+    }
+
+    function Start_Tfoot_Element() {
+        return '</tbody><tfoot>';
+    }
+
+    function End_Tfoot_Element() {
+        return '</tfoot>';
+    }
+
+    function Export_Btn_Table() {
+        return '<input type="button" class="excel-btn" value="Экспорт в Excel">';
+    }
+
+    function End_Table_Sticky() {
+        return '</tbody></table></div>
+            <div class="sticky-footers ">
+                <div class="sticky-table ">
+                </div>
+            </div>';
     }
 
 

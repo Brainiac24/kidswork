@@ -264,4 +264,78 @@ class cHtml extends mHtml
     {
         return $this->vHtml->End_Middle_Center();
     }
+
+    function Start_Table()
+    {
+        return $this->vHtml->Start_Table();
+    }
+
+    function End_Table()
+    {
+        return $this->vHtml->End_Table();
+    }
+//----------------------------------------------------------------------
+    function Start_Module_Row_2($name_category = '', $show = TRUE) {
+        $res = '';
+        if ($show == FALSE) {
+            $res = ' d-none ';
+        }
+        return $this->vHtml->Start_Module_Row_2($name_category, $res);
+    }
+
+    function End_Module_Row() {
+        return $this->vHtml->End_Module_Row();
+    }
+
+    function Start_Table_Sticky($classes = '', $table_name) {
+        return $this->vHtml->Start_Table_Sticky($classes, $table_name);
+    }
+
+    function Start_Thead_Element() {
+       return $this->vHtml->Start_Thead_Element();
+    }
+
+    function End_Thead_Element() {
+        return $this->vHtml->End_Thead_Element();
+    }
+
+    function Start_Tr_Element($class = '') {
+        return $this->vHtml->Start_Tr_Element($class);
+    }
+
+    function End_Tr_Element() {
+        return $this->vHtml->End_Tr_Element();
+    }
+
+    function Start_Td_Element() {
+        return $this->vHtml->Start_Td_Element();
+    }
+
+    function End_Td_Element() {
+        return $this->vHtml->End_Td_Element();
+    }
+
+    function Start_Th_Element($class, $datatype, $attr = '') {
+        return $this->vHtml->Start_Th_Element($class, $datatype, $attr = '');
+    }
+
+    function End_Th_Element() {
+        return $this->vHtml->End_Th_Element();
+    }
+
+    function Start_Tfoot_Element() {
+        return $this->vHtml->Start_Tfoot_Element();
+    }
+
+    function End_Tfoot_Element() {
+        return $this->vHtml->End_Tfoot_Element();
+    }
+
+    function Export_Btn_Table() {
+        return $this->vHtml->Export_Btn_Table();
+    }
+
+    function End_Table_Sticky() {
+        return $this->vHtml->End_Table_Sticky();
+    }
 }

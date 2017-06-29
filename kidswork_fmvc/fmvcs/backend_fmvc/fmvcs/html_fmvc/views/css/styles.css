@@ -223,11 +223,11 @@ ul {
     padding: 10px 16px 8px 16px;
 }
 .datatable{
-    padding: 10px 20px 18px 20px;
+    margin: 10px 1% 18px 1%;
     cursor: default;
     table-layout: auto;
     height: 80%;
-    overflow: auto;
+    width: 98%;
 }
 
 th{
@@ -283,6 +283,195 @@ td{
     margin: 0px 4px 0 7px;
 }
 
+
+.sticky-cont {
+    overflow: auto;
+    max-height: 100%;
+    min-height: 250px;
+}
+
+.sticky-headers {
+    overflow: hidden;
+    position: absolute;
+    z-index: 999;
+    display: inline-block;
+    height: 59px;
+    background-color: #ffffff;
+    border: 1px solid #E7E7E7;
+}
+
+.sticky-table, .sticky-filters {
+    display: inline-block;
+    z-index: 998;
+    position: absolute;
+}
+
+.sticky-headers .sticky-table div {
+    text-align: center;
+    background-color: #8E8E8E;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    border-top: 1px solid #E7E7E7;
+    border-right: 1px solid #E7E7E7;
+    line-height: 24px;
+    padding: 2px;
+}
+
+.sticky-filters {
+    margin-top: 29px;
+    border-bottom: 1px solid #E7E7E7;
+    height: 27px;
+}
+
+.sticky-filters-list {
+    position: absolute;
+    z-index: 1000;
+    display: inline-block;
+    top: 59px;
+}
+
+.f-cont {
+    display: none;
+    position: absolute;
+}
+
+.f-m-cont {
+    width: 200px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px #555;
+}
+
+.f-m-cont li {
+    border-bottom: 1px solid #f0f0f0;
+    height: 27px;
+}
+
+.f-m-cont select {
+    width: 100%;
+    font-size: 15px;
+    text-align-last: center;
+    padding: 2px;
+    height: 26px;
+    border: 0;
+    font-size: 15px;
+    outline: 0;
+}
+
+.f-m-cont input[type="text"] {
+    width: 100%;
+    border: 0;
+    padding: 2px;
+    padding-right: 15px;
+    font-size: 15px;
+    height: 26px;
+    font-weight: 500;
+    outline: 0;
+}
+
+.datarow-cont {
+    border-radius: 2px;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
+    position: relative;
+    overflow: auto;
+    overflow-x: hidden;
+    width: auto;   
+    max-width: 100%;   
+}
+
+.sticky-filters input {
+    width: 100%;
+    outline: 0;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 26px;
+    border: 0;
+    padding-left: 30px;
+}
+
+.sticky-headers .sticky-table div {
+    text-align: center;
+    background-color: #8E8E8E;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    border-top: 1px solid #E7E7E7;
+    border-right: 1px solid #E7E7E7;
+    line-height: 24px;
+    padding: 2px;
+}
+
+.sticky-footers .sticky-table div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    background-color: #F1F1F1;
+    font-size: 15px;
+    font-weight: 500;
+    border-top: 1px solid #E7E7E7;
+    border-right: 1px solid #E7E7E7;
+    line-height: 19px;
+    height: 27px;
+    padding: 2px;
+    float: left;
+}
+
+.m-b-l-r-10 {
+   /* margin: 0 10px 10px 10px;*/
+}
+
+.sticky-footers {
+    overflow: hidden;
+    position: absolute;
+    z-index: 999;
+    display: inline-block;
+    height: 25px;
+    bottom: 16px;
+    border-bottom: 1px solid #D8D8D8;
+    border-left: 1px solid #D8D8D8;
+    left: 0;
+}
+.sticky-filters > div {
+    border-right: 1px solid #E7E7E7;
+    height: 29px;
+    position: relative;
+}
+
+.mdi {
+    font-size: 21px;
+    float: left;
+}
+
+.mdi {
+    display: inline-block;
+    font: normal normal normal 24px/1 "Material Design Icons";
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0, 0);
+}
+
+.f-ico {
+    display: inline-block;
+    width: 30px;
+    border-right: 1px solid #E7E7E7;
+    height: 29px;
+    position: absolute;
+    left: 0;
+    padding: 6px 5px 5px 5px;
+    color: #8E8E8E;
+    font-size: 19px;
+}
+
+input[type='text'] {
+    text-align: center;
+}
+
+.excel-btn{
+    margin: 10px 0;
+}
 
 
 

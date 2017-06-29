@@ -36,10 +36,11 @@ class cLimits extends mLimits
         $cLeftmenu->fLeftmenu->add_struct_array(array("Лимиты касс МХБ","?menu=4","2",$active[4]));
         $cLeftmenu->fLeftmenu->add_struct_array(array("Лимиты банкоматов","?menu=5","",$active[5]));
 
-
-        $stmt = $this->Select_All_MHB()->fDatabase->get_pdo_stmt();
+        $fDatabase = $this->Select_All_MHB()->fDatabase;
+        $stmt = $fDatabase->get_pdo_stmt();
         
-        $cCenter->fCenter->add_struct($this->Datatable($stmt));
+        //$cCenter->fCenter->add_struct($this->Datatable($stmt));
+        $cCenter->fCenter->add_struct($this->Datatable_2($fDatabase));
 
         $cLeftmenu->fLeftmenu->add_struct($this->Print());
     }
@@ -53,12 +54,25 @@ class cLimits extends mLimits
         return $this->fLimits->get_final_struct();
     }
 
+    function Datatable_2($fDatabase)
+    {
+
+        $cHtml = $this->cKidswork->fKidswork->get_controllers_array()["cHtml"];
+        $res = '';
+        $res .= $this->Datatable_Module($fDatabase,$this->fLimits);
+        
+        
+        
+        return $res;
+    }
+
     function Datatable($stmt)
     {
 
         $cHtml = $this->cKidswork->fKidswork->get_controllers_array()["cHtml"];
         $res = '';
         $res .= $cHtml->Start_Datatable();
+        $res .= $cHtml->Start_Table();
         $res .= $cHtml->Start_Datatable_Head();
         $res .= $cHtml->Start_Datatable_Tr();
         $res .= $cHtml->Datatable_Th("ID");
@@ -86,6 +100,7 @@ class cLimits extends mLimits
         }
 
         $res .= $cHtml->End_Datatable_Body();
+        $res .= $cHtml->End_Table();
         $res .= $cHtml->End_Datatable();
         
         return $res;
