@@ -3,6 +3,7 @@
 class structure
 {
 
+    private $namespace2 = "\Backend";
     private $folders = array("configs", "controllers", "models", "views", "fmvcs");
 
     public function createMvc($path)
@@ -40,11 +41,13 @@ class structure
     }
 
 
+
+
     private function AddPhpScriptsToConfig($name)
     {
         return'<?php
 
-namespace Kidswork\Backend;
+namespace Kidswork'.$this->namespace2.';
 
 use \Kidswork\fConfigs;
 
@@ -66,7 +69,7 @@ class f'.$name.' extends fConfigs
     private function AddPhpScriptsToControllers($name)
     {
         return'<?php
-namespace Kidswork\Backend;
+namespace Kidswork'.$this->namespace2.';
 
 
 class c'.$name.' extends m'.$name.'
@@ -103,7 +106,7 @@ class c'.$name.' extends m'.$name.'
     private function AddPhpScriptsToModels($name)
     {
         return'<?php
-namespace Kidswork\Backend;
+namespace Kidswork'.$this->namespace2.';
 
 use \Kidswork\mModels;
 
@@ -132,7 +135,7 @@ class m'.$name.' extends mModels
     private function AddPhpScriptsToView($name)
     {
         return'<?php 
-namespace Kidswork;
+namespace Kidswork'.$this->namespace2.';
     
 class v'.$name.'{
     

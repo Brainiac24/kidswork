@@ -12,7 +12,7 @@ class mValidation
     }
 
     protected function Validate($var_name, $conditions, $mode = '')
-    {
+    {   $this->fValidation = new fValidation();
         $this->fValidation->set_variable(trim($var_name));
         $this->fValidation->set_value($this->Variable_Mode_Switcher($var_name, $mode));
         $this->fValidation->set_conditions(explode("|", $conditions));

@@ -4,29 +4,17 @@ namespace Kidswork\Backend;
 
 class cRequests extends mRequests
 {
-    public function __construct($cKidswork)
-    {   
-        parent::__construct($cKidswork);
-    }
-
-    function Init($fClass=null)
-    {
-        parent::Init($fClass);
-        $cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
-        return !isset($cRouter->get_requests()["ajax"]) ? $this->Init_Full() : $this->Init_Ajax();
-    }
-
     function Init_Full()
     {
         $cHtml = $this->cKidswork->fKidswork->get_controllers_array()["cHtml"];
         $cTopmenu = $this->cKidswork->fKidswork->get_controllers_array()["cTopmenu"];
         $cTopmenu2 = $this->cKidswork->fKidswork->get_controllers_array()["cTopmenu2"];
 
-        $menu = $this->cRouter->get_requests()["menu"] ?? '-1';
+        $menu = $this->cRouter->get_request("menu");
         $active = null;
         if ($menu=="2") {
             $active=true;
-            $submenu = $this->cRouter->get_requests()["submenu"] ?? '-1';
+            $submenu = $this->cRouter->get_request("submenu");
             $active2 = array("1"=>null,"2"=>null,"3"=>null,"4"=>null,"5"=>null);
             $active2[$submenu]=true;
             $cTopmenu2->fTopmenu2->add_struct_array(array("Все заявки","?menu=2&submenu=1","",$active2[1]));

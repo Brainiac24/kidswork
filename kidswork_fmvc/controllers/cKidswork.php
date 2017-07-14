@@ -17,7 +17,7 @@ class cKidswork extends mKidswork
 
         $cRouter = $this->fKidswork->get_controllers_array()["cRouter"];
         
-        return !isset($cRouter->get_requests()["ajax"]) ? $this->Init_Full() : $this->Init_Ajax();
+        return $cRouter->get_request("ajax") == null ? $this->Init_Full() : $this->Init_Ajax();
 
     }
 

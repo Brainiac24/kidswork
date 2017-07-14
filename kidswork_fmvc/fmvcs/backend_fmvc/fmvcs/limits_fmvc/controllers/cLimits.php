@@ -11,8 +11,6 @@ class cLimits extends mLimits
     function Init($fClass = null)
     {
         parent::Init($fClass);
-        $cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
-        return !isset($cRouter->get_requests()["ajax"]) ? $this->Init_Full() : $this->Init_Ajax();
     }
 
     function Init_Full()
@@ -21,7 +19,7 @@ class cLimits extends mLimits
         $cLeftmenu = $this->cKidswork->fKidswork->get_controllers_array()["cLeftmenu"];
         $cTopmenu2 = $this->cKidswork->fKidswork->get_controllers_array()["cTopmenu2"];
         $cCenter = $this->cKidswork->fKidswork->get_controllers_array()["cCenter"];
-
+/*
         $menu = $this->cRouter->get_requests()["menu"] ?? '-1';
         $active = array("3"=>null,"4"=>null,"5"=>null);
         $active[$menu]=true;
@@ -32,16 +30,16 @@ class cLimits extends mLimits
             $cTopmenu2->fTopmenu2->add_struct_array(array("Установленные лимиты","?menu=".$menu."&submenu=1","",$active2[1]));
             $cTopmenu2->fTopmenu2->add_struct_array(array("Перелимит","?menu=".$menu."&submenu=2","1",$active2[2]));
         }
-        $cLeftmenu->fLeftmenu->add_struct_array(array("Лимиты касс филиала","?menu=3","",$active[3]));
-        $cLeftmenu->fLeftmenu->add_struct_array(array("Лимиты касс МХБ","?menu=4","2",$active[4]));
-        $cLeftmenu->fLeftmenu->add_struct_array(array("Лимиты банкоматов","?menu=5","",$active[5]));
+        //$cLeftmenu->fLeftmenu->add_struct_array(array("Лимиты касс филиала","?menu=3","",$active[3]));
+        //$cLeftmenu->fLeftmenu->add_struct_array(array("Лимиты касс МХБ","?menu=4","2",$active[4]));
+        //$cLeftmenu->fLeftmenu->add_struct_array(array("Лимиты банкоматов","?menu=5","",$active[5]));
 
         $fDatabase = $this->Select_All_MHB()->fDatabase;
         $stmt = $fDatabase->get_pdo_stmt();
         
         //$cCenter->fCenter->add_struct($this->Datatable($stmt));
         $cCenter->fCenter->add_struct($this->Datatable_2($fDatabase));
-
+*/
         $cLeftmenu->fLeftmenu->add_struct($this->Print());
     }
 

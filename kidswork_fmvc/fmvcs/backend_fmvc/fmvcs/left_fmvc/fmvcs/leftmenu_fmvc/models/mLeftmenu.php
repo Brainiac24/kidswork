@@ -7,6 +7,7 @@ class mLeftmenu extends mModels
 {
     public $fLeftmenu;
     public $cKidswork;
+    public $cRouter;
 
     public function __construct($cKidswork)
     {
@@ -18,6 +19,8 @@ class mLeftmenu extends mModels
     function Init($fClass = null)
     {
         parent::Init($this->fLeftmenu);
+        
+        
     }
 
 }

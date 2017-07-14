@@ -4,16 +4,16 @@ namespace Kidswork\Backend;
 
 use \Kidswork\fConfigs;
 
-class fCenter extends fConfigs
+class fCentermenu extends fConfigs
 {
     private $fmvc_array = array();
    
     function __construct()
     {
-        
-        $this->fmvc_array["centermenu_fmvc"] = "Kidswork\Backend";
+        /*
+        $this->fmvc_array["NAME_fmvc"] = "Kidswork\NAME";
         $this->set_fmvc_array($this->fmvc_array);
         $this->set_path(__DIR__);
-        
+        */
     }
 }

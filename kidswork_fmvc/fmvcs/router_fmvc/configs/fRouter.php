@@ -14,6 +14,16 @@ class fRouter extends fConfigs
     {
         return $this->requests;
     }
+
+    public function get_request($keyname)
+    {
+        if (isset($this->requests[$keyname])) {
+            //\var_dump($keyname);
+            return $this->requests[$keyname]->get_value();
+        } else {
+                return null;
+        }
+    }
     public function set_requests($requests)
     {
         $this->requests = $requests;
@@ -36,7 +46,7 @@ class fRouter extends fConfigs
     }
     public function get_validations()
     {
-        return $this->validations;
+        return $this->get_requests();
     }
     public function set_validations($validations)
     {

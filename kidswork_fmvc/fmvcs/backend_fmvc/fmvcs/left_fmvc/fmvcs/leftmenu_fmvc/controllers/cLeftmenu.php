@@ -10,9 +10,7 @@ class cLeftmenu extends mLeftmenu
 
     function Init($fClass = null)
     {
-        parent::Init($fClass);
-        $cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
-        return !isset($cRouter->get_requests()["ajax"]) ? $this->Init_Full() : $this->Init_Ajax();
+        return parent::Init($fClass);
     }
 
     function Init_Full()

@@ -11,8 +11,6 @@ class cTop extends mTop
     function Init($fClass = null)
     {
         parent::Init($fClass);
-        $cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
-        return !isset($cRouter->get_requests()["ajax"]) ? $this->Init_Full() : $this->Init_Ajax();
 
         return $this;
     }

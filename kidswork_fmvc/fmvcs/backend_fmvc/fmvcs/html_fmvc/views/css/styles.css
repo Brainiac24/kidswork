@@ -36,10 +36,10 @@ body{
     margin: 0;
     padding: 0;
     font-size: 14px;
-    background-color: #EEEEEE;
+    background-color: #eceeef;
     display: inline-block;
     width: 100%;
-    font-family: Roboto, sans-serif;
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 body a{
     text-decoration: none;
@@ -55,6 +55,7 @@ div{
     height: 45px;
     background-color: #666666;
     position: fixed;
+    z-index: 99;
 }
 
 .top-left{
@@ -184,6 +185,8 @@ ul {
 .left-menu{
     display: inline-block;
     width: 100%;
+    height: calc(100% - 125px);
+    overflow: auto;
 }
 
 .triangle-left {
@@ -194,12 +197,12 @@ ul {
     border-bottom: 10px solid transparent;
     position: absolute;
     right: 0;
-    top: 9px;
+    top: calc(50% - 10px);
 }
 
 .top-2 {
     height: 39px;
-    box-shadow: 0 0 4px 0 rgba(0,0,0,0.14);
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.20);
     background-color: #fbfbfb;
     padding-left: 2px;
     margin-left: 18%;
@@ -471,6 +474,195 @@ input[type='text'] {
 
 .excel-btn{
     margin: 10px 0;
+}
+
+.center-box {
+    width: 94%;
+    margin: 0 3% 3% 3%;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.14);
+}
+
+.center-box-cap {
+    height: 46px;
+}
+
+.c-box-cap-text {
+    font-size: 16px;
+    padding: 14px 10px 14px 13px;
+    color: #505050;
+    font-weight: 500;
+    cursor: default;
+    width: auto;
+}
+
+.center-wrap{
+    width: 55%;
+    margin-top: 20px;
+}
+
+.center-box-cap-2 {
+    height: 36px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.c-box-menu-item {
+    width: auto;
+    padding: 8px 18px 8px 18px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #616161;
+}
+
+.c-box-menu-item:hover, .c-box-menu-item-a {
+    border-bottom: 3px solid #34beff;
+    padding-top: 8px;
+    padding-bottom: 7px;
+}
+
+.tab-row {
+    padding: 0 10px 0 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.tab-name {
+    padding: 10px 5px 10px 12px;
+    font-weight: 400;
+    width: 24.7%;
+    white-space: normal;
+    text-align: left;
+}
+
+.tab-text {
+    padding: 10px 20px;
+    line-height: 20px;
+    outline: 0;
+    width: 75%;
+    border-left: 1px solid #eee;
+    /*text-align: left;*/
+}
+
+.w-41p{
+    width: 41%;
+}
+
+.table-box{
+    width: 100%;
+        border-collapse: collapse;
+        border-style: hidden;
+        table-layout: fixed;
+}
+
+.tab-name td {
+    white-space: normal;
+}
+
+.center-box-bot{
+    height: 45px;
+    border-top: 1px solid #eee;
+}
+
+.center-box-cont {
+        background-color: #fafbfc;
+}
+
+.center-box-code {
+       width: 25%;
+       border-right: 1px solid #eee;
+}
+
+.listselectbox {
+    position: relative;
+    overflow: visible;
+    outline: 0;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    
+    cursor: pointer;
+    
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.btn-select {
+    width: 100%;
+    outline: 0;
+    padding: 2px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: left;
+}
+
+.btn-code {
+    background-color: #fff;
+    padding: 6px 5px 5px 12px;
+}
+
+.dropdownlist {
+    display: none;
+    background-color: #ffffff;
+    border: 1px solid #CCCCCC;
+    top: 34px;
+    position: absolute;
+    width: 100%;
+    box-shadow: 3px 4px 6px 0px #ADADAD;
+}
+
+.textbox {
+    width: 96%;
+    margin-top: -1px;
+    outline: 0;
+    border: 1px solid #ececec;
+    font-size: 15px;
+    margin: 2%;
+}
+
+input[type='text'] {
+    text-align: center;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.orig-list, .filtered-list {
+    max-height: 300px;
+    background-color: #ffffff;
+    overflow: auto;
+    margin: 0;
+}
+
+
+ul {
+    list-style-type: none;
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.listselectbox ul li {
+    padding: 2px 5px;
+    cursor: pointer;
+    display: list-item;
+    text-align: left;
+}
+
+.listselectbox ul li:hover, .listselectbox ul li:focus, .selected {
+    background-color: #ebebeb;
 }
 
 

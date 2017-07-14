@@ -15,7 +15,7 @@ class mBackend extends mModels
         $cKidswork->Import($this->fBackend);
     }
 
-    function Init($fClass)
+    function Init($fClass=null)
     {
         parent::Init($this->fBackend);
     }

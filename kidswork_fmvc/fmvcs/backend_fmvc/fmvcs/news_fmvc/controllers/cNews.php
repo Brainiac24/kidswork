@@ -11,7 +11,6 @@ class cNews extends mNews
     function Init($fClass = null)
     {
         parent::Init($fClass);
-        return !isset($this->cRouter->get_requests()["ajax"]) ? $this->Init_Full() : $this->Init_Ajax();
     }
 
     function Init_Full()
@@ -20,11 +19,12 @@ class cNews extends mNews
         $cTopmenu = $this->cKidswork->fKidswork->get_controllers_array()["cTopmenu"];
         $cTopmenu2 = $this->cKidswork->fKidswork->get_controllers_array()["cTopmenu2"];
 
-        $menu = $this->cRouter->get_requests()["menu"] ?? '-1';
+        $menu = is_null($this->cRouter->get_request("menu")) ? '-1': $this->cRouter->get_request("menu");
+        //\var_dump($this->cRouter->get_request("menu"));
         $active = null;
         if ($menu=="1") {
             $active=true;
-            $submenu = $this->cRouter->get_requests()["submenu"] ?? '-1';
+            $submenu = $this->cRouter->get_request("submenu") ?? '-1';
             $active2 = array("1"=>null,"2"=>null,"3"=>null,"4"=>null);
             $active2[$submenu]=true;
             $cTopmenu2->fTopmenu2->add_struct_array(array("Все новости","?menu=1&submenu=1","",$active2[1]));

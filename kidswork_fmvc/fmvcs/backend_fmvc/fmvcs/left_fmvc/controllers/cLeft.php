@@ -12,12 +12,11 @@ class cLeft extends mLeft
     function Init($fClass=null)
     {
         parent::Init($fClass);
-        $cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
-        return !isset($cRouter->get_requests()["ajax"]) ? $this->Init_Full() : $this->Init_Ajax();
     }
 
     function Init_Full()
     {
+        
         $cHtml = $this->cKidswork->fKidswork->get_controllers_array()["cHtml"];
         $cBackend = $this->cKidswork->fKidswork->get_controllers_array()["cBackend"];
 

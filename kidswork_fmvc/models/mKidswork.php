@@ -2,7 +2,7 @@
     
 namespace Kidswork;
 
-class mKidswork extends mModels
+class mKidswork
 {
 
     public $fKidswork;
@@ -29,7 +29,10 @@ class mKidswork extends mModels
 
     function Init($fClass)
     {
-        parent::Init($this->fKidswork);
+        $controllers_arr = $this->fKidswork->get_controllers_array();
+        foreach ($controllers_arr as $controller) {
+            $controller->Init();
+        }
     }
 
     protected function Import($fKidswork, $load = true, $copy = "")

@@ -13,6 +13,7 @@ class fBackend extends fConfigs
         $this->fmvc_array["html_fmvc"] = "Kidswork\Backend";
         $this->fmvc_array["news_fmvc"] = "Kidswork\Backend";
         $this->fmvc_array["requests_fmvc"] = "Kidswork\Backend";
+        $this->fmvc_array["audit_fmvc"] = "Kidswork\Backend";
         $this->fmvc_array["limits_fmvc"] = "Kidswork\Backend";
         $this->fmvc_array["top_fmvc"] = "Kidswork\Backend";
         $this->fmvc_array["left_fmvc"] = "Kidswork\Backend";

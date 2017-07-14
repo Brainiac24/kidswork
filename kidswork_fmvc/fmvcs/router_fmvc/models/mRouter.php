@@ -9,6 +9,10 @@ class mRouter extends mModels
     {
         return $this->fRouter->get_requests();
     }
+    public function get_request($keyname)
+    {
+        return $this->fRouter->get_request($keyname);
+    }
     public function set_requests($requests)
     {
         $this->fRouter->set_requests($requests);
