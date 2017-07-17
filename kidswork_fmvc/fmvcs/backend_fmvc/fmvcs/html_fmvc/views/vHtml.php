@@ -417,9 +417,9 @@ class vHtml
         return '</div>';
     }
 
-    function C_Box_Menu_Item($name, $class="")
+    function C_Box_Menu_Item($name, $url, $class="" )
     {
-        return '<div class="c-box-menu-item '.$class.'" data-tab-btn="1">'.$name.'</div>';
+        return '<a href="'.$url.'" class="c-box-menu-item '.$class.'" data-tab-btn="1">'.$name.'</a>';
     }
 
     function Start_Center_Box_Cont()
@@ -468,7 +468,7 @@ class vHtml
     }
 
     function Start_Select_Element($id_cmb, $name_for_form, $class="", $name = 'Выберите значение') {
-        $res = '<div class="'.$class.' listselectbox noactive" tabindex="-1">
+        $res = '<div class="listselectbox noactive '.$class.' " tabindex="-1">
                 <div class="btn btn-code btn-select">' . $name . '</div>
                 <div class="dropdownlist" >
                     <input type="text" class="textbox" placeholder="Поиск">
@@ -495,6 +495,16 @@ class vHtml
     function End_Center_Box_Code()
     {
         return '</div>';
+    }
+
+    function Input_Date($name, $value, $class="")
+    {
+        return '<input type="date" class="w-100 '.$class.'" name="'.$name.'" value="'.$value.'" />';
+    }
+
+    function Input_Text($name, $value, $class="")
+    {
+        return '<input type="text" class="w-100 '.$class.'" name="'.$name.'" value="'.$value.'" />';
     }
 
 }

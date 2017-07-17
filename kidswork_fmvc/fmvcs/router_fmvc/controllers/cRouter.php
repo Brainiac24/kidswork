@@ -22,6 +22,7 @@ class cRouter extends mRouter
     {
         $cValidation = $this->cKidswork->fKidswork->get_controllers_array()["cValidation"];
         foreach ($rules as $key => $value) {
+            //\var_dump($key);
            $this->add_requests($key, $cValidation->Request($key, $value));
         }
     }

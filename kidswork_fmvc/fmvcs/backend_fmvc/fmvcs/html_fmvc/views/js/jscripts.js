@@ -32,6 +32,8 @@ $(document).delegate(".tab-text-edit textarea", "click", function () {
 $(document).ready(function () {
 
     $('.btn-code-2.noactive').ListSelectBox({btn_text:"Код: "});
+    $('.listselectbox-2.noactive').ListSelectBox({btn_text:""});
+    $('.listrate.noactive').ListSelectBox({btn_text:""});
 
     $('.sticky-table-headers.noactive').StickyTableHeaders();
 

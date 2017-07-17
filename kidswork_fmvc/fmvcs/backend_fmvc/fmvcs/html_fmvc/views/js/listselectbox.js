@@ -39,6 +39,7 @@
                 if (tar.length !== '') {
                     $(".listselectbox").each(function () {
                         if (!$(this).closest(".listselectbox").is(tar)) {
+                            $(this).closest(".listselectbox").css("z-index","0");
                             $(this).children('.dropdownlist').hide();
                         } else {
                             tar.show();
@@ -52,6 +53,7 @@
                 $('li', object).removeClass('selected');
                 $(this).addClass('selected');
                 selected = $(this).index();
+                $(this).closest(".listselectbox").css("z-index","0");
                 dropdownlist.hide();
             });
             $('.filtered-list', object).on('click', 'li', function () {
@@ -60,6 +62,7 @@
                 $('li', object).removeClass('selected');
                 $(this).addClass('selected');
                 selected = $(this).index();
+                $(dropdownlist).closest(".listselectbox").css("z-index","0");
                 dropdownlist.hide();
             });
 
@@ -68,6 +71,7 @@
                 if (tar.length !== '') {
                     object.each(function () {
                         if (!$(this).closest(".listselectbox").is(tar)) {
+                            $(this).closest(".listselectbox").css("z-index","0");
                             $(this).children('.dropdownlist').hide();
                         }
                     });
@@ -75,6 +79,7 @@
             });
 
             $(object).on('mousedown', '.btn-select', function () {
+                $(dropdownlist).closest(".listselectbox").css("z-index","99");
                 dropdownlist.toggle();
             });
 
@@ -85,6 +90,7 @@
                     hiddenbox.val(sel.data('v')).trigger('change');
                     dropdownlist.toggle();
                 } else if (e.keyCode === 27) {
+                    $(dropdownlist).closest(".listselectbox").css("z-index","0");
                     dropdownlist.hide();
                 } else if (e.keyCode === 40) {
                 } else if (e.keyCode === 38) {

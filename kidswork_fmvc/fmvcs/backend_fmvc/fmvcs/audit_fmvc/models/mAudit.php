@@ -15,6 +15,10 @@ class mAudit extends mModels
         $this->cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
         $this->fAudit = new fAudit();
         //$cKidswork->Import($this->fAudit);
+
+        if ($this->cRouter!=null) {
+            $this->cRouter->Add_Request($this->fAudit->get_router_rules());
+        }
     }
 
     function Init($fClass = null)

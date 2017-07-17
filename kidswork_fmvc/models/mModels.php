@@ -29,6 +29,7 @@ class mModels
         }
         $this->ctrls = $this->cKidswork->fKidswork->get_controllers_array();
         $this->cRouter = $this->ctrls["cRouter"];
+        
         return $this->cRouter->get_request("ajax") == null ? $this->Init_Full() : $this->Init_Ajax();
     }
 }

@@ -422,13 +422,13 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box_Cap_2();
     }
 
-    function C_Box_Menu_Item($name, $active=false)
+    function C_Box_Menu_Item($name, $url, $active=false)
     {
         $class="";
         if ($active) {
             $class="c-box-menu-item-a";
         }
-        return $this->vHtml->C_Box_Menu_Item($name,$class);
+        return $this->vHtml->C_Box_Menu_Item($name, $url, $class);
     }
 
     function Start_Center_Box_Cont()
@@ -532,6 +532,15 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box_Code();
     }
 
+    function Input_Date($name, $value="", $class="")
+    {
+        return $this->vHtml->Input_Date($name, $value, $class);
+    }
+
+    function Input_Text($name, $value="", $class="")
+    {
+        return $this->vHtml->Input_Text($name, $value, $class);
+    }
 
 
 }
