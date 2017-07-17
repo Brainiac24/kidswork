@@ -63,7 +63,6 @@ class cAudit extends mAudit
                 $this->fAudit->set_date1("-");
                 break;
             case 2:
-                $this->fAudit->set_date1($this->cHtml->Input_Date("date1"));
                 $id_divisions = $this->cHtml->Start_Select_Element("1", "id_divisions", "listselectbox-2", 'Выберите значение' );
                 $id_divisions .= $this->cHtml->Option_Select_Element("1", '002 - ФҶСК "Бонки Эсхата" дар ш. Душанбе');
                 $id_divisions .= $this->cHtml->Option_Select_Element("1", '003 - ФҶСК "Бонки Эсхата" дар ш. Қӯрғонтеппа-1');
@@ -71,78 +70,36 @@ class cAudit extends mAudit
                 $id_divisions .= $this->cHtml->End_Select_Element();
                 $this->fAudit->set_id_divisions($id_divisions);
 
+                $this->fAudit->set_date1($this->cHtml->Input_Date("date1",(new \DateTime())->format('Y-m-d')));
+
                 $this->fAudit->set_assets($this->cHtml->Input_Text("assets"));
-                $assets_rate = $this->cHtml->Start_Select_Element("1", "assets_rate", "listrate", 'Выберите рейтинг' );
-                $assets_rate .= $this->cHtml->Option_Select_Element("1", '1');
-                $assets_rate .= $this->cHtml->Option_Select_Element("1", '2');
-                $assets_rate .= $this->cHtml->Option_Select_Element("1", '3');
-                $assets_rate .= $this->cHtml->End_Select_Element();
-                $this->fAudit->set_assets_rate($assets_rate);
+                $this->fAudit->set_assets_rate('-');
 
                 $this->fAudit->set_management_1($this->cHtml->Input_Text("management_1"));
-                $management_rate_1 = $this->cHtml->Start_Select_Element("1", "management_rate_1", "listrate", 'Выберите рейтинг' );
-                $management_rate_1 .= $this->cHtml->Option_Select_Element("1", '1');
-                $management_rate_1 .= $this->cHtml->Option_Select_Element("1", '2');
-                $management_rate_1 .= $this->cHtml->Option_Select_Element("1", '3');
-                $management_rate_1 .= $this->cHtml->End_Select_Element();
-                $this->fAudit->set_management_rate_1($management_rate_1);
+                $this->fAudit->set_management_rate_1('-');
 
                 $this->fAudit->set_management_2($this->cHtml->Input_Text("management_2"));
-                $management_rate_2 = $this->cHtml->Start_Select_Element("1", "management_rate_2", "listrate", 'Выберите рейтинг' );
-                $management_rate_2 .= $this->cHtml->Option_Select_Element("1", '1');
-                $management_rate_2 .= $this->cHtml->Option_Select_Element("1", '2');
-                $management_rate_2 .= $this->cHtml->Option_Select_Element("1", '3');
-                $management_rate_2 .= $this->cHtml->End_Select_Element();
-                $this->fAudit->set_management_rate_2($management_rate_2);
+                $this->fAudit->set_management_rate_2('-');
 
                 $this->fAudit->set_management_3($this->cHtml->Input_Text("management_3"));
-                $management_rate_3 = $this->cHtml->Start_Select_Element("1", "management_rate_3", "listrate", 'Выберите рейтинг' );
-                $management_rate_3 .= $this->cHtml->Option_Select_Element("1", '1');
-                $management_rate_3 .= $this->cHtml->Option_Select_Element("1", '2');
-                $management_rate_3 .= $this->cHtml->Option_Select_Element("1", '3');
-                $management_rate_3 .= $this->cHtml->End_Select_Element();
-                $this->fAudit->set_management_rate_3($management_rate_3);
+                $this->fAudit->set_management_rate_3('-');
 
                 $this->fAudit->set_earnings($this->cHtml->Input_Text("earnings"));
-                $earnings_rate = $this->cHtml->Start_Select_Element("1", "earnings_rate", "listrate", 'Выберите рейтинг' );
-                $earnings_rate .= $this->cHtml->Option_Select_Element("1", '1');
-                $earnings_rate .= $this->cHtml->Option_Select_Element("1", '2');
-                $earnings_rate .= $this->cHtml->Option_Select_Element("1", '3');
-                $earnings_rate .= $this->cHtml->End_Select_Element();
-                $this->fAudit->set_earnings_rate($earnings_rate);
+                $this->fAudit->set_earnings_rate('-');
 
                 $this->fAudit->set_turnover($this->cHtml->Input_Text("turnover"));
-                $turnover_rate = $this->cHtml->Start_Select_Element("1", "turnover_rate", "listrate", 'Выберите рейтинг' );
-                $turnover_rate .= $this->cHtml->Option_Select_Element("1", '1');
-                $turnover_rate .= $this->cHtml->Option_Select_Element("1", '2');
-                $turnover_rate .= $this->cHtml->Option_Select_Element("1", '3');
-                $turnover_rate .= $this->cHtml->End_Select_Element();
-                $this->fAudit->set_turnover_rate($turnover_rate);
+                $this->fAudit->set_turnover_rate('-');
 
                 $this->fAudit->set_reglaments($this->cHtml->Input_Text("reglaments"));
-                $reglaments_rate = $this->cHtml->Start_Select_Element("1", "reglaments_rate", "listrate", 'Выберите рейтинг' );
-                $reglaments_rate .= $this->cHtml->Option_Select_Element("1", '1');
-                $reglaments_rate .= $this->cHtml->Option_Select_Element("1", '2');
-                $reglaments_rate .= $this->cHtml->Option_Select_Element("1", '3');
-                $reglaments_rate .= $this->cHtml->End_Select_Element();
-                $this->fAudit->set_reglaments_rate($reglaments_rate);
+                $this->fAudit->set_reglaments_rate('-');
                 
                 $this->fAudit->set_projection($this->cHtml->Input_Text("projection"));
-                $projection_rate = $this->cHtml->Start_Select_Element("1", "projection_rate", "listrate", 'Выберите рейтинг' );
-                $projection_rate .= $this->cHtml->Option_Select_Element("1", '1');
-                $projection_rate .= $this->cHtml->Option_Select_Element("1", '2');
-                $projection_rate .= $this->cHtml->Option_Select_Element("1", '3');
-                $projection_rate .= $this->cHtml->End_Select_Element();
-                $this->fAudit->set_projection_rate($projection_rate);
-                $this->fAudit->set_reglaments_rate($reglaments_rate);
+                $this->fAudit->set_projection_rate('-');
                 
                 $this->fAudit->set_risk($this->cHtml->Input_Text("risk"));
-                $risk_rate = $this->cHtml->Start_Select_Element("1", "risk_rate", "listrate", 'Выберите рейтинг' );
-                $risk_rate .= $this->cHtml->Option_Select_Element("1", '1');
-                $risk_rate .= $this->cHtml->Option_Select_Element("1", '2');
-                $risk_rate .= $this->cHtml->Option_Select_Element("1", '3');
-                $risk_rate .= $this->cHtml->End_Select_Element();
-                $this->fAudit->set_risk_rate($risk_rate);
+                $this->fAudit->set_risk_rate('-');
+
+                $this->fAudit->set_total_rate('-');
                 break;
             
             default:
@@ -197,7 +154,7 @@ class cAudit extends mAudit
         $res .= $this->cHtml->Table_2_Row_C3("Текучесть кадров:", $this->fAudit->get_turnover(), $this->fAudit->get_turnover_rate());
         $res .= $this->cHtml->Table_2_Row_C3("Соблюдение регламентов:", $this->fAudit->get_reglaments(), $this->fAudit->get_reglaments_rate());
         $res .= $this->cHtml->Table_2_Row_C3("Выполнение проекции:", $this->fAudit->get_projection(), $this->fAudit->get_projection_rate());
-        $res .= $this->cHtml->Table_2_Row_C3("Риски:", $this->fAudit->get_risk(), $this->fAudit->get_risk_rate());
+        $res .= $this->cHtml->Table_2_Row_C3("Выявленные риски:", $this->fAudit->get_risk(), $this->fAudit->get_risk_rate());
         $res .= $this->cHtml->Table_2_Row_C2("Итоговый рейтинг:", $this->fAudit->get_total_rate(), "2");
 
         $res .= $this->cHtml->End_Datatable_Body();
