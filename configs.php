@@ -2,6 +2,7 @@
 
 namespace Kidswork;
 
+require_once __DIR__."/kidswork_fmvc/configs/fVariable.php";
 require_once __DIR__."/kidswork_fmvc/configs/fConfigs.php";
 require_once __DIR__."/kidswork_fmvc/configs/fKidswork.php";
 require_once __DIR__."/kidswork_fmvc/models/mModels.php";

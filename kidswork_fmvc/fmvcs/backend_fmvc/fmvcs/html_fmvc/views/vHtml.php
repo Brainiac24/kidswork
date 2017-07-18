@@ -467,6 +467,16 @@ class vHtml
         return '</div>';
     }
 
+    function Start_Center_Box_Msg()
+    {
+        return '<div class="center-box-msg">';
+    }
+
+    function End_Center_Box_Msg()
+    {
+        return '</div>';
+    }
+
     function Start_Select_Element($id_cmb, $name_for_form, $class="", $name = 'Выберите значение') {
         $res = '<div class="listselectbox noactive '.$class.' " tabindex="-1">
                 <div class="btn btn-code btn-select">' . $name . '</div>
@@ -505,6 +515,41 @@ class vHtml
     function Input_Text($name, $value, $class="")
     {
         return '<input type="text" class="w-100 '.$class.'" name="'.$name.'" value="'.$value.'" />';
+    }
+
+    function Action_Buttons_Text($text)
+    {
+        return '<div class="ac-btn-text">'.$text.'</div>';
+    }
+
+    function Action_Buttons_Add($text)
+    {
+        return '<button class="ac-btn-add">'.$text.'</button>';
+    }
+
+    function Action_Buttons_Default($text)
+    {
+        return '<button class="ac-btn-default">'.$text.'</button>';
+    }
+
+    function Action_Buttons_Edit($text)
+    {
+        return '<button class="ac-btn-edit">'.$text.'</button>';
+    }
+
+    function Start_Action_Buttons($class="")
+    {
+        return '<div class="ac-btns '.$class.'">';
+    }
+
+    function End_Action_Buttons()
+    {
+        return '</div>';
+    }
+
+    function Action_Message_Success($text, $class="")
+    {
+        return '<div class="ac-btn-msg"><div class="ac-btn-msg-text">'.$text.'</div><button class="ac-btn-ok">Ок</button></div>';
     }
 
 }

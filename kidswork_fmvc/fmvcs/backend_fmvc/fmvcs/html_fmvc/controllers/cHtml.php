@@ -3,7 +3,7 @@ namespace Kidswork\Backend;
 
 class cHtml extends mHtml
 {
-    
+
 
     public function __construct($cKidswork)
     {
@@ -30,7 +30,7 @@ class cHtml extends mHtml
 
     public function Start_Html()
     {
-        
+
         return $this->vHtml->Start_Html();
     }
 
@@ -237,13 +237,13 @@ class cHtml extends mHtml
 
     function Datatable_Th($val)
     {
-        return $this->vHtml->Start_Datatable_Th().$val.$this->vHtml->End_Datatable_Th();
+        return $this->vHtml->Start_Datatable_Th() . $val . $this->vHtml->End_Datatable_Th();
     }
 
-    function Start_Datatable_Td($class="", $colspan="")
+    function Start_Datatable_Td($class = "", $colspan = "")
     {
-        if ($colspan!="") {
-            $colspan = 'colspan="'.$colspan.'"';
+        if ($colspan != "") {
+            $colspan = 'colspan="' . $colspan . '"';
         }
         return $this->vHtml->Start_Datatable_Td($class, $colspan);
     }
@@ -255,12 +255,12 @@ class cHtml extends mHtml
 
     function Datatable_Td($val)
     {
-        return $this->vHtml->Start_Datatable_Td().$val.$this->vHtml->End_Datatable_Td();
+        return $this->vHtml->Start_Datatable_Td() . $val . $this->vHtml->End_Datatable_Td();
     }
 
     function Start_Middle_Center()
     {
-         return $this->vHtml->Start_Middle_Center();
+        return $this->vHtml->Start_Middle_Center();
     }
 
     function End_Middle_Center()
@@ -268,7 +268,7 @@ class cHtml extends mHtml
         return $this->vHtml->End_Middle_Center();
     }
 
-    function Start_Table($class="")
+    function Start_Table($class = "")
     {
         return $this->vHtml->Start_Table($class);
     }
@@ -359,7 +359,7 @@ class cHtml extends mHtml
 
     function Start_Center_Wrapper()
     {
-         return $this->vHtml->Start_Center_Wrapper();
+        return $this->vHtml->Start_Center_Wrapper();
     }
 
     function End_Center_Wrapper()
@@ -379,12 +379,12 @@ class cHtml extends mHtml
 
     function Start_Center_Box_Top()
     {
-         return $this->vHtml->Start_Center_Box_Top();
+        return $this->vHtml->Start_Center_Box_Top();
     }
 
     function End_Center_Box_Top()
     {
-         return $this->vHtml->End_Center_Box_Top();
+        return $this->vHtml->End_Center_Box_Top();
     }
 
     function Start_Center_Box_Content()
@@ -404,12 +404,12 @@ class cHtml extends mHtml
 
     function End_Center_Box_Cap()
     {
-         return $this->vHtml->End_Center_Box_Cap();
+        return $this->vHtml->End_Center_Box_Cap();
     }
 
     function C_Box_Caption_Text($name)
     {
-         return $this->vHtml->C_Box_Caption_Text($name);
+        return $this->vHtml->C_Box_Caption_Text($name);
     }
 
     function Start_Center_Box_Cap_2()
@@ -422,11 +422,11 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box_Cap_2();
     }
 
-    function C_Box_Menu_Item($name, $url, $active=false)
+    function C_Box_Menu_Item($name, $url, $active = false)
     {
-        $class="";
+        $class = "";
         if ($active) {
-            $class="c-box-menu-item-a";
+            $class = "c-box-menu-item-a";
         }
         return $this->vHtml->C_Box_Menu_Item($name, $url, $class);
     }
@@ -448,7 +448,7 @@ class cHtml extends mHtml
 
     function End_Center_Box_Row()
     {
-       return $this->vHtml->End_Center_Box_Row();
+        return $this->vHtml->End_Center_Box_Row();
     }
 
     function C_Box_Row_Name($name)
@@ -476,14 +476,14 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box_Bottom();
     }
 
-    public function Table_2_Row_C2($name, $text, $colspan="")
+    public function Table_2_Row_C2($name, $text, $colspan = "")
     {
         $res = "";
         $res .= $this->Start_Datatable_Tr();
         $res .= $this->Start_Datatable_Td("tab-name");
         $res .= $name;
         $res .= $this->End_Datatable_Td();
-        $res .= $this->Start_Datatable_Td("tab-text",$colspan);
+        $res .= $this->Start_Datatable_Td("tab-text", $colspan);
         $res .= $text;
         $res .= $this->End_Datatable_Td();
         $res .= $this->End_Datatable_Tr();
@@ -510,15 +510,18 @@ class cHtml extends mHtml
         return $res;
     }
 
-    function Start_Select_Element($id_cmb, $name_for_form, $class="", $name = 'Выберите значение') {
-       return $this->vHtml->Start_Select_Element($id_cmb, $name_for_form, $class, $name);
+    function Start_Select_Element($id_cmb, $name_for_form, $class = "", $name = 'Выберите значение')
+    {
+        return $this->vHtml->Start_Select_Element($id_cmb, $name_for_form, $class, $name);
     }
 
-    function End_Select_Element() {
+    function End_Select_Element()
+    {
         return $this->vHtml->End_Select_Element();
     }
 
-    function Option_Select_Element($value, $name, $selected_text = '') {
+    function Option_Select_Element($value, $name, $selected_text = '')
+    {
         return $this->vHtml->Option_Select_Element($value, $name, $selected_text);
     }
 
@@ -532,15 +535,61 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box_Code();
     }
 
-    function Input_Date($name, $value="", $class="")
+    function Input_Date($name, $value = "", $class = "")
     {
         return $this->vHtml->Input_Date($name, $value, $class);
     }
 
-    function Input_Text($name, $value="", $class="")
+    function Input_Text($name, $value = "", $class = "")
     {
         return $this->vHtml->Input_Text($name, $value, $class);
     }
+
+    function Action_Buttons_Text($text)
+    {
+        return $this->vHtml->Action_Buttons_Text($text);
+    }
+
+    function Action_Buttons_Add($text)
+    {
+        return $this->vHtml->Action_Buttons_Add($text);
+    }
+
+    function Action_Buttons_Default($text)
+    {
+        return $this->vHtml->Action_Buttons_Default($text);
+    }
+
+    function Action_Buttons_Edit($text)
+    {
+        return $this->vHtml->Action_Buttons_Edit($text);
+    }
+
+    function Start_Action_Buttons($class = "")
+    {
+        return $this->vHtml->Start_Action_Buttons($class);
+    }
+
+    function End_Action_Buttons()
+    {
+        return $this->vHtml->End_Action_Buttons();
+    }
+
+    function Action_Message_Success($text, $class = "")
+    {
+        return $this->vHtml->Action_Message_Success($text, $class = "");
+    }
+
+    function Start_Center_Box_Msg()
+    {
+        return $this->vHtml->Start_Center_Box_Msg();
+    }
+
+    function End_Center_Box_Msg()
+    {
+        return $this->vHtml->End_Center_Box_Msg();
+    }
+
 
 
 }

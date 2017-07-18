@@ -26,4 +26,7 @@ class mAudit extends mModels
         parent::Init($this->fAudit);
     }
 
+
+    
+
 }

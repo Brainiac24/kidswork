@@ -31,9 +31,9 @@ $(document).delegate(".tab-text-edit textarea", "click", function () {
 
 $(document).ready(function () {
 
-    $('.btn-code-2.noactive').ListSelectBox({btn_text:"Код: "});
-    $('.listselectbox-2.noactive').ListSelectBox({btn_text:""});
-    $('.listrate.noactive').ListSelectBox({btn_text:""});
+    $('.btn-code-2.noactive').ListSelectBox({ btn_text: "Код: " });
+    $('.listselectbox-2.noactive').ListSelectBox({ btn_text: "" });
+    $('.listrate.noactive').ListSelectBox({ btn_text: "" });
 
     $('.sticky-table-headers.noactive').StickyTableHeaders();
 
@@ -201,6 +201,46 @@ var tableToExcel = (function () {
 
 $(document).delegate(".excel-btn", "click", function () {
     tableToExcel('table.table-1');
-    //TableToExcel();
-    //fnExcelReport();
 });
+
+
+$(document).delegate(".ac-btn-ok", "click", function () {
+    $message = $(this).closest(".center-box-msg");
+    $bottom = $message.prev(".center-box-bot");
+    $message.hide();
+    $bottom.show();
+});
+
+
+$(document).delegate(".ac-btn-add", "click", function () {
+    $data = $(this).closest(".center-box").find('input[name],select[name],textarea[name]').serialize();
+    SendAjax(location.href + "&ajax=1", $data, $(this).closest(".center-box-bot").next(".center-box-msg"), Box_Msg($(this)));
+});
+
+function Box_Msg($this1) {
+    $bottom = $this1.closest(".center-box-bot");
+    $message = $bottom.next(".center-box-msg");
+    $bottom.hide();
+    $message.show();
+}
+
+function SendAjax($url_mode, $data_serialize, $print_container, $callback) {
+    $options = {
+        type: "POST",
+        url: $url_mode,
+        data: $data_serialize,
+        success: function (msg) {
+            if ($print_container !== '') {
+                $print_container.html(msg);
+            }
+            if (typeof $callback !== "undefined") {
+                $callback();
+            }
+
+        },
+        error: function (xhr, str) {
+            alert('Возникла ошибка: ' + xhr.responseCode);
+        }
+    };
+    $.ajax($options);
+}

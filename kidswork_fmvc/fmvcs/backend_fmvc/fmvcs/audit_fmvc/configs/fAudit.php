@@ -34,7 +34,6 @@ class fAudit extends fConfigs
    
     function __construct()
     {
-
         $this->add_router_rules("data_mode","int");
         $this->add_router_rules("data_mode", "int");
         $this->add_router_rules("id_select", "int|required");
@@ -42,7 +41,7 @@ class fAudit extends fConfigs
         $this->add_router_rules("id_update", "int|required");
         $this->add_router_rules("id_delete", "int|required");
         $this->add_router_rules("id_divisions", "int");
-        $this->add_router_rules("date", "str");
+        $this->add_router_rules("date111", "str");
         $this->add_router_rules("assets", "float|required");
         $this->add_router_rules("assets_rate", "float|required");
         $this->add_router_rules("management_1", "float|required");
@@ -62,6 +61,13 @@ class fAudit extends fConfigs
         $this->add_router_rules("risk", "float|required");
         $this->add_router_rules("risk_rate", "float|required");
         $this->add_router_rules("total_rate", "float|required");
+
+        foreach ($this->get_router_rules() as $key => $value) {
+            $$key="12311";
+        }
+
+//\var_dump($date111);
+        
         /*
         $this->fmvc_array["NAME_fmvc"] = "Kidswork\NAME";
         $this->set_fmvc_array($this->fmvc_array);

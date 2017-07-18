@@ -560,8 +560,14 @@ input[type='text'] {
 }
 
 .center-box-bot{
-    height: 45px;
+    height: 60px;
     border-top: 1px solid #eee;
+}
+
+.center-box-msg{
+    height: 60px;
+    border-top: 1px solid #eee;
+    display: none;
 }
 
 .center-box-cont {
@@ -616,7 +622,7 @@ input[type='text'] {
     top: 34px;
     position: absolute;
     width: 100%;
-    box-shadow: 3px 4px 6px 0px #ADADAD;
+    box-shadow: 1px 4px 6px 0px #ADADAD;
 }
 
 .textbox {
@@ -698,6 +704,94 @@ ul {
     width: 100%;
 }
 
+.ac-btn-text{
+    display: inline-block;
+    width: 25%;
+    padding: 21px 12px;
+    border-right: 1px solid #eee;
+}
+
+
+.ac-btn-add{
+    border: 1px solid #01a780;
+    outline: none;
+    background: #18bb8e;
+    background: -webkit-linear-gradient(top,#00b98e,#01a780);
+    display: inline-block;
+    padding: 6px 54px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.ac-btn-edit{
+    border: 1px solid #4285f4;
+    outline: none;
+    background: #4285f4;
+    background: -webkit-linear-gradient(top,#4387fd,#4683ea);
+    display: inline-block;
+    padding: 6px 54px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.ac-btn-default{
+    border: 1px solid #4285f4;
+    outline: none;
+    display: inline-block;
+    padding: 6px 54px;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #c3c3c3;
+    color: black;
+}
+
+.ac-btn-add:hover, .ac-btn-default:hover, .ac-btn-edit:hover{
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+    -webkit-box-shadow: 0 0.5px 1px rgba(0,0,0,.15);
+}
+
+.ac-btn-add:active, .ac-btn-default:active, .ac-btn-edit:active{
+    -webkit-box-shadow: inset 0 2px 0 rgba(0,0,0,.15);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.15);
+}
+
+.ac-btns{
+    width: 37.5%;
+    text-align: center;
+    padding: 14px 0;
+}
+
+.b-r-1{
+    border-right: 1px solid #eee;
+}
+
+.b-l-1{
+    border-left: 1px solid #eee;
+}
+
+.ac-btn-msg{
+    width: 75%;
+    padding: 21px;
+    text-align: center;
+}
+
+.ac-btn-msg-text{
+    width: auto;
+    margin-right: 15px;
+    float: none;
+}
+
+.ac-btn-ok{
+    border: 1px solid #4285f4;
+    outline: none;
+    background: #4285f4;
+    background: -webkit-linear-gradient(top,#4387fd,#4683ea);
+    display: inline-block;
+    padding: 5px 21px;
+    color: #fff;
+    cursor: pointer;
+    margin-top: -6px;
+}
 
 
 

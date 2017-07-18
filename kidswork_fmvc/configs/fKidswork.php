@@ -6,9 +6,16 @@ use \Kidswork\Configs;
 
 class fKidswork extends fConfigs
 {
-    private $fmvc_array = array();
     private $request_rules = array();
     public $configs;
+    public $ajax;
+
+    public function get_ajax() {
+        return $this->ajax;
+    }
+    public function set_ajax($ajax) {
+        $this->ajax = $ajax;
+    }
 
     public function get_request_rules() {
         return $this->request_rules;

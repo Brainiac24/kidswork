@@ -8,6 +8,7 @@ class cAudit extends mAudit
     private $cTopmenu2 = null;
     private $cCenter = null;
     private $data_mode = null;
+    private $box_bottom = null;
 
 
     function Init_Full()
@@ -26,6 +27,9 @@ class cAudit extends mAudit
 
     function Init_Ajax()
     {
+        $this->cHtml = $this->cKidswork->fKidswork->get_controllers_array()["cHtml"];
+
+        $this->cKidswork->fKidswork->set_ajax($this->Data_Control_Action());
     }
 
     public function Print()
@@ -53,6 +57,33 @@ class cAudit extends mAudit
         $this->cLeftmenu->fLeftmenu->add_struct_array(array("Операции более 1-го раза","?menu=7","",$active[7]));
         $this->cLeftmenu->fLeftmenu->add_struct_array(array("Ликвидированные документы","?menu=8","",$active[8]));
         $this->cLeftmenu->fLeftmenu->add_struct_array(array("Перелимиты","?menu=9","",$active[9]));
+    }
+
+    function Data_Control_Action()
+    {   
+        $res = "";
+        $this->fAudit->set_data_mode($this->cRouter->get_request("data_mode"));
+        switch ($this->fAudit->get_data_mode()) {
+            case 1:
+                break;
+            case 2:
+                
+
+
+
+                $res .= $this->cHtml->Action_Buttons_Text("Уведомление:");
+                $res .= $this->cHtml->Action_Message_Success("Данные успешно сохранены!");
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        return $res;
     }
 
     function Data_Control_Switcher()
@@ -100,6 +131,43 @@ class cAudit extends mAudit
                 $this->fAudit->set_risk_rate('-');
 
                 $this->fAudit->set_total_rate('-');
+
+                $this->box_bottom = "";
+                $this->box_bottom .= $this->cHtml->Start_Center_Box_Bottom();
+                $this->box_bottom .= $this->cHtml->Action_Buttons_Text("Действие:");
+                $this->box_bottom .= $this->cHtml->Start_Action_Buttons();
+                $this->box_bottom .= $this->cHtml->Action_Buttons_Add("Добавить");
+                $this->box_bottom .= $this->cHtml->End_Action_Buttons();
+                $this->box_bottom .= $this->cHtml->Start_Action_Buttons("b-l-1");
+                $this->box_bottom .= $this->cHtml->Action_Buttons_Default("Очистить");
+                $this->box_bottom .= $this->cHtml->End_Action_Buttons();
+                $this->box_bottom .= $this->cHtml->End_Center_Box_Bottom();
+
+                break;
+
+            case 3:
+                $this->box_bottom = "";
+                $this->box_bottom .= $this->cHtml->Start_Center_Box_Bottom();
+                $this->box_bottom .= $this->cHtml->Action_Buttons_Text("Действие:");
+                $this->box_bottom .= $this->cHtml->Start_Action_Buttons("b-r-1");
+                $this->box_bottom .= $this->cHtml->Action_Buttons_Edit("Изменить");
+                $this->box_bottom .= $this->cHtml->End_Action_Buttons();
+                $this->box_bottom .= $this->cHtml->Start_Action_Buttons();
+                $this->box_bottom .= $this->cHtml->Action_Buttons_Default("Очистить");
+                $this->box_bottom .= $this->cHtml->End_Action_Buttons();
+                $this->box_bottom .= $this->cHtml->End_Center_Box_Bottom();
+                break;
+            case 4:
+            $this->box_bottom = "";
+                $this->box_bottom .= $this->cHtml->Start_Center_Box_Bottom();
+                $this->box_bottom .= $this->cHtml->Action_Buttons_Text("Действие:");
+                $this->box_bottom .= $this->cHtml->Start_Action_Buttons("b-r-1");
+                $this->box_bottom .= $this->cHtml->Action_Buttons_Add("Удалить");
+                $this->box_bottom .= $this->cHtml->End_Action_Buttons();
+                $this->box_bottom .= $this->cHtml->Start_Action_Buttons();
+                $this->box_bottom .= $this->cHtml->Action_Buttons_Default("Очистить");
+                $this->box_bottom .= $this->cHtml->End_Action_Buttons();
+                $this->box_bottom .= $this->cHtml->End_Center_Box_Bottom();
                 break;
             
             default:
@@ -162,8 +230,9 @@ class cAudit extends mAudit
         
         $res .= $this->cHtml->End_Center_Box_Cont();
 
-        $res .= $this->cHtml->Start_Center_Box_Bottom();
-        $res .= $this->cHtml->End_Center_Box_Bottom();
+        $res .= $this->box_bottom;
+        $res .= $this->cHtml->Start_Center_Box_Msg();
+        $res .= $this->cHtml->End_Center_Box_Msg();
 
         $res .= $this->cHtml->End_Center_Box();
         $res .= $this->cHtml->End_Center_Wrapper();

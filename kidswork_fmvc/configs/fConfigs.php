@@ -1,5 +1,4 @@
 <?php
-
 namespace Kidswork;
 
 class fConfigs
@@ -15,21 +14,34 @@ class fConfigs
     private $router_rules = array();
     private $columns = NULL;
 
-    function get_columns() {
+    private $variables = null;
+
+
+    function __construct()
+    {
+        $variables = new \Kidswork\fVariables();
+        $variables->add_arr("fmvc_array");
+    }
+
+    function get_columns()
+    {
         return $this->columns;
     }
 
-    function set_columns($columns) {
+    function set_columns($columns)
+    {
         $this->columns = $columns;
     }
 
-    function add_column($name, $value) {
+    function add_column($name, $value)
+    {
         if (!isset($this->columns[$name])) {
             $this->columns[$name] = $value;
         }
     }
 
-    function get_column($col_name = '') {
+    function get_column($col_name = '')
+    {
         $res = $col_name;
         if (isset($this->columns[$col_name])) {
             $res = $this->columns[$col_name];
@@ -42,17 +54,17 @@ class fConfigs
         return $this->configs;
     }
 
-    function __construct()
-    {
-    }
 
-    public function get_router_rules() {
+    public function get_router_rules()
+    {
         return $this->router_rules;
     }
-    public function set_router_rules($router_rules) {
+    public function set_router_rules($router_rules)
+    {
         $this->router_rules = $router_rules;
     }
-    public function add_router_rules($router_name,$router_rule) {
+    public function add_router_rules($router_name, $router_rule)
+    {
         $this->router_rules[$router_name] = $router_rule;
     }
     public function get_fmvc_array()
@@ -64,7 +76,7 @@ class fConfigs
     {
         $this->fmvc_array = $fmvc_array;
     }
-    
+
     public function get_struct_start()
     {
         return $this->struct_start;
@@ -139,12 +151,12 @@ class fConfigs
     {
         $this->struct_array[] = $struct_array;
     }
-    
+
     public function add_controllers_array($controllers_class, $controllers_res)
     {
         $this->controllers_array[$controllers_class] = $controllers_res;
     }
-        
+
     function get_final_struct()
     {
         return $this->struct_start . $this->struct . implode("", $this->struct_array) . $this->struct_end;

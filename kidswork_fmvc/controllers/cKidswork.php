@@ -30,7 +30,7 @@ class cKidswork extends mKidswork
 
     function Init_Ajax()
     {
-        $this->fKidswork->add_struct("ajax");
+        return $this->fKidswork->get_ajax();
     }
 
     public function Import($fKidswork, $init = true, $number = "")
