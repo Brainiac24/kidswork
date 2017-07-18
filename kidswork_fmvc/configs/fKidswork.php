@@ -6,32 +6,21 @@ use \Kidswork\Configs;
 
 class fKidswork extends fConfigs
 {
-    private $request_rules = array();
-    public $configs;
-    public $ajax;
 
-    public function get_ajax() {
-        return $this->ajax;
-    }
-    public function set_ajax($ajax) {
-        $this->ajax = $ajax;
-    }
-
-    public function get_request_rules() {
-        return $this->request_rules;
-    }
-    public function set_request_rules($request_rules) {
-        $this->request_rules = $request_rules;
-    }
-   
     function __construct()
     {
-        $this->fmvc_array['validation_fmvc'] = "Kidswork";
-        $this->fmvc_array['router_fmvc'] = "Kidswork";
-        $this->fmvc_array['database_fmvc'] = "Kidswork";
-        $this->fmvc_array['backend_fmvc'] = "Kidswork\Backend";
+        parent::__construct();
+        $this->vars->add_arr("ajax");
+        parent::Init($this->vars->get());
+        $this->fmvc_array->add_arr('validation_fmvc',"Kidswork");
+        $this->fmvc_array->add_arr('router_fmvc', "Kidswork");
+        $this->fmvc_array->add_arr('database_fmvc', "Kidswork");
+        $this->fmvc_array->add_arr('backend_fmvc', "Kidswork\Backend");
 
-        $this->set_fmvc_array($this->fmvc_array);
+       
+        
+
+        $this->fmvc_array->set($this->fmvc_array);
         $this->set_path(__DIR__);
         $this->configs = new Configs();
     }

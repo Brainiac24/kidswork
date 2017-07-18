@@ -14,13 +14,13 @@ class fVariable
     {
         $this->value = $value;
     }
-    function add_arr($name, $value)
-    {
-        $this->value[$name] = $value;
-    }
-    function add_arr_2($value)
+    function add_arr($value)
     {
         $this->value[] = $value;
+    }
+    function add_arr_2($name, $value)
+    {
+        $this->value[$name] = $value;
     }
     function get_arr($col_name)
     {
