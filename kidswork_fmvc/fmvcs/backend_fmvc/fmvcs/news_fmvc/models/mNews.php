@@ -12,10 +12,10 @@ class mNews extends mModels
     public function __construct($cKidswork)
     {
         parent::__construct($cKidswork);
-        $this->cKidswork = $cKidswork;
-        $this->fNews = new fNews();
+        $this->cKidswork->set($cKidswork);
+        $this->fNews->set(new fNews());
         //$cKidswork->Import($this->fNews);
-        $this->cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
+        $this->cRouter = $this->cKidswork->get()->fKidswork->get()->ctrls->get()["cRouter"];
     }
 
     function Init($fClass = null)

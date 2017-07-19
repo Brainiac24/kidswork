@@ -4,13 +4,6 @@ namespace Kidswork;
 
 class cKidswork extends mKidswork
 {
-   
-    //----------------------------------------------
-    public function __construct($fKidswork = null)
-    {
-        parent::__construct($fKidswork);
-    }
-    //----------------------------------------------
     function Init($fClass=null)
     {
         parent::Init($fClass);

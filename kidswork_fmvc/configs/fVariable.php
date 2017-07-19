@@ -3,8 +3,20 @@ namespace Kidswork;
 
 class fVariable
 {
-    private $value;
-    private $validation;
+    private $value = null;
+    public $fValidation = null;
+
+    public function __construct($default = null)
+    {
+        if (!is_array($default)) {
+            $this->value = $default;
+        }
+        else {
+            isset($default["value"]) ? $this->value = $default["value"] : NULL;
+            isset($default["validation"]) ? $this->fValidation = (new \Kidswork\cValidation())->Var_Init($default["validation"]) : NULL;
+        }
+
+    }
 
     public function get()
     {
@@ -14,24 +26,16 @@ class fVariable
     {
         $this->value = $value;
     }
-    function add_arr($value)
+    function con($value)
     {
-        $this->value[] = $value;
+        $this->value .= $value;
     }
-    function add_arr_2($name, $value)
+    function add($name, $value = null)
     {
-        $this->value[$name] = $value;
+        $value === null ? $this->value[] = $value : $this->value[$name] = $value;
     }
-    function get_arr($col_name)
+    function ext($col_name)
     {
         return isset($this->value[$col_name]) ? $this->value[$col_name] : null;
-    }
-    public function get_validation()
-    {
-        return $this->validation;
-    }
-    public function set_validation($validation)
-    {
-        $this->validation = $validation;
     }
 }

@@ -6,9 +6,6 @@ use \Kidswork\fConfigs;
 
 class fNews extends fConfigs
 {
-    private $fmvc_array = array();
-    
-   
     function __construct()
     {
         /*

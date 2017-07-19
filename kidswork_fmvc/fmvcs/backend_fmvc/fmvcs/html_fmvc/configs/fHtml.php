@@ -6,7 +6,6 @@ use \Kidswork\fConfigs;
 
 class fHtml extends fConfigs
 {
-    private $fmvc_array = array();
    
     function __construct()
     {

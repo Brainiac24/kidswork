@@ -6,21 +6,18 @@ use \Kidswork\fConfigs;
 
 class fBackend extends fConfigs
 {
-    private $fmvc_array = array();
-   
     function __construct()
     {   
-        $this->fmvc_array["html_fmvc"] = "Kidswork\Backend";
-        $this->fmvc_array["news_fmvc"] = "Kidswork\Backend";
-        $this->fmvc_array["requests_fmvc"] = "Kidswork\Backend";
-        $this->fmvc_array["audit_fmvc"] = "Kidswork\Backend";
-        $this->fmvc_array["limits_fmvc"] = "Kidswork\Backend";
-        $this->fmvc_array["top_fmvc"] = "Kidswork\Backend";
-        $this->fmvc_array["left_fmvc"] = "Kidswork\Backend";
-        $this->fmvc_array["center_fmvc"] = "Kidswork\Backend";
-        //var_dump($this->fmvc_array);
-        $this->set_fmvc_array($this->fmvc_array);
-        $this->set_path(__DIR__);
+        parent::__construct();
+        $this->fmvc_array->add("html_fmvc", "Kidswork\Backend");
+        //$this->fmvc_array->add("news_fmvc", "Kidswork\Backend");
+        //$this->fmvc_array->add("requests_fmvc", "Kidswork\Backend");
+        $this->fmvc_array->add("audit_fmvc", "Kidswork\Backend");
+        //$this->fmvc_array->add("limits_fmvc", "Kidswork\Backend");
+        $this->fmvc_array->add("top_fmvc", "Kidswork\Backend");
+        $this->fmvc_array->add("left_fmvc", "Kidswork\Backend");
+        $this->fmvc_array->add("center_fmvc", "Kidswork\Backend");
+        $this->path->set(__DIR__);
         
     }
 }

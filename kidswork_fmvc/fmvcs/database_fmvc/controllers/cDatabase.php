@@ -4,16 +4,7 @@ namespace Kidswork;
 
 class cDatabase extends mDatabase
 {
-    public function __construct($cKidswork)
-    {   
-        parent::__construct($cKidswork);
-    }
-
-    function Init()
-    {
-        return $this;
-    }
-
+    
     function Init_Full()
     {
     }
@@ -24,7 +15,7 @@ class cDatabase extends mDatabase
 
     public function Print()
     {
-        return $this->fDatabase->get_final_struct();
+        return $this->fDatabase->final_struct->get();
     }
 
     public function Connection() {

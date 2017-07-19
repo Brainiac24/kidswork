@@ -1,84 +1,111 @@
 <?php
 namespace Kidswork;
 
-class mValidation
+class mValidation extends mModels
 {
     public $fValidation;
 
     public function __construct($cKidswork)
     {
+        parent::__construct($cKidswork);
         $this->fValidation = new fValidation();
         //$cKidswork->Import($this->fValidation);
+
+
     }
 
-    protected function Validate($var_name, $conditions, $mode = '')
-    {   $this->fValidation = new fValidation();
-        $this->fValidation->set_variable(trim($var_name));
-        $this->fValidation->set_value($this->Variable_Mode_Switcher($var_name, $mode));
-        $this->fValidation->set_conditions(explode("|", $conditions));
-        foreach ($this->fValidation->get_conditions() as $key => $val) {
-            switch ($val) {
-                case "required":
-                    $this->fValidation = $this->Required();
-                    break;
-                case "int":
-                    $this->fValidation = $this->Integer();
-                    break;
-                case "str":
-                    break;
-                case "foto":
-                    $this->fValidation = $this->Foto();
-                    break;
-                case "numeric":
-                    $this->fValidation = $this->Numeric();
-                    break;
-                case "float":
-                    $this->fValidation = $this->Float();
-                    break;
-                case "date":
-                    $this->fValidation = $this->Valid_Date();
-                    break;
-                case "selected":
-                    $this->fValidation = $this->Selected();
-                    break;
-                case "bool":
-                    $this->fValidation = $this->Bool();
-                    break;
-                default:
-                    break;
+    public function Var_Init($validation)
+    {
+        $this->fValidation->set(new fValidation());
+        foreach ($validation as $key => $value) {
+            $this->fValidation->get()->name->set($key);
+            foreach ($value as $key2 => $value2) {
+                $this->fValidation->get()->rules->add($key2, $value2);
             }
         }
         return $this->fValidation;
     }
 
-    protected function Variable_Mode_Switcher($variable, $mode)
+    protected function Validate($fVariable, $sel_ins_upd_del)
+    {
+        $this->fValidation = $fVariable->get()->fValidation;
+        $this->fValidation->get()->name->set(trim($var_name));
+        $this->Receive_Variables_From_Client();
+        $err = array();
+
+        if ($this->fValidation->get()->rules->ext($sel_ins_upd_del) === null) {
+            $arr = explode("|", $this->fValidation->get()->rules->ext(0));
+        }
+        else {
+            $arr = explode("|", $this->fValidation->get()->rules->ext(0)) + explode("|", $this->fValidation->get()->rules->ext($sel_ins_upd_del));
+        }
+
+        foreach ($arr as $key => $val) {
+            switch ($val) {
+                case "required" :
+                    $this->Required();
+                    break;
+                case "int" :
+                    $this->Integer();
+                    break;
+                case "str" :
+                    break;
+                case "foto" :
+                    $this->Foto();
+                    break;
+                case "numeric" :
+                    $this->Numeric();
+                    break;
+                case "float" :
+                    $this->Float();
+                    break;
+                case "date" :
+                    $this->Valid_Date();
+                    break;
+                case "selected" :
+                    $this->Selected();
+                    break;
+                case "bool" :
+                    $this->Bool();
+                    break;
+                default :
+                    break;
+            }
+        }
+
+        return $this->fValidation;
+    }
+
+    protected function Receive_Variables_From_Client()
     {
         $res = '';
+        $name = $this->fValidation->get()->name->get();
+        $mode = $this->fValidation->get()->mode->get();
         switch ($mode) {
-            case 'request':
-                $res = filter_input(INPUT_GET, trim($variable), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            case 'request' :
+                $res = filter_input(INPUT_GET, trim($name), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 if ($res == null) {
-                    $res = filter_input(INPUT_POST, trim($variable), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $res = filter_input(INPUT_POST, trim($name), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 }
                 break;
-            case 'post':
-                $res = filter_input(INPUT_POST, trim($variable), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            case 'post' :
+                $res = filter_input(INPUT_POST, trim($name), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 break;
-            case 'get':
-                $res = filter_input(INPUT_GET, trim($variable), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            case 'get' :
+                $res = filter_input(INPUT_GET, trim($name), FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 break;
-            case 'file':
+            case 'file' :
                 $res = filter_var_array($_FILES, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 break;
-            case 'arrayint':
-                $res = filter_var_array($variable, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            case 'arrayint' :
+                $res = filter_var_array($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 break;
-            default:
-                $res = filter_var($variable, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            default :
+                $res = filter_var($name, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 break;
         }
 
-        return $res;
+        $this->fValidation->get()->value->set($res);
     }
 
     protected function Print_Errors_Messages($columns, $arr_message = '')
@@ -86,16 +113,18 @@ class mValidation
         $res = '';
         $col = '';
         $msg = '';
-        foreach ($this->get_errors() as $key => $value) {
+        foreach ($this->errors->get() as $key => $value) {
             if (isset($columns[$key])) {
                 $col = $columns[$key];
-            } else {
+            }
+            else {
                 $col = $key;
             }
             if (isset($arr_message[$key])) {
                 $msg = $arr_message[$key];
-            } else {
-                $msg = $this->get_message($value);
+            }
+            else {
+                $msg = $this->fValidation->get()->message->ext($value);
             }
             $res .= 'Ошибка в поле: "' . $col . '" - ' . $msg . '<br>';
         }
@@ -113,13 +142,14 @@ class mValidation
 
     private function Required()
     {
-        $value = $this->fValidation->get_value();
+        $value = $this->fValidation->value->get();
         if (!$this->Not_Null_Or_Empty($value)) {
             if (!is_array($value)) {
-                $this->fValidation->add_errors($this->fValidation->get_variable(), 'Значение поля не может быть пустым');
-            } else {
+                $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не может быть пустым');
+            }
+            else {
                 if (empty($value)) {
-                    $this->fValidation->add_errors($this->fValidation->get_variable(), 'Значение поля не может быть пустым');
+                    $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не может быть пустым');
                 }
             }
         }
@@ -128,21 +158,22 @@ class mValidation
 
     private function Foto()
     {
-        $file = $this->fValidation->get_value();
+        $file = $this->fValidation->value->get();
         $file_dimensions = getimagesize($file['tmp_name']);
         if ($file_dimensions['mime'] == "image/jpeg" || $file_dimensions['mime'] == "image/jpg" || $file_dimensions['mime'] == "image/png" || $file_dimensions['mime'] == "image/gif" || $file_dimensions['mime'] == "image/x-ms-bmp" || $file_dimensions['mime'] == "image/wbmp") {
-        } else {
-            $this->fValidation->add_errors($this->fValidation->get_variable(), 'Загружаемый файл не распознан как фотография');
+        }
+        else {
+            $this->fValidation->errors->add($this->fValidation->name->get(), 'Загружаемый файл не распознан как фотография');
         }
         return $this->fValidation;
     }
 
     private function Numeric()
     {
-        if ($this->Not_Null_Or_Empty($this->fValidation->get_value())) {
-            $this->fValidation->set_value(str_replace(',', '.', trim($this->fValidation->get_value())));
-            if (is_numeric($this->fValidation->get_value()) == false) {
-                $this->fValidation->add_errors($this->fValidation->get_variable(), 'Значение поля не является числовым параметром');
+        if ($this->Not_Null_Or_Empty($this->fValidation->value->get())) {
+            $this->fValidation->set_value(str_replace(',', '.', trim($this->fValidation->value->get())));
+            if (is_numeric($this->fValidation->value->get()) == false) {
+                $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не является числовым параметром');
             }
         }
         return $this->fValidation;
@@ -154,10 +185,10 @@ class mValidation
      */
     private function Integer()
     {
-        if ($this->Not_Null_Or_Empty($this->fValidation->get_value())) {
-            if (count($this->Numeric($this->fValidation)->get_errors()) == 0) {
-                if (is_integer(intval(trim($this->fValidation->get_value()))) == false) {
-                    $this->fValidation->add_errors($this->fValidation->get_variable(), 'Значение поля не является целым числовым параметром');
+        if ($this->Not_Null_Or_Empty($this->fValidation->value->get())) {
+            if (count($this->Numeric($this->fValidation)->errors->get()) == 0) {
+                if (is_integer(intval(trim($this->fValidation->value->get()))) == false) {
+                    $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не является целым числовым параметром');
                 }
             }
         }
@@ -170,10 +201,10 @@ class mValidation
      */
     private function Float()
     {
-        if ($this->Not_Null_Or_Empty($this->fValidation->get_value())) {
-            if (count($this->Numeric($this->fValidation)->get_errors()) == 0) {
-                if (is_float(floatval(str_replace(',', '.', trim($this->fValidation->get_value())))) == false) {
-                    $this->fValidation->add_errors($this->fValidation->get_variable(), 'Значение поля не является дробьным числовым параметром');
+        if ($this->Not_Null_Or_Empty($this->fValidation->value->get())) {
+            if (count($this->Numeric($this->fValidation)->errors->get()) == 0) {
+                if (is_float(floatval(str_replace(',', '.', trim($this->fValidation->value->get())))) == false) {
+                    $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не является дробьным числовым параметром');
                 }
             }
         }
@@ -182,9 +213,9 @@ class mValidation
 
     private function Selected()
     {
-        if ($this->Not_Null_Or_Empty($this->fValidation->get_value())) {
-            if (trim($this->fValidation->get_value()) == 'Новый' || trim($this->fValidation->get_value()) == 'Выберите значение' || trim($this->fValidation->get_value()) == -1 || trim($this->fValidation->get_value()) == '-1') {
-                $this->fValidation->add_errors($this->fValidation->get_variable(), 'Значение поля не выбрано');
+        if ($this->Not_Null_Or_Empty($this->fValidation->value->get())) {
+            if (trim($this->fValidation->value->get()) == 'Новый' || trim($this->fValidation->value->get()) == 'Выберите значение' || trim($this->fValidation->value->get()) == -1 || trim($this->fValidation->value->get()) == '-1') {
+                $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не выбрано');
             }
         }
         return $this->fValidation;
@@ -192,15 +223,16 @@ class mValidation
 
     private function Valid_Date()
     {
-        $stamp = strtotime(mDatabase::Convert_Date_To_Mysql(trim($this->fValidation->get_value())));
+        $stamp = strtotime(mDatabase::Convert_Date_To_Mysql(trim($this->fValidation->value->get())));
         if (!is_numeric($stamp)) {
-            $this->fValidation->add_errors($this->fValidation->get_variable(), 'Значение поля не является датой');
-        } else {
+            $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не является датой');
+        }
+        else {
             $day = date('d', $stamp);
             $month = date('m', $stamp);
             $year = date('Y', $stamp);
             if (!checkdate($month, $day, $year)) {
-                $this->fValidation->add_errors($this->fValidation->get_variable(), 'Значение поля не является датой');
+                $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не является датой');
             }
         }
         return $this->fValidation;
@@ -208,10 +240,10 @@ class mValidation
 
     private function Bool()
     {
-        if ($this->Not_Null_Or_Empty($this->fValidation->get_value())) {
-            $this->fValidation->set_value(str_replace(',', '.', trim($this->fValidation->get_value())));
-            if ($this->fValidation->get_value() == false) {
-                $this->fValidation->add_errors($this->fValidation->get_variable(), 'Значение поля не отмечено');
+        if ($this->Not_Null_Or_Empty($this->fValidation->value->get())) {
+            $this->fValidation->set_value(str_replace(',', '.', trim($this->fValidation->value->get())));
+            if ($this->fValidation->value->get() == false) {
+                $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не отмечено');
             }
         }
         return $this->fValidation;

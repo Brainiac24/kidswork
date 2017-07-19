@@ -7,17 +7,23 @@ class mTopmenu extends mModels
 {
     public $fTopmenu;
     public $cKidswork;
-    private $router_rules = array();
 
     public function __construct($cKidswork)
     {
-        $this->cKidswork = $cKidswork;
-        $this->fTopmenu = new fTopmenu();
+        $this->cKidswork->set($cKidswork);
+        $this->fTopmenu->set(new fTopmenu());
         //$cKidswork->Import($this->fTopmenu);
 
-        $this->cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"] ?? null;
-        if ($this->cRouter!=null) {
-            $this->cRouter->Add_Request($this->fTopmenu->get_router_rules());
+        $this->cRouter->set($this->cKidswork->get()->fKidswork->get()->ctrl->ext("cRouter"));
+        if ($this->cRouter != null) {
+            foreach ($this->fTopmenu->get() as $key => $value) {
+                if (isset($value["validation"])) {
+                    $this->cRouter->get()->Add_Request($this->fTopmenu->get_router_rules());
+                }
+                
+            }
+
+            
         }
     }
 

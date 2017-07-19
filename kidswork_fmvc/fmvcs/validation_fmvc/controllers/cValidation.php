@@ -11,10 +11,6 @@ class cValidation extends mValidation
         parent::__construct($cKidswork);
     }
 
-    function Init()
-    {
-        return $this;
-    }
 
     function Init_Full()
     {
@@ -29,8 +25,8 @@ class cValidation extends mValidation
         return $this->fValidation->get_final_struct();
     }
 
-    public function Request($var_name, $conditions, $mode = 'request')
+    public function Request($fVariable, $sel_ins_upd_del)
     {
-        return $this->Validate($var_name, $conditions, $mode);
+        return $this->Validate($fVariable, $sel_ins_upd_del);
     }
 }

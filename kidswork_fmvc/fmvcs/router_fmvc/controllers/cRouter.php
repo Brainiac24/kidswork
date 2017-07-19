@@ -9,20 +9,21 @@ class cRouter extends mRouter
     public function __construct($cKidswork)
     {   
         parent::__construct($cKidswork);
+
+        
     }
 
     function Init($controllers=null)
     {
         parent::Init($controllers);
-        $this->Add_Request($this->get_rules());
+        $this->Add_Request($this->rules->get());
         return $this;
     }
 
     public function Add_Request($rules)
     {
-        $cValidation = $this->cKidswork->fKidswork->get_controllers_array()["cValidation"];
+        $cValidation = $this->cKidswork->get()->fKidswork->get()->ctrls->ext("cValidation");
         foreach ($rules as $key => $value) {
-            //\var_dump($key);
            $this->add_requests($key, $cValidation->Request($key, $value));
         }
     }
@@ -39,4 +40,7 @@ class cRouter extends mRouter
     {
         return $this->fRouter->get_final_struct();
     }
+
+
+    
 }

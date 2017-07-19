@@ -7,29 +7,29 @@ class mModels
     protected $cRouter;
     protected $ctrls;
 
-    protected function get_cKidswork()
-    {
-        return $this->cKidswork;
-    }
-    protected function set_cKidswork($cKidswork)
-    {
-        $this->cKidswork = $cKidswork;
-    }
-
     protected function __construct($cKidswork)
     {
-        $this->set_cKidswork($cKidswork);
+        foreach ($this as $key => $value) {
+            $this->$key = (new \Kidswork\fVariable($value));
+        }
+        $this->cKidswork->set($cKidswork);
+
     }
 
     function Init($controllers)
     {
-        $controllers_arr = $controllers->get_controllers_array();
-        foreach ($controllers_arr as $controller) {
+        $this->ctrls->set($controllers->ctrls->get());
+        foreach ($this->ctrls->get() as $controller) {
+            foreach ($controller as $key => $value) {
+                if (isset($key->fValidation)) {
+                    echo "12";
+                }
+                
+            }
             $controller->Init();
         }
-        $this->ctrls = $this->cKidswork->fKidswork->get_controllers_array();
-        $this->cRouter = $this->ctrls["cRouter"];
-        
-        return $this->cRouter->get_request("ajax") == null ? $this->Init_Full() : $this->Init_Ajax();
+        $this->cRouter = $this->ctrls->ext("cRouter");
+        \var_dump($controllers->ctrls->get());
+        return $this->cRouter->request->ext("ajax") === null ? $this->Init_Full() : $this->Init_Ajax();
     }
 }

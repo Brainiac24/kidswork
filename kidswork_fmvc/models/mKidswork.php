@@ -7,29 +7,24 @@ class mKidswork
 
     public $fKidswork;
 
-    public function get_request_rules()
+    function __construct($fKidswork = null)
     {
-        return $this->fKidswork->get_request_rules();
-    }
-    public function set_request_rules($request_rules)
-    {
-        $this->fKidswork->get_request_rules($request_rules);
-    }
-
-    protected function __construct($fKidswork = null)
-    {
-        if ($fKidswork == null) {
-            $this->fKidswork = new fKidswork();
-        } else {
-            $this->fKidswork = $fKidswork;
+        foreach ($this as $key => $value) {
+            $this->$key = (new \Kidswork\fVariable($value));
         }
-        $this->Import($this->fKidswork);
+
+        if ($fKidswork == null) {
+            $this->fKidswork->set(new fKidswork());
+        } else {
+            $this->fKidswork->set($fKidswork);
+        }
+        $this->Import($this->fKidswork->get());
     }
     //----------------------------------------------
 
     function Init($fClass)
     {
-        $controllers_arr = $this->fKidswork->get_controllers_array();
+        $controllers_arr = $this->fKidswork->controllers_array->get();
         foreach ($controllers_arr as $controller) {
             $controller->Init();
         }
@@ -37,10 +32,10 @@ class mKidswork
 
     protected function Import($fKidswork, $load = true, $copy = "")
     {
-        if ($fKidswork->get_fmvc_array() != null) {
-            foreach ($fKidswork->get_fmvc_array() as $fmvc_item => $namespase) {
+        if ($fKidswork->fmvc_array->get() != null) {
+            foreach ($fKidswork->fmvc_array->get() as $fmvc_item => $namespase) {
                 spl_autoload_register(function ($className) use ($fKidswork) {
-                    return $this->autoload($className, dirname($fKidswork->get_path()));
+                    return $this->autoload($className, dirname($fKidswork->path->get()));
                 });
                 if ($load) {
                     $this->Construct_Controller($fmvc_item, $namespase, $copy);
@@ -59,21 +54,21 @@ class mKidswork
             $class = substr($className, $pos);
         }
         $char = substr($class, 0, 1);
-        $mvc = strtolower(substr("$class", 1, strlen($class)-1));
+        $fmvc = strtolower(substr("$class", 1, strlen($class)-1));
         //var_dump($className);
         switch ($char) {
             case "f":
-                $path = $base_path . "/fmvcs/" . $mvc . "_fmvc/configs/" . $class . '.php';
+                $path = $base_path . "/fmvcs/" . $fmvc . "_fmvc/configs/" . $class . '.php';
                 break;
             case "c":
-                $path = $base_path . "/fmvcs/" . $mvc . "_fmvc/controllers/" . $class . '.php';
+                $path = $base_path . "/fmvcs/" . $fmvc . "_fmvc/controllers/" . $class . '.php';
                 //echo $path."-----";
                 break;
             case "m":
-                $path = $base_path . "/fmvcs/" . $mvc . "_fmvc/models/" . $class . '.php';
+                $path = $base_path . "/fmvcs/" . $fmvc . "_fmvc/models/" . $class . '.php';
                 break;
             case "v":
-                $path = $base_path . "/fmvcs/" . $mvc . "_fmvc/views/" . $class . '.php';
+                $path = $base_path . "/fmvcs/" . $fmvc . "_fmvc/views/" . $class . '.php';
                 break;
             default:
                 break;
@@ -85,21 +80,21 @@ class mKidswork
         }
     }
 
-    protected function Add_Module($dir, $name_mvc)
+    protected function Add_Module($dir, $name_fmvc)
     {
-        $path = str_replace("\\", "/", dirname($dir)) . "/fmvcs/" . $name_mvc . "/configs/fAutoload.php";
+        $path = str_replace("\\", "/", dirname($dir)) . "/fmvcs/" . $name_fmvc . "/configs/fAutoload.php";
         if (file_exists($path)) {
             require_once $path;
         }
     }
     
-    protected function Add_Module_2($dir, $name_mvc)
+    protected function Add_Module_2($dir, $name_fmvc)
     {
-        $class = ucfirst(strtolower(substr($name_mvc, 0, strlen($name_mvc) - 5)));
-        $path[] = str_replace("\\", "/", $dir) . "/" . $name_mvc . "/configs/f" . $class . ".php";
-        $path[] = str_replace("\\", "/", $dir) . "/" . $name_mvc . "/models/m" . $class . ".php";
-        $path[] = str_replace("\\", "/", $dir) . "/" . $name_mvc . "/controllers/c" . $class . ".php";
-        $path[] = str_replace("\\", "/", $dir) . "/" . $name_mvc . "/views/v" . $class . ".php";
+        $class = ucfirst(strtolower(substr($name_fmvc, 0, strlen($name_fmvc) - 5)));
+        $path[] = str_replace("\\", "/", $dir) . "/" . $name_fmvc . "/configs/f" . $class . ".php";
+        $path[] = str_replace("\\", "/", $dir) . "/" . $name_fmvc . "/models/m" . $class . ".php";
+        $path[] = str_replace("\\", "/", $dir) . "/" . $name_fmvc . "/controllers/c" . $class . ".php";
+        $path[] = str_replace("\\", "/", $dir) . "/" . $name_fmvc . "/views/v" . $class . ".php";
         
         for ($i = 0; $i < count($path); $i++) {
             if (file_exists($path[$i])) {
@@ -108,11 +103,11 @@ class mKidswork
         }
     }
 
-    protected function Construct_Controller($name_mvc, $namespace, $number = "")
+    protected function Construct_Controller($name_fmvc, $namespace, $number = "")
     {
-        $class = ucfirst(strtolower(substr($name_mvc, 0, strlen($name_mvc) - 5)));
+        $class = ucfirst(strtolower(substr($name_fmvc, 0, strlen($name_fmvc) - 5)));
         $class_res = "\\".$namespace."\\c" . $class;
         $class_name = "c" .$class.$number;
-        $this->fKidswork->add_controllers_array($class_name, new $class_res($this));
+        $this->fKidswork->get()->ctrls->add($class_name, new $class_res($this));
     }
 }

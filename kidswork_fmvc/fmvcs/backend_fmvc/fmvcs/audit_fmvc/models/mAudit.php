@@ -6,24 +6,21 @@ use \Kidswork\mModels;
 class mAudit extends mModels
 {
     public $fAudit;
-    public $cKidswork;
-    public $cRouter;
 
     public function __construct($cKidswork)
     {
-        $this->cKidswork = $cKidswork;
-        $this->cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
-        $this->fAudit = new fAudit();
-        //$cKidswork->Import($this->fAudit);
-
-        if ($this->cRouter!=null) {
-            $this->cRouter->Add_Request($this->fAudit->get_router_rules());
-        }
+        parent::__construct($cKidswork);
+        $this->fAudit->set(new fAudit());
+        //$cKidswork->Import($this->fNews);
+        
+        
+        
     }
 
     function Init($fClass = null)
     {
         parent::Init($this->fAudit);
+        $this->cRouter->get()->Add_Request($this->fAudit->get()->router_rules->get());
     }
 
 
