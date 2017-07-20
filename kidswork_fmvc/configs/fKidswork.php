@@ -7,7 +7,6 @@ use \Kidswork\Configs;
 class fKidswork extends fConfigs
 {
     public $configs;
-    public $ctrls;
 
     function __construct()
     {

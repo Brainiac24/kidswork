@@ -6,13 +6,11 @@ use \Kidswork\mModels;
 class mLeftmenu extends mModels
 {
     public $fLeftmenu;
-    public $cKidswork;
-    public $cRouter;
 
     public function __construct($cKidswork)
     {
-        $this->cKidswork = $cKidswork;
-        $this->fLeftmenu = new fLeftmenu();
+        parent::__construct($cKidswork);
+        $this->fLeftmenu->set(new fLeftmenu());
         //$cKidswork->Import($this->fLeftmenu);
     }
 

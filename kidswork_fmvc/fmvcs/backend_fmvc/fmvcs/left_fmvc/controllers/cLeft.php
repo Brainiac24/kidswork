@@ -4,23 +4,14 @@ namespace Kidswork\Backend;
 
 class cLeft extends mLeft
 {
-    public function __construct($cKidswork)
-    {   
-        parent::__construct($cKidswork);
-    }
-
-    function Init($fClass=null)
-    {
-        parent::Init($fClass);
-    }
+    
 
     function Init_Full()
     {
-        
-        $cHtml = $this->cKidswork->fKidswork->get_controllers_array()["cHtml"];
-        $cBackend = $this->cKidswork->fKidswork->get_controllers_array()["cBackend"];
+        $cHtml = $this->cKidswork->ctrls->ext("cHtml");
+        $cBackend = $this->cKidswork->ctrls->ext("cBackend");
 
-        $cBackend->fBackend->add_struct($this->Print());
+        $cBackend->fBackend->get()->struct->con($this->Print());
     }
 
     function Init_Ajax()
@@ -29,6 +20,6 @@ class cLeft extends mLeft
 
     public function Print()
     {
-        return $this->fLeft->get_final_struct();
+        return $this->fLeft->get()->get_final_struct();
     }
 }

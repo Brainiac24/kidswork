@@ -11,10 +11,10 @@ class mDatabase extends mModels
     public function __construct($cKidswork)
     {
         parent::__construct($cKidswork);
-        $this->cKidswork->set($cKidswork);
-        $pdo_dsn = $this->cKidswork->get()->fKidswork->get()->configs->get()->pdo_dsn->get();
-        $pdo_username  = $this->cKidswork->get()->fKidswork->get()->configs->get()->pdo_username->get();
-        $pdo_password  = $this->cKidswork->get()->fKidswork->get()->configs->get()->pdo_password->get();
+        $this->cKidswork = $cKidswork;
+        $pdo_dsn = $this->cKidswork->fKidswork->get()->configs->get()->pdo_dsn->get();
+        $pdo_username  = $this->cKidswork->fKidswork->get()->configs->get()->pdo_username->get();
+        $pdo_password  = $this->cKidswork->fKidswork->get()->configs->get()->pdo_password->get();
         $this->fDatabase->set(new fDatabase($pdo_dsn, $pdo_username, $pdo_password));
     }
 

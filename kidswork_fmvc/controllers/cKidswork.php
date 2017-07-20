@@ -8,9 +8,9 @@ class cKidswork extends mKidswork
     {
         parent::Init($fClass);
 
-        $cRouter = $this->fKidswork->get_controllers_array()["cRouter"];
+        $cRouter = $this->ctrls->ext("cRouter");
         
-        return $cRouter->get_request("ajax") == null ? $this->Init_Full() : $this->Init_Ajax();
+        return $cRouter->fRouter->get()->ajax->get() == null ? $this->Init_Full() : $this->Init_Ajax();
 
     }
 
@@ -33,6 +33,6 @@ class cKidswork extends mKidswork
 
     public function Print()
     {
-        return $this->fKidswork->get_final_struct();
+        return $this->fKidswork->get()->get_final_struct();
     }
 }

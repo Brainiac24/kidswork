@@ -6,7 +6,7 @@ class cValidation extends mValidation
 {
     
 
-    public function __construct($cKidswork)
+    public function __construct($cKidswork=null)
     {   
         parent::__construct($cKidswork);
     }

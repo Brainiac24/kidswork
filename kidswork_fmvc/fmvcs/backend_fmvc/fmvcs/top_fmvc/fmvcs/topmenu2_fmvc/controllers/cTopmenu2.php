@@ -16,8 +16,8 @@ class cTopmenu2 extends mTopmenu2
 
     function Init_Full()
     {
-        $cHtml = $this->cKidswork->fKidswork->get_controllers_array()["cHtml"];
-        $cTop = $this->cKidswork->fKidswork->get_controllers_array()["cTop"];
+        $cHtml = $this->cKidswork->ctrls->ext("cHtml");
+        $cTop = $this->cKidswork->ctrls->ext("cTop");
 
         $start = '';
         $end = '';
@@ -26,7 +26,8 @@ class cTopmenu2 extends mTopmenu2
 
         $struct_array=null;
         //var_dump($this->fTopmenu2->get_struct_array());
-        foreach ($this->fTopmenu2->get_struct_array() as $array) {
+        if (\is_array($this->fTopmenu2->get()->struct_array->get())) {
+            foreach ($this->fTopmenu2->get()->struct_array->get() as $array) {
             $res = '';
             if (!isset($array[3])) {
                 $res .= $cHtml->Start_Top_Menu_2_Item($array[0], $array[1]);
@@ -41,17 +42,19 @@ class cTopmenu2 extends mTopmenu2
             $struct_array[]=$res;
         }
         if ($struct_array!=null) {
-            $this->fTopmenu2->set_struct_array($struct_array);
+            $this->fTopmenu2->get()->struct_array->set($struct_array);
         }
+        }
+        
         
         
         $end .= $cHtml->End_Top_Menu();
         $end .= $cHtml->End_Top_Center();
         
-        $this->fTopmenu2->set_struct_start($start);
-        $this->fTopmenu2->set_struct_end($end);
+        $this->fTopmenu2->get()->struct_start->set($start);
+        $this->fTopmenu2->get()->struct_end->set($end);
         //var_dump($start);
-        $cTop->fTop->add_struct($this->Print());
+        $cTop->fTop->get()->struct->con($this->Print());
     }
 
     function Init_Ajax()
@@ -60,6 +63,6 @@ class cTopmenu2 extends mTopmenu2
 
     public function Print()
     {
-        return $this->fTopmenu2->get_final_struct();
+        return $this->fTopmenu2->get()->get_final_struct();
     }
 }

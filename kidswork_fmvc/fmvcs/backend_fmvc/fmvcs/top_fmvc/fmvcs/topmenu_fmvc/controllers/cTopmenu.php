@@ -3,20 +3,11 @@ namespace Kidswork\Backend;
 
 class cTopmenu extends mTopmenu
 {
-    public function __construct($cKidswork)
-    {
-        parent::__construct($cKidswork);
-    }
-
-    function Init($fClass = null)
-    {
-        parent::Init($fClass);
-    }
 
     function Init_Full()
     {
-        $cHtml = $this->cKidswork->fKidswork->get_controllers_array()["cHtml"];
-        $cTop = $this->cKidswork->fKidswork->get_controllers_array()["cTop"];
+        $cHtml = $this->cKidswork->ctrls->ext("cHtml");
+        $cTop = $this->cKidswork->ctrls->ext("cTop");
 
         $start = '';
         $end = '';
@@ -25,9 +16,10 @@ class cTopmenu extends mTopmenu
         //$this->fTopmenu->add_struct_array(array("Вопросы","#2","1"));
 
         $struct_array=null;
-        //var_dump($this->fTopmenu->get_struct_array());
+        //var_dump($this->fTopmenu->get()->struct_array->get());
         $active = "";
-        foreach ($this->fTopmenu->get_struct_array() as $array) {
+
+        foreach ($this->fTopmenu->get()->struct_array->get() as $array) {
             $res = '';
             $is_active = isset($array[3]) ?? null;
             if ($is_active!=null) {
@@ -42,25 +34,25 @@ class cTopmenu extends mTopmenu
             $struct_array[]=$res;
         }
         if ($struct_array!=null) {
-            $this->fTopmenu->set_struct_array($struct_array);
+            $this->fTopmenu->get()->struct_array->set($struct_array);
         }
         
         
         $end .= $cHtml->End_Top_Menu();
         $end .= $cHtml->End_Top_Center();
         
-        $this->fTopmenu->set_struct_start($start);
-        $this->fTopmenu->set_struct_end($end);
+        $this->fTopmenu->get()->struct_start->set($start);
+        $this->fTopmenu->get()->struct_end->set($end);
         //var_dump($start);
-        $cTop->fTop->add_struct($this->Print());
+        $cTop->fTop->get()->struct->set($this->Print());
     }
 
     function Init_Ajax()
-    {
+    {   
     }
 
     public function Print()
     {
-        return $this->fTopmenu->get_final_struct();
+        return $this->fTopmenu->get()->get_final_struct();
     }
 }

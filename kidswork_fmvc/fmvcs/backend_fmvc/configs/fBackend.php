@@ -10,7 +10,7 @@ class fBackend extends fConfigs
     {   
         parent::__construct();
         $this->fmvc_array->add("html_fmvc", "Kidswork\Backend");
-        //$this->fmvc_array->add("news_fmvc", "Kidswork\Backend");
+        $this->fmvc_array->add("news_fmvc", "Kidswork\Backend");
         //$this->fmvc_array->add("requests_fmvc", "Kidswork\Backend");
         $this->fmvc_array->add("audit_fmvc", "Kidswork\Backend");
         //$this->fmvc_array->add("limits_fmvc", "Kidswork\Backend");

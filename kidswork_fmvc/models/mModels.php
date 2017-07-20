@@ -4,7 +4,6 @@ namespace Kidswork;
 class mModels
 {
     protected $cKidswork;
-    protected $cRouter;
     protected $ctrls;
 
     protected function __construct($cKidswork)
@@ -12,24 +11,25 @@ class mModels
         foreach ($this as $key => $value) {
             $this->$key = (new \Kidswork\fVariable($value));
         }
-        $this->cKidswork->set($cKidswork);
-
+        $this->cKidswork = $cKidswork;
     }
 
-    function Init($controllers)
+    function Init($fConfig)
     {
-        $this->ctrls->set($controllers->ctrls->get());
-        foreach ($this->ctrls->get() as $controller) {
-            foreach ($controller as $key => $value) {
-                if (isset($key->fValidation)) {
-                    echo "12";
+        $this->ctrls->set($this->cKidswork->ctrls->get());
+        $cRouter = $this->ctrls->ext("cRouter");
+        return $cRouter->fRouter->get()->ajax->get() === null ? $this->Init_Full() : $this->Init_Ajax();
+    }
+
+    public function Request_Variables($fConfig, $sel_ins_upd_del)
+    {
+        $cValidation = $this->cKidswork->ctrls->ext("cValidation");
+       
+            foreach ($fConfig->get() as $key => $value) {
+                if (isset($value->fValidation)) {
+                    $value = $cValidation->Request($value, $sel_ins_upd_del);
                 }
-                
             }
-            $controller->Init();
-        }
-        $this->cRouter = $this->ctrls->ext("cRouter");
-        \var_dump($controllers->ctrls->get());
-        return $this->cRouter->request->ext("ajax") === null ? $this->Init_Full() : $this->Init_Ajax();
+        return $fConfig;
     }
 }

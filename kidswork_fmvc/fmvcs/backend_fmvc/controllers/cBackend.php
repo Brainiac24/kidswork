@@ -5,7 +5,7 @@ class cBackend extends mBackend
 {
     function Init_Full()
     {
-        $cHtml = $this->ctrls["cHtml"];
+        $cHtml = $this->cKidswork->ctrls->ext("cHtml");
         $start = '';
         $end = '';
         
@@ -17,10 +17,10 @@ class cBackend extends mBackend
         $end .= $cHtml->End_Html();
         $end .= $cHtml->End_Head();
         $end .= $cHtml->End_Body();
-        $this->fBackend->set_struct_start($start);
-        $this->fBackend->set_struct_end($end);
+        $this->fBackend->get()->struct_start->set($start);
+        $this->fBackend->get()->struct_end->set($end);
         //var_dump($start);
-        $this->cKidswork->fKidswork->add_struct($this->Print());
+        $this->cKidswork->fKidswork->get()->struct->con($this->Print());
     }
 
     function Init_Ajax()
@@ -29,6 +29,6 @@ class cBackend extends mBackend
 
     public function Print()
     {
-        return $this->fBackend->get_final_struct();
+        return $this->fBackend->get()->get_final_struct();
     }
 }

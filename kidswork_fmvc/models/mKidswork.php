@@ -6,6 +6,8 @@ class mKidswork
 {
 
     public $fKidswork;
+    
+    public $ctrls;
 
     function __construct($fKidswork = null)
     {
@@ -18,24 +20,26 @@ class mKidswork
         } else {
             $this->fKidswork->set($fKidswork);
         }
-        $this->Import($this->fKidswork->get());
+        $this->Import($this->fKidswork);
+
+
     }
     //----------------------------------------------
 
-    function Init($fClass)
+    function Init($fClass=null)
     {
-        $controllers_arr = $this->fKidswork->controllers_array->get();
+        $controllers_arr = $this->ctrls->get();
         foreach ($controllers_arr as $controller) {
-            $controller->Init();
+            $controller->Init($fClass);
         }
     }
 
     protected function Import($fKidswork, $load = true, $copy = "")
     {
-        if ($fKidswork->fmvc_array->get() != null) {
-            foreach ($fKidswork->fmvc_array->get() as $fmvc_item => $namespase) {
+        if ($fKidswork->get()->fmvc_array->get() != null) {
+            foreach ($fKidswork->get()->fmvc_array->get() as $fmvc_item => $namespase) {
                 spl_autoload_register(function ($className) use ($fKidswork) {
-                    return $this->autoload($className, dirname($fKidswork->path->get()));
+                    return $this->autoload($className, dirname($fKidswork->get()->path->get()));
                 });
                 if ($load) {
                     $this->Construct_Controller($fmvc_item, $namespase, $copy);
@@ -108,6 +112,8 @@ class mKidswork
         $class = ucfirst(strtolower(substr($name_fmvc, 0, strlen($name_fmvc) - 5)));
         $class_res = "\\".$namespace."\\c" . $class;
         $class_name = "c" .$class.$number;
-        $this->fKidswork->get()->ctrls->add($class_name, new $class_res($this));
+        $this->ctrls->add($class_name, new $class_res($this));
     }
+
+    
 }

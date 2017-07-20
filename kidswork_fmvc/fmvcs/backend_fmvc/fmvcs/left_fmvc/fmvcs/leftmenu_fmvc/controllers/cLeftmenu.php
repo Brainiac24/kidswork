@@ -3,20 +3,11 @@ namespace Kidswork\Backend;
 
 class cLeftmenu extends mLeftmenu
 {
-    public function __construct($cKidswork)
-    {
-        parent::__construct($cKidswork);
-    }
-
-    function Init($fClass = null)
-    {
-        return parent::Init($fClass);
-    }
 
     function Init_Full()
     {
-        $cHtml = $this->cKidswork->fKidswork->get_controllers_array()["cHtml"];
-        $cLeft = $this->cKidswork->fKidswork->get_controllers_array()["cLeft"];
+        $cHtml = $this->cKidswork->ctrls->ext("cHtml");
+        $cLeft = $this->cKidswork->ctrls->ext("cLeft");
         $start = '';
         $end = '';
         $start .= $cHtml->Start_Left();
@@ -29,7 +20,7 @@ class cLeftmenu extends mLeftmenu
         */
         $struct_array=null;
         //var_dump($this->fLeftmenu->get_struct_array());
-        foreach ($this->fLeftmenu->get_struct_array() as $array) {
+        foreach ($this->fLeftmenu->get()->struct_array->get() as $array) {
             $res = '';
             if (!isset($array[3])) {
                 $res .= $cHtml->Start_Left_Menu_Item($array[0], $array[1]);
@@ -46,16 +37,16 @@ class cLeftmenu extends mLeftmenu
             $struct_array[]=$res;
         }
         if ($struct_array!=null) {
-            $this->fLeftmenu->set_struct_array($struct_array);
+            $this->fLeftmenu->get()->struct_array->set($struct_array);
         }
         
         $end .= $cHtml->End_Left_Menu();
         $end .= $cHtml->End_Left();
         
-        $this->fLeftmenu->set_struct_start($start);
-        $this->fLeftmenu->set_struct_end($end);
+        $this->fLeftmenu->get()->struct_start->set($start);
+        $this->fLeftmenu->get()->struct_end->set($end);
         //var_dump($start);
-        $cLeft->fLeft->add_struct($this->Print());
+        $cLeft->fLeft->get()->struct->con($this->Print());
     }
 
     function Init_Ajax()
@@ -64,6 +55,6 @@ class cLeftmenu extends mLeftmenu
 
     public function Print()
     {
-        return $this->fLeftmenu->get_final_struct();
+        return $this->fLeftmenu->get()->get_final_struct();
     }
 }

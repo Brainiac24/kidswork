@@ -20,7 +20,6 @@ class mAudit extends mModels
     function Init($fClass = null)
     {
         parent::Init($this->fAudit);
-        $this->cRouter->get()->Add_Request($this->fAudit->get()->router_rules->get());
     }
 
 

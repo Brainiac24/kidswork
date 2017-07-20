@@ -6,13 +6,12 @@ use \Kidswork\mModels;
 class mLeft extends mModels
 {
     public $fLeft;
-    public $cKidswork;
 
     public function __construct($cKidswork)
     {
-        $this->cKidswork = $cKidswork;
-        $this->fLeft = new fLeft();
-        $cKidswork->Import($this->fLeft);
+        parent::__construct($cKidswork);
+        $this->fLeft->set(new fLeft());
+        $this->cKidswork->Import($this->fLeft);
     }
 
     function Init($fClass = null)

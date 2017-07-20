@@ -25,6 +25,12 @@ class fConfigs
 
     function get_final_struct()
     {
-        return $this->struct_start . $this->struct . implode("", $this->struct_array) . $this->struct_end;
+        $res="";
+        $res .= $this->struct_start->get();
+        $res .= $this->struct->get();
+        $res .= $this->struct_array->get() !== null ? implode("", $this->struct_array->get()) : "";
+        $res .= $this->struct_end->get();
+        
+        return $res;
     }
 }

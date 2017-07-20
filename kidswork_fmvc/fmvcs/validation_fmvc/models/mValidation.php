@@ -8,7 +8,7 @@ class mValidation extends mModels
     public function __construct($cKidswork)
     {
         parent::__construct($cKidswork);
-        $this->fValidation = new fValidation();
+        $this->fValidation->set(new fValidation());
         //$cKidswork->Import($this->fValidation);
 
 
@@ -18,7 +18,7 @@ class mValidation extends mModels
     {
         $this->fValidation->set(new fValidation());
         foreach ($validation as $key => $value) {
-            $this->fValidation->get()->name->set($key);
+            $this->fValidation->get()->var_name->set($key);
             foreach ($value as $key2 => $value2) {
                 $this->fValidation->get()->rules->add($key2, $value2);
             }
@@ -28,8 +28,8 @@ class mValidation extends mModels
 
     protected function Validate($fVariable, $sel_ins_upd_del)
     {
-        $this->fValidation = $fVariable->get()->fValidation;
-        $this->fValidation->get()->name->set(trim($var_name));
+        $this->fValidation = $fVariable->fValidation;
+        $this->fValidation->get()->var_name->set(trim($this->fValidation->get()->var_name->get()));
         $this->Receive_Variables_From_Client();
         $err = array();
 
@@ -37,7 +37,7 @@ class mValidation extends mModels
             $arr = explode("|", $this->fValidation->get()->rules->ext(0));
         }
         else {
-            $arr = explode("|", $this->fValidation->get()->rules->ext(0)) + explode("|", $this->fValidation->get()->rules->ext($sel_ins_upd_del));
+            $arr = explode("|", $this->fValidation->get()->rules->ext($sel_ins_upd_del)) + explode("|", $this->fValidation->get()->rules->ext(0));
         }
 
         foreach ($arr as $key => $val) {
@@ -73,13 +73,16 @@ class mValidation extends mModels
             }
         }
 
-        return $this->fValidation;
+        $fVariable->fValidation = $this->fValidation;
+        $fVariable->set($this->fValidation->get()->value->get());
+        
+        return $fVariable;
     }
 
     protected function Receive_Variables_From_Client()
     {
         $res = '';
-        $name = $this->fValidation->get()->name->get();
+        $name = $this->fValidation->get()->var_name->get();
         $mode = $this->fValidation->get()->mode->get();
         switch ($mode) {
             case 'request' :
@@ -145,11 +148,11 @@ class mValidation extends mModels
         $value = $this->fValidation->value->get();
         if (!$this->Not_Null_Or_Empty($value)) {
             if (!is_array($value)) {
-                $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не может быть пустым');
+                $this->fValidation->errors->add($this->fValidation->var_name->get(), 'Значение поля не может быть пустым');
             }
             else {
                 if (empty($value)) {
-                    $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не может быть пустым');
+                    $this->fValidation->errors->add($this->fValidation->var_name->get(), 'Значение поля не может быть пустым');
                 }
             }
         }
@@ -163,7 +166,7 @@ class mValidation extends mModels
         if ($file_dimensions['mime'] == "image/jpeg" || $file_dimensions['mime'] == "image/jpg" || $file_dimensions['mime'] == "image/png" || $file_dimensions['mime'] == "image/gif" || $file_dimensions['mime'] == "image/x-ms-bmp" || $file_dimensions['mime'] == "image/wbmp") {
         }
         else {
-            $this->fValidation->errors->add($this->fValidation->name->get(), 'Загружаемый файл не распознан как фотография');
+            $this->fValidation->errors->add($this->fValidation->var_name->get(), 'Загружаемый файл не распознан как фотография');
         }
         return $this->fValidation;
     }
@@ -173,7 +176,7 @@ class mValidation extends mModels
         if ($this->Not_Null_Or_Empty($this->fValidation->value->get())) {
             $this->fValidation->set_value(str_replace(',', '.', trim($this->fValidation->value->get())));
             if (is_numeric($this->fValidation->value->get()) == false) {
-                $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не является числовым параметром');
+                $this->fValidation->errors->add($this->fValidation->var_name->get(), 'Значение поля не является числовым параметром');
             }
         }
         return $this->fValidation;
@@ -188,7 +191,7 @@ class mValidation extends mModels
         if ($this->Not_Null_Or_Empty($this->fValidation->value->get())) {
             if (count($this->Numeric($this->fValidation)->errors->get()) == 0) {
                 if (is_integer(intval(trim($this->fValidation->value->get()))) == false) {
-                    $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не является целым числовым параметром');
+                    $this->fValidation->errors->add($this->fValidation->var_name->get(), 'Значение поля не является целым числовым параметром');
                 }
             }
         }
@@ -204,7 +207,7 @@ class mValidation extends mModels
         if ($this->Not_Null_Or_Empty($this->fValidation->value->get())) {
             if (count($this->Numeric($this->fValidation)->errors->get()) == 0) {
                 if (is_float(floatval(str_replace(',', '.', trim($this->fValidation->value->get())))) == false) {
-                    $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не является дробьным числовым параметром');
+                    $this->fValidation->errors->add($this->fValidation->var_name->get(), 'Значение поля не является дробьным числовым параметром');
                 }
             }
         }
@@ -215,7 +218,7 @@ class mValidation extends mModels
     {
         if ($this->Not_Null_Or_Empty($this->fValidation->value->get())) {
             if (trim($this->fValidation->value->get()) == 'Новый' || trim($this->fValidation->value->get()) == 'Выберите значение' || trim($this->fValidation->value->get()) == -1 || trim($this->fValidation->value->get()) == '-1') {
-                $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не выбрано');
+                $this->fValidation->errors->add($this->fValidation->var_name->get(), 'Значение поля не выбрано');
             }
         }
         return $this->fValidation;
@@ -225,14 +228,14 @@ class mValidation extends mModels
     {
         $stamp = strtotime(mDatabase::Convert_Date_To_Mysql(trim($this->fValidation->value->get())));
         if (!is_numeric($stamp)) {
-            $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не является датой');
+            $this->fValidation->errors->add($this->fValidation->var_name->get(), 'Значение поля не является датой');
         }
         else {
             $day = date('d', $stamp);
             $month = date('m', $stamp);
             $year = date('Y', $stamp);
             if (!checkdate($month, $day, $year)) {
-                $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не является датой');
+                $this->fValidation->errors->add($this->fValidation->var_name->get(), 'Значение поля не является датой');
             }
         }
         return $this->fValidation;
@@ -243,7 +246,7 @@ class mValidation extends mModels
         if ($this->Not_Null_Or_Empty($this->fValidation->value->get())) {
             $this->fValidation->set_value(str_replace(',', '.', trim($this->fValidation->value->get())));
             if ($this->fValidation->value->get() == false) {
-                $this->fValidation->errors->add($this->fValidation->name->get(), 'Значение поля не отмечено');
+                $this->fValidation->errors->add($this->fValidation->var_name->get(), 'Значение поля не отмечено');
             }
         }
         return $this->fValidation;

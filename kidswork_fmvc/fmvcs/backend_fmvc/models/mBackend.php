@@ -6,13 +6,12 @@ use \Kidswork\mModels;
 class mBackend extends mModels
 {
     public $fBackend;
-    public $cKidswork;
 
     public function __construct($cKidswork)
     {
-        $this->cKidswork = $cKidswork;
-        $this->fBackend = new fBackend();
-        $cKidswork->Import($this->fBackend);
+        parent::__construct($cKidswork);
+        $this->fBackend->set(new fBackend());
+        $this->cKidswork->Import($this->fBackend);
     }
 
     function Init($fClass=null)

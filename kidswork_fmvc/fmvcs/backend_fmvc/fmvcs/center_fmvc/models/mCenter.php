@@ -6,14 +6,11 @@ use \Kidswork\mModels;
 class mCenter extends mModels
 {
     public $fCenter;
-    public $cKidswork;
-    public $cRouter;
 
     public function __construct($cKidswork)
     {
-        $this->cKidswork = $cKidswork;
-        $this->cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
-        $this->fCenter = new fCenter();
+        parent::__construct($cKidswork);
+        $this->fCenter->set(new fCenter());
         //$cKidswork->Import($this->fCenter);
     }
 

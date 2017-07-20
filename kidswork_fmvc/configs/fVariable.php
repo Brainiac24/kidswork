@@ -8,6 +8,10 @@ class fVariable
 
     public function __construct($default = null)
     {
+
+        /*echo "<pre>";
+        \var_dump($default);
+        echo "</pre>";*/
         if (!is_array($default)) {
             $this->value = $default;
         }
@@ -15,6 +19,8 @@ class fVariable
             isset($default["value"]) ? $this->value = $default["value"] : NULL;
             isset($default["validation"]) ? $this->fValidation = (new \Kidswork\cValidation())->Var_Init($default["validation"]) : NULL;
         }
+
+        
 
     }
 

@@ -17,8 +17,8 @@ class cTop extends mTop
 
     function Init_Full()
     {
-        $cHtml = $this->cKidswork->fKidswork->get_controllers_array()["cHtml"];
-        $cBackend = $this->cKidswork->fKidswork->get_controllers_array()["cBackend"];
+        $cHtml = $this->cKidswork->ctrls->ext("cHtml");
+        $cBackend = $this->cKidswork->ctrls->ext("cBackend");
         $start = '';
         $end = '';
         $start .= $cHtml->Start_Top();  
@@ -26,10 +26,10 @@ class cTop extends mTop
         
         $end .= $cHtml->End_Top();
         
-        $this->fTop->set_struct_start($start);
-        $this->fTop->set_struct_end($end);
+        $this->fTop->get()->struct_start->set($start);
+        $this->fTop->get()->struct_end->set($end);
         //var_dump($start);
-        $cBackend->fBackend->add_struct($this->Print());
+        $cBackend->fBackend->get()->struct->con($this->Print());
     }
 
     function Init_Ajax()
@@ -38,6 +38,6 @@ class cTop extends mTop
 
     public function Print()
     {
-        return $this->fTop->get_final_struct();
+        return $this->fTop->get()->get_final_struct();
     }
 }

@@ -4,12 +4,12 @@ namespace Kidswork;
 
 class fValidation extends fConfigs
 {
-    private $errors = array();
-    private $messages = array();
-    private $name = NULL;
-    private $rules = NULL;
-    private $value = NULL;
-    private $mode = "request";
+    public $errors = array();
+    public $messages = array();
+    public $var_name = NULL;
+    public $rules = NULL;
+    public $value = NULL;
+    public $mode = "request";
    
     function __construct()
     {
