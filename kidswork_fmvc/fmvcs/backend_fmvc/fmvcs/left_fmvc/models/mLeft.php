@@ -9,9 +9,10 @@ class mLeft extends mModels
 
     public function __construct($cKidswork)
     {
+        
+        $this->fLeft = new fLeft();
+        $this->fConfig = $this->fLeft;
         parent::__construct($cKidswork);
-        $this->fLeft->set(new fLeft());
-        $this->cKidswork->Import($this->fLeft);
     }
 
     function Init($fClass = null)

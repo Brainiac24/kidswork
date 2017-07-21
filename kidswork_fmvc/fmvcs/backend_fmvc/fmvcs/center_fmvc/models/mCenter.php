@@ -9,9 +9,9 @@ class mCenter extends mModels
 
     public function __construct($cKidswork)
     {
+        $this->fCenter = new fCenter();
+        $this->fConfig = $this->fCenter;
         parent::__construct($cKidswork);
-        $this->fCenter->set(new fCenter());
-        //$cKidswork->Import($this->fCenter);
     }
 
     function Init($fClass = null)

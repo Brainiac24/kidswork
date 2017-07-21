@@ -5,7 +5,9 @@ namespace Kidswork;
 class fRouter extends fConfigs
 {
     public $ajax = array("validation"=>array("ajax"=>array("rules"=>array(0,"int"))));
-
+    public $menu = array("validation" => array("menu" => array("rules" => array(0 => "int"))));
+    public $submenu = array("validation" => array("submenu" => array("rules" => array(0 => "int"))));
+    
     function __construct()
     {
         parent::__construct();

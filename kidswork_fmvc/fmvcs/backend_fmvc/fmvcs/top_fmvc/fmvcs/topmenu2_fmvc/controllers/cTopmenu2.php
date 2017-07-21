@@ -16,8 +16,8 @@ class cTopmenu2 extends mTopmenu2
 
     function Init_Full()
     {
-        $cHtml = $this->cKidswork->ctrls->ext("cHtml");
-        $cTop = $this->cKidswork->ctrls->ext("cTop");
+        $cHtml = $this->cKidswork->ctrls_global->ext("cHtml");
+        $cTop = $this->cKidswork->ctrls_global->ext("cTop");
 
         $start = '';
         $end = '';

@@ -9,8 +9,9 @@ class mTopmenu2 extends mModels
 
     public function __construct($cKidswork)
     {
+        $this->fTopmenu2 = new fTopmenu2();
+        $this->fConfig = $this->fTopmenu2;
         parent::__construct($cKidswork);
-        $this->fTopmenu2->set(new fTopmenu2());
         //$cKidswork->Import($this->fTopmenu2);
     }
 

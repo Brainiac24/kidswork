@@ -2,7 +2,8 @@
 SQLyog Ultimate v12.09 (64 bit)
 MySQL - 10.1.22-MariaDB : Database - dbr_kir
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -23,7 +24,7 @@ DROP TABLE IF EXISTS `audit`;
 CREATE TABLE `audit` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_divisions` int(11) DEFAULT NULL,
-  `date` date DEFAULT NULL,
+  `date1` date DEFAULT NULL,
   `assets` double DEFAULT NULL,
   `assets_rate` double DEFAULT NULL,
   `management_1` double DEFAULT NULL,

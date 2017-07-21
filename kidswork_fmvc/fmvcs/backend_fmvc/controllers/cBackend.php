@@ -5,7 +5,7 @@ class cBackend extends mBackend
 {
     function Init_Full()
     {
-        $cHtml = $this->cKidswork->ctrls->ext("cHtml");
+        $cHtml = $this->cKidswork->ctrls_global->ext("cHtml");
         $start = '';
         $end = '';
         
@@ -25,6 +25,7 @@ class cBackend extends mBackend
 
     function Init_Ajax()
     {
+        $this->cKidswork->fKidswork->get()->struct->con($this->Print());
     }
 
     public function Print()

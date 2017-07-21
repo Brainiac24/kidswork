@@ -9,9 +9,9 @@ class mBackend extends mModels
 
     public function __construct($cKidswork)
     {
+        $this->fBackend = new fBackend();
+        $this->fConfig = $this->fBackend;
         parent::__construct($cKidswork);
-        $this->fBackend->set(new fBackend());
-        $this->cKidswork->Import($this->fBackend);
     }
 
     function Init($fClass=null)

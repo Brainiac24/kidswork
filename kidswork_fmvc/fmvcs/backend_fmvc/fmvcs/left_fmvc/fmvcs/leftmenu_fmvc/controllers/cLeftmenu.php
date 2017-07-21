@@ -6,20 +6,16 @@ class cLeftmenu extends mLeftmenu
 
     function Init_Full()
     {
-        $cHtml = $this->cKidswork->ctrls->ext("cHtml");
-        $cLeft = $this->cKidswork->ctrls->ext("cLeft");
+        $cHtml = $this->cKidswork->ctrls_global->ext("cHtml");
+        $cLeft = $this->cKidswork->ctrls_global->ext("cLeft");
         $start = '';
         $end = '';
         $start .= $cHtml->Start_Left();
         $start .= $cHtml->Left_Logo();
         $start .= $cHtml->Start_Left_Menu();
-        /*
-        $this->fLeftmenu->add_struct_array(array("Лимиты касс филиалов","#2","2"));
-        $this->fLeftmenu->add_struct_array(array("Лимиты касс МХБ","#3","",true));
-        $this->fLeftmenu->add_struct_array(array("Лимиты банкоматов","#2","1"));
-        */
+        
         $struct_array=null;
-        //var_dump($this->fLeftmenu->get_struct_array());
+        //var_dump($this->fLeftmenu->get()->struct_array->get());
         foreach ($this->fLeftmenu->get()->struct_array->get() as $array) {
             $res = '';
             if (!isset($array[3])) {

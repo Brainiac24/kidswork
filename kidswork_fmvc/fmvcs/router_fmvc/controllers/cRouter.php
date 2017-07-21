@@ -6,13 +6,6 @@ class cRouter extends mRouter
 {
     
 
-    public function __construct($cKidswork)
-    {   
-        parent::__construct($cKidswork);
-
-        
-    }
-
     function Init($controllers=null)
     {
         parent::Init($controllers);

@@ -9,18 +9,19 @@ class fVariable
     public function __construct($default = null)
     {
 
-        /*echo "<pre>";
-        \var_dump($default);
-        echo "</pre>";*/
-        if (!is_array($default)) {
-            $this->value = $default;
-        }
-        else {
-            isset($default["value"]) ? $this->value = $default["value"] : NULL;
-            isset($default["validation"]) ? $this->fValidation = (new \Kidswork\cValidation())->Var_Init($default["validation"]) : NULL;
+        
+
+        $this->value = $default;
+        if (\is_array($default)) {
+            /*echo "<pre>";
+            \var_dump($default);
+            echo "</pre>";*/
+            isset($default["value"]) ? $this->value = $default["value"] : null;
+            isset($default["validation"]) ? $this->fValidation = (new \Kidswork\cValidation())->Var_Init($default["validation"]) : null;
         }
 
-        
+
+
 
     }
 
@@ -36,9 +37,9 @@ class fVariable
     {
         $this->value .= $value;
     }
-    function add($name, $value = null)
+    function add($name, $value = "-none-")
     {
-        $value === null ? $this->value[] = $value : $this->value[$name] = $value;
+        $value == "-none-" ? $this->value[] = $name : $this->value[$name] = $value;
     }
     function ext($col_name)
     {

@@ -9,7 +9,7 @@ class fCenter extends fConfigs
     function __construct()
     {
         parent::__construct();
-        $this->fmvc_array->add("centermenu_fmvc", "Kidswork\Backend");
+        //$this->fmvc_array->add("centermenu_fmvc", "Kidswork\Backend");
         $this->path->set(__DIR__);
         
     }

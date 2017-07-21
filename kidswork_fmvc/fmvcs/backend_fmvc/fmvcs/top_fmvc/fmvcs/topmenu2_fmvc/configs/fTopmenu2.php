@@ -6,7 +6,7 @@ use \Kidswork\fConfigs;
 
 class fTopmenu2 extends fConfigs
 {
-    public $submenu = array("validation" => array("submenu" => array("rules" => array(0 => "int"))));
+    
 
     function __construct()
     {

@@ -4,29 +4,29 @@ namespace Kidswork;
 
 class fDatabase extends fConfigs
 {
-    protected $debug_mode = true;
-    protected $pdo_dsn = '';
-    protected $pdo_username = '';
-    protected $pdo_password = '';
-    protected $query_table_names = array();
-    protected $query_column_names = array();
-    protected $query_text = '';
-    protected $query_switcher = '';
-    protected $query_parameters = array();
-    protected $query_conditions = array();
-    protected $query_connections = array();
-    protected $query_join_filters = '';
-    protected $query_group_by = array();
-    protected $query_order_by = array();
-    protected $query_limit = array();
-    protected $query_value_type = null;
-    protected $pdo_stmt = null;
-    protected $pdo = null;
-    protected $pdo_error_code = null;
-    protected $pdo_error_info = null;
-    protected $last_inserted_id = null;
-    protected $admin_key = '';
-    protected $session_key = '';
+    public $debug_mode = true;
+    public $pdo_dsn = '';
+    public $pdo_username = '';
+    public $pdo_password = '';
+    public $query_table_names = array();
+    public $query_column_names = array();
+    public $query_text = '';
+    public $query_switcher = '';
+    public $query_parameters = array();
+    public $query_conditions = array();
+    public $query_connections = array();
+    public $query_join_filters = '';
+    public $query_group_by = array();
+    public $query_order_by = array();
+    public $query_limit = array();
+    public $query_value_type = null;
+    public $pdo_stmt = null;
+    public $pdo = null;
+    public $pdo_error_code = null;
+    public $pdo_error_info = null;
+    public $last_inserted_id = null;
+    public $admin_key = '';
+    public $session_key = '';
 
     function __construct($pdo_dsn, $pdo_username, $pdo_password)
     {
@@ -62,17 +62,17 @@ class fDatabase extends fConfigs
 
     function add_query_text_imploded($start_query, $array, $implode_char = ', ', $if_array_count_zero_echo = '')
     {
-        $this->query_text .= $this->get_query_imploded($start_query, $array, $implode_char, $if_array_count_zero_echo);
+        $this->query_text->con($this->get_query_imploded($start_query, $array, $implode_char, $if_array_count_zero_echo));
     }
 
     function add_query_text_imploded_2($start_query, $array, $if_array_count_zero_echo = '')
     {
-        $this->query_text .= $this->get_query_imploded_2($start_query, $array, $if_array_count_zero_echo);
+        $this->query_text->con($this->get_query_imploded_2($start_query, $array, $if_array_count_zero_echo));
     }
 
     function add_query_conditions($group_start, $column_name, $condition, $value, $group_end, $type, $connection)
     {
-        $this->query_conditions[] = array($group_start, $column_name, $condition, $value, $group_end, $type, $connection);
+        $this->query_conditions->add(array($group_start, $column_name, $condition, $value, $group_end, $type, $connection));
     }
 
     function get_query_imploded($start_query, $array, $implode_char = ', ', $if_array_count_zero_echo = '')
@@ -109,7 +109,7 @@ class fDatabase extends fConfigs
     {
         $a = $array;
         if ($a != null) {
-            array_walk($a, array('fDatabase', 'set_array_walked'));
+            array_walk($a, array('\Kidswork\fDatabase', 'set_array_walked'));
         }
         return $a;
     }
@@ -141,12 +141,12 @@ class fDatabase extends fConfigs
     
     function add_query_parameters($column_name, $condition, $value, $type)
     {
-        $this->query_parameters[] = array($column_name, $condition, $value, $type);
+        $this->query_parameters->add(array($column_name, $condition, $value, $type));
     }
 
     function get_query_value_type_value($value_type = 'str')
     {
-        $a = array('' => PDO::PARAM_STR, 'str' => PDO::PARAM_STR, 'con' => PDO::PARAM_STR, 'arr' => PDO::PARAM_STR, 'int' => PDO::PARAM_INT);
+        $a = array('' => \PDO::PARAM_STR, 'str' => \PDO::PARAM_STR, 'float' => \PDO::PARAM_STR, 'con' => \PDO::PARAM_STR, 'arr' => \PDO::PARAM_STR, 'int' => \PDO::PARAM_INT);
         return $a[$value_type];
     }
 

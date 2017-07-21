@@ -9,9 +9,12 @@ class mNews extends mModels
 
     public function __construct($cKidswork)
     {
+        
+        $this->fNews = new fNews();
+        $this->fConfig = $this->fNews;
         parent::__construct($cKidswork);
-        $this->fNews->set(new fNews());
         //$cKidswork->Import($this->fNews);
+
     }
 
     function Init($fClass = null)

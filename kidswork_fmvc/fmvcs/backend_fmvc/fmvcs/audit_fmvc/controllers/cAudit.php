@@ -14,11 +14,11 @@ class cAudit extends mAudit
 
     function Init_Full()
     {
-        $this->cHtml = $this->cKidswork->ctrls->ext("cHtml");
-        $this->cLeftmenu = $this->cKidswork->ctrls->ext("cLeftmenu");
-        $this->cTopmenu = $this->cKidswork->ctrls->ext("cTopmenu");
-        $this->cTopmenu2 = $this->cKidswork->ctrls->ext("cTopmenu2");
-        $this->cCenter = $this->cKidswork->ctrls->ext("cCenter");
+        $this->cHtml = $this->cKidswork->ctrls_global->ext("cHtml");
+        $this->cLeftmenu = $this->cKidswork->ctrls_global->ext("cLeftmenu");
+        $this->cTopmenu = $this->cKidswork->ctrls_global->ext("cTopmenu");
+        $this->cTopmenu2 = $this->cKidswork->ctrls_global->ext("cTopmenu2");
+        $this->cCenter = $this->cKidswork->ctrls_global->ext("cCenter");
         $this->Menu();
 
         $this->Data_Control_Switcher();
@@ -29,9 +29,11 @@ class cAudit extends mAudit
 
     function Init_Ajax()
     {
-        $this->cHtml = $this->cKidswork->fKidswork->controllers_array()["cHtml"];
-
-        $this->cKidswork->fKidswork->get()->ajax($this->Data_Control_Action());
+        $this->cHtml = $this->cKidswork->ctrls_global->ext("cHtml");
+        $this->cCenter = $this->cKidswork->ctrls_global->ext("cCenter");
+        
+        
+        $this->cCenter->fCenter->get()->struct->con($this->Data_Control_Action());
     }
 
     public function Print()
@@ -41,13 +43,18 @@ class cAudit extends mAudit
 
     public function Menu()
     {
-        $menu = $this->cTopmenu->fTopmenu->get()->menu->get();
+        
+        $menu = $this->cRouter->fRouter->get()->menu->get();
         $active = array("3"=>null,"4"=>null,"5"=>null,"6"=>null,"7"=>null,"8"=>null,"9"=>null);
-        $active[$menu]=true;
+        
+        \array_key_exists($menu, $active) ? $active[$menu]=true : false;
+        /*echo "<pre>";
+        \var_dump($active[$menu]); 
+        echo "</pre>";*/
         if ($menu=="5") {
-            $submenu = $this->cTopmenu2->fTopmenu2->get()->submenu->get();
+            $submenu = $this->cRouter->fRouter->get()->submenu->get();
             $active2 = array("1"=>null,"2"=>null,"3"=>null);
-            $active2[$submenu]=true;
+            \array_key_exists($submenu, $active2) ? $active2[$submenu]=true : false;
             $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Мониторинг","?menu=".$menu."&submenu=1","1",$active2[1]));
             $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Ввод данных","?menu=".$menu."&submenu=2","",$active2[2]));
             $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Итоговый отчёт","?menu=".$menu."&submenu=3","",$active2[3]));
@@ -59,17 +66,18 @@ class cAudit extends mAudit
         $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Операции более 1-го раза","?menu=7","",$active[7]));
         $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Ликвидированные документы","?menu=8","",$active[8]));
         $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Перелимиты","?menu=9","",$active[9]));
+
+        //\var_dump($this->cLeftmenu->fLeftmenu->get()->struct_array->get());
     }
 
     function Data_Control_Action()
     {   
         $res = "";
-        $this->fAudit->set($this->Request_Variables($this->fAudit,"0"));
         switch ($this->fAudit->get()->data_mode->get()) {
             case 1:
                 break;
             case 2:
-                
+                $this->Insert();
                 $res .= $this->cHtml->Action_Buttons_Text("Уведомление:");
                 $res .= $this->cHtml->Action_Message_Success("Данные успешно сохранены!");
                 break;
@@ -87,8 +95,6 @@ class cAudit extends mAudit
 
     function Data_Control_Switcher()
     {
-        $this->fAudit = $this->Request_Variables($this->fAudit,"0");
-        
         switch ($this->fAudit->get()->data_mode->get()) {
             case 1:
                 $this->fAudit->get()->date1->set("-");
@@ -178,13 +184,15 @@ class cAudit extends mAudit
 
     function Data_Control_View()
     {
-        $menu = $this->cTopmenu->fTopmenu->get()->menu->get();
-        $submenu = $this->cTopmenu2->fTopmenu2->get()->submenu->get();
+        $menu = $this->cRouter->fRouter->get()->menu->get();
+        $submenu = $this->cRouter->fRouter->get()->submenu->get();
         $data_mode = $this->fAudit->get()->data_mode->get();
         $sel = array(1=>null,2=>null,3=>null,4=>null);
 
-        //\var_dump($data_mode);
+        
         $sel[$data_mode]=true;
+
+        
 
         $res = "";
 

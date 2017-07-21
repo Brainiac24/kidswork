@@ -17,8 +17,8 @@ class cTop extends mTop
 
     function Init_Full()
     {
-        $cHtml = $this->cKidswork->ctrls->ext("cHtml");
-        $cBackend = $this->cKidswork->ctrls->ext("cBackend");
+        $cHtml = $this->cKidswork->ctrls_global->ext("cHtml");
+        $cBackend = $this->cKidswork->ctrls_global->ext("cBackend");
         $start = '';
         $end = '';
         $start .= $cHtml->Start_Top();  

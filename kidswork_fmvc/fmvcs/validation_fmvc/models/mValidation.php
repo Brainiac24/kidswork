@@ -7,8 +7,9 @@ class mValidation extends mModels
 
     public function __construct($cKidswork)
     {
+        $this->fValidation = new fValidation();
+        $this->fConfig = $this->fValidation;
         parent::__construct($cKidswork);
-        $this->fValidation->set(new fValidation());
         //$cKidswork->Import($this->fValidation);
 
 

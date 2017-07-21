@@ -7,6 +7,7 @@ class mKidswork
 
     public $fKidswork;
     
+    public $ctrls_global;
     public $ctrls;
 
     function __construct($fKidswork = null)
@@ -20,8 +21,11 @@ class mKidswork
         } else {
             $this->fKidswork->set($fKidswork);
         }
-        $this->Import($this->fKidswork);
-
+        
+        //\var_dump($this->Import($this->fKidswork));
+        
+        $this->ctrls = ($this->Import($this->fKidswork));
+        
 
     }
     //----------------------------------------------
@@ -36,16 +40,25 @@ class mKidswork
 
     protected function Import($fKidswork, $load = true, $copy = "")
     {
+        /*
+        echo "<pre>";
+        \var_dump($fKidswork);
+        echo "</pre>";
+        */
+        
+        $ctrls = (new \Kidswork\fVariable());
         if ($fKidswork->get()->fmvc_array->get() != null) {
             foreach ($fKidswork->get()->fmvc_array->get() as $fmvc_item => $namespase) {
                 spl_autoload_register(function ($className) use ($fKidswork) {
-                    return $this->autoload($className, dirname($fKidswork->get()->path->get()));
+                    $this->autoload($className, dirname($fKidswork->get()->path->get()));
                 });
                 if ($load) {
-                    $this->Construct_Controller($fmvc_item, $namespase, $copy);
+                    $arr = $this->Construct_Controller($fmvc_item, $namespase, $copy);
+                    $ctrls->add($arr[0], $arr[1]);
                 }
             }
         }
+        return $ctrls;
     }
 
     protected function autoload($className, $base_path)
@@ -112,7 +125,8 @@ class mKidswork
         $class = ucfirst(strtolower(substr($name_fmvc, 0, strlen($name_fmvc) - 5)));
         $class_res = "\\".$namespace."\\c" . $class;
         $class_name = "c" .$class.$number;
-        $this->ctrls->add($class_name, new $class_res($this));
+        $this->ctrls_global->add($class_name, new $class_res($this));
+        return array($class_name, $this->ctrls_global->ext($class_name));
     }
 
     

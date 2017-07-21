@@ -10,15 +10,18 @@ class mTopmenu extends mModels
 
     public function __construct($cKidswork)
     {
+        $this->fTopmenu = new fTopmenu();
+        $this->fConfig = $this->fTopmenu;
         parent::__construct($cKidswork);
-        $this->fTopmenu->set(new fTopmenu());
-        //$cKidswork->Import($this->fTopmenu);
+        
 
     }
 
     function Init($fClass = null)
     {
-        $this->fTopmenu = $this->Request_Variables($this->fTopmenu,"0");
+        $this->ini->set(1);
+        //$this->Request_Variables();
+        
         parent::Init($this->fTopmenu);
     }
 

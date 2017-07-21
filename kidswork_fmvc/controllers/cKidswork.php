@@ -23,12 +23,12 @@ class cKidswork extends mKidswork
 
     function Init_Ajax()
     {
-        return $this->fKidswork->get_ajax();
+        return $this->Print();
     }
 
     public function Import($fKidswork, $init = true, $number = "")
     {
-        parent::Import($fKidswork, $init, $number);
+        return parent::Import($fKidswork, $init, $number);
     }
 
     public function Print()

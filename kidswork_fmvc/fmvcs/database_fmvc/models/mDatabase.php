@@ -10,18 +10,20 @@ class mDatabase extends mModels
 
     public function __construct($cKidswork)
     {
+        
+        $pdo_dsn = $cKidswork->fKidswork->get()->configs->get()->pdo_dsn->get();
+        $pdo_username  = $cKidswork->fKidswork->get()->configs->get()->pdo_username->get();
+        $pdo_password  = $cKidswork->fKidswork->get()->configs->get()->pdo_password->get();
+        $this->fDatabase = new fDatabase($pdo_dsn, $pdo_username, $pdo_password);
+        $this->fConfig = $this->fDatabase;
         parent::__construct($cKidswork);
-        $this->cKidswork = $cKidswork;
-        $pdo_dsn = $this->cKidswork->fKidswork->get()->configs->get()->pdo_dsn->get();
-        $pdo_username  = $this->cKidswork->fKidswork->get()->configs->get()->pdo_username->get();
-        $pdo_password  = $this->cKidswork->fKidswork->get()->configs->get()->pdo_password->get();
-        $this->fDatabase->set(new fDatabase($pdo_dsn, $pdo_username, $pdo_password));
+        
     }
 
     protected function Connection()
     {
         try {
-            return new \PDO($this->fDatabase->pdo_dsn->get(), $this->fDatabase->pdo_username->get(), $this->fDatabase->pdo_password->get(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            return new \PDO($this->fDatabase->get()->pdo_dsn->get(), $this->fDatabase->get()->pdo_username->get(), $this->fDatabase->get()->pdo_password->get(), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         } catch (PDOException $e) {
             return 'Connection error: ' . $e->getMessage();
         } catch (Exception $e) {
@@ -33,29 +35,29 @@ class mDatabase extends mModels
     {
         if ($this->fDatabase->get() != null) {
             $from = '';
-            if ($this->fDatabase->query_switcher->get() == 's' || $this->fDatabase->query_switcher->get() == 'd') {
+            if ($this->fDatabase->get()->query_switcher->get() == 's' || $this->fDatabase->get()->query_switcher->get() == 'd') {
                 $from = 'FROM';
             }
-            $this->fDatabase->query_text->set($this->fDatabase->query_switcher->get());
-            $this->fDatabase->add_query_text_imploded('', $this->fDatabase->get_query_column_names(), ", ", "");
-            $this->fDatabase->add_query_text_imploded($from, $this->fDatabase->get_query_table_names(), ",");
-            $this->fDatabase->query_text->con($this->fDatabase->query_join_filters->get());
-            $this->fDatabase->add_query_text_imploded('SET', $this->fDatabase->get_query_array_walked($this->fDatabase->query_parameters->get()), ",");
-            $this->fDatabase->add_query_text_imploded_2('WHERE', $this->fDatabase->get_query_array_walked_2($this->fDatabase->query_conditions->get()));
-            $this->fDatabase->add_query_text_imploded('GROUP BY', $this->fDatabase->query_group_by->get(), ",");
-            $this->fDatabase->add_query_text_imploded('ORDER BY', $this->fDatabase->query_order_by->get(), ",");
-            $this->fDatabase->add_query_text_imploded('LIMIT', $this->fDatabase->query_limit->get(), ",");
-            //echo $this->fDatabase->get_query_text() . '<br>';
-            if ($this->fDatabase->pdo->get() == null) {
-                $this->fDatabase->pdo->set($this->Connection($this->fDatabase->get()));
+            $this->fDatabase->get()->query_text->set($this->fDatabase->get()->get_query_switched());
+            $this->fDatabase->get()->add_query_text_imploded('', $this->fDatabase->get()->query_column_names->get(), ", ", "");
+            $this->fDatabase->get()->add_query_text_imploded($from, $this->fDatabase->get()->query_table_names->get(), ",");
+            $this->fDatabase->get()->query_text->con($this->fDatabase->get()->query_join_filters->get());
+            $this->fDatabase->get()->add_query_text_imploded('SET', $this->fDatabase->get()->get_query_array_walked($this->fDatabase->get()->query_parameters->get()), ",");
+            $this->fDatabase->get()->add_query_text_imploded_2('WHERE', $this->fDatabase->get()->get_query_array_walked_2($this->fDatabase->get()->query_conditions->get()));
+            $this->fDatabase->get()->add_query_text_imploded('GROUP BY', $this->fDatabase->get()->query_group_by->get(), ",");
+            $this->fDatabase->get()->add_query_text_imploded('ORDER BY', $this->fDatabase->get()->query_order_by->get(), ",");
+            $this->fDatabase->get()->add_query_text_imploded('LIMIT', $this->fDatabase->get()->query_limit->get(), ",");
+            echo $this->fDatabase->get()->query_text->get() . '<br>';
+            if ($this->fDatabase->get()->pdo->get() == null) {
+                $this->fDatabase->get()->pdo->set($this->Connection($this->fDatabase->get()));
             }
-            $this->fDatabase->pdo_stmt->set($this->fDatabase->pdo->get()->prepare($this->fDatabase->query_text->get()));
-            $this->Bind_Value_Operation($this->fDatabase, $this->fDatabase->query_parameters->get());
-            $this->Bind_Value_Operation($this->fDatabase, $this->fDatabase->query_conditions->get());
-            $this->fDatabase->pdo_stmt->get()->execute();
-            $this->fDatabase->last_inserted_id->set($this->fDatabase->pdo->get()->lastInsertId());
-            $this->fDatabase->pdo_error_code->set($this->fDatabase->pdo_stmt->get()->errorCode());
-            $this->fDatabase->pdo_error_info->set($this->fDatabase->pdo_stmt->get()->errorInfo());
+            $this->fDatabase->get()->pdo_stmt->set($this->fDatabase->get()->pdo->get()->prepare($this->fDatabase->get()->query_text->get()));
+            $this->Bind_Value_Operation($this->fDatabase->get()->query_parameters->get());
+            $this->Bind_Value_Operation($this->fDatabase->get()->query_conditions->get());
+            $this->fDatabase->get()->pdo_stmt->get()->execute();
+            $this->fDatabase->get()->last_inserted_id->set($this->fDatabase->get()->pdo->get()->lastInsertId());
+            $this->fDatabase->get()->pdo_error_code->set($this->fDatabase->get()->pdo_stmt->get()->errorCode());
+            $this->fDatabase->get()->pdo_error_info->set($this->fDatabase->get()->pdo_stmt->get()->errorInfo());
             //var_dump($this->fDatabase->get_pdo_stmt());
         }
         return $this;
@@ -68,27 +70,27 @@ class mDatabase extends mModels
             if ($value[3] == 'con') {
             } elseif ($value[3] == 'arr') {
                 $value[0] = ':' . str_replace('.', '_', $value[0]) . '_pdo';
-                $this->fDatabase->pdo_stmt->get()->bindValue($value[0], $value[2], $this->fDatabase->get_query_value_type_value($value[3]));
+                $this->fDatabase->get()->pdo_stmt->get()->bindValue($value[0], $value[2], $this->fDatabase->get()->get_query_value_type_value($value[3]));
             } else {
                 $value[0] = ':' . str_replace('.', '_', $value[0]) . '_pdo';
-                $this->fDatabase->pdo_stmt->get()->bindValue($value[0], $value[2], $this->fDatabase->get_query_value_type_value($value[3]));
+                $this->fDatabase->get()->pdo_stmt->get()->bindValue($value[0], $value[2], $this->fDatabase->get()->get_query_value_type_value($value[3]));
             }
         }
     }
 
     protected function Clear()
     {
-        $this->fDatabase->query_table_names->set(array());
-        $this->fDatabase->query_text->set('');
-        $this->fDatabase->query_switcher->set('');
-        $this->fDatabase->query_conditions->set(array());
-        $this->fDatabase->query_group_by->set(array());
-        $this->fDatabase->query_order_by->set(array());
-        $this->fDatabase->query_limit->set(array());
-        $this->fDatabase->pdo_stmt->set(null);
-        $this->fDatabase->query_column_names->set(array());
-        $this->fDatabase->query_parameters->set(array());
-        $this->fDatabase->query_value_type->set(null);
+        $this->fDatabase->get()->query_table_names->set(array());
+        $this->fDatabase->get()->query_text->set('');
+        $this->fDatabase->get()->query_switcher->set('');
+        $this->fDatabase->get()->query_conditions->set(array());
+        $this->fDatabase->get()->query_group_by->set(array());
+        $this->fDatabase->get()->query_order_by->set(array());
+        $this->fDatabase->get()->query_limit->set(array());
+        $this->fDatabase->get()->pdo_stmt->set(null);
+        $this->fDatabase->get()->query_column_names->set(array());
+        $this->fDatabase->get()->query_parameters->set(array());
+        $this->fDatabase->get()->query_value_type->set(null);
     }
 
     function Convert_Date_To_Mysql($date_string)

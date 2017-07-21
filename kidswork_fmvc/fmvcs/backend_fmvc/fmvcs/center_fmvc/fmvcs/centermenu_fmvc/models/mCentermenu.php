@@ -14,6 +14,7 @@ class mCentermenu extends mModels
         $this->cKidswork = $cKidswork;
         $this->cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
         $this->fCentermenu = new fCentermenu();
+        $this->fConfig = $this->fCentermenu;
         //$cKidswork->Import($this->fCentermenu);
     }
 

@@ -9,8 +9,9 @@ class mLeftmenu extends mModels
 
     public function __construct($cKidswork)
     {
+        $this->fLeftmenu = new fLeftmenu();
+        $this->fConfig = $this->fLeftmenu;
         parent::__construct($cKidswork);
-        $this->fLeftmenu->set(new fLeftmenu());
         //$cKidswork->Import($this->fLeftmenu);
     }
 

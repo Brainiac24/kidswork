@@ -9,9 +9,9 @@ class mTop extends mModels
 
     public function __construct($cKidswork)
     {
+        $this->fTop = new fTop();
+        $this->fConfig = $this->fTop;
         parent::__construct($cKidswork);
-        $this->fTop->set(new fTop());
-        $this->cKidswork->Import($this->fTop);
     }
 
     function Init($fClass)
