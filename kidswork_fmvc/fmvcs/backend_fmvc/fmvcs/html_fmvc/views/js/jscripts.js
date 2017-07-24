@@ -211,6 +211,278 @@ $(document).delegate(".ac-btn-ok", "click", function () {
     $bottom.show();
 });
 
+$(document).delegate('input[name="assets"]', "paste keyup", function () {
+    var rate = "-";
+    var value = parseFloat($(this).val());
+    var hidden = $('input[name="assets_rate"]');
+    if ($(this).val() == "") {
+        rate = "";
+    } else if (value < 3) {
+        rate = "1";
+    } else if (value >= 3 && value < 5) {
+        rate = "2";
+    } else if (value >= 5 && value < 10) {
+        rate = "3";
+    } else if (value >= 10 && value < 15) {
+        rate = "4";
+    } else if (value >= 15) {
+        rate = "5";
+    }
+    setTimeout(function () {
+        Hidden_Text(hidden, rate);
+        Total_Rate();
+    }, 100);
+
+});
+
+$(document).delegate('input[name="management_1"]', "paste keyup", function () {
+    var rate = "-";
+    var value = parseFloat($(this).val());
+    var hidden = $('input[name="management_rate_1"]');
+    if ($(this).val() == "") {
+        rate = "";
+    } else if (value < 0.42) {
+        rate = "1";
+    } else if (value >= 0.42 && value < 0.71) {
+        rate = "2";
+    } else if (value >= 0.71 && value < 0.91) {
+        rate = "3";
+    } else if (value >= 0.91 && value < 1.31) {
+        rate = "4";
+    } else if (value >= 1.31) {
+        rate = "5";
+    }
+    setTimeout(function () {
+        Hidden_Text(hidden, rate);
+        Total_Rate();
+    }, 100);
+});
+
+$(document).delegate('input[name="management_2"]', "paste keyup", function () {
+    var rate = "-";
+    var value = parseFloat($(this).val());
+    var hidden = $('input[name="management_rate_2"]');
+    if ($(this).val() == "") {
+        rate = "";
+    } else if (value < 1.51) {
+        rate = "1";
+    } else if (value >= 1.51 && value < 2.31) {
+        rate = "2";
+    } else if (value >= 2.31 && value < 3.21) {
+        rate = "3";
+    } else if (value >= 3.21 && value < 4.21) {
+        rate = "4";
+    } else if (value >= 4.21 && value < 6.21) {
+        rate = "5";
+    } else if (value >= 6.21 && value < 8.21) {
+        rate = "6";
+    } else if (value >= 8.21 && value < 9.21) {
+        rate = "7";
+    } else if (value >= 9.21 && value < 10.21) {
+        rate = "8";
+    } else if (value >= 10.21 && value < 11.21) {
+        rate = "9";
+    } else if (value >= 11.21) {
+        rate = "10";
+    }
+    setTimeout(function () {
+        Hidden_Text(hidden, rate);
+        Total_Rate();
+    }, 100);
+});
+
+$(document).delegate('input[name="management_3"]', "paste keyup", function () {
+    var rate = "-";
+    var value = parseFloat($(this).val());
+    var hidden = $('input[name="management_rate_3"]');
+    if ($(this).val() == "") {
+        rate = "";
+    } else if (value < 8.1) {
+        rate = "1";
+    } else if (value >= 8.1 && value < 13.1) {
+        rate = "2";
+    } else if (value >= 13.1 && value < 17.1) {
+        rate = "3";
+    } else if (value >= 17.1 && value < 22.1) {
+        rate = "4";
+    } else if (value >= 22.1) {
+        rate = "5";
+    }
+    setTimeout(function () {
+        Hidden_Text(hidden, rate);
+        Total_Rate();
+    }, 100);
+});
+
+$(document).delegate('input[name="earnings"]', "paste keyup", function () {
+    var rate = "-";
+    var value = parseFloat($(this).val());
+    var hidden = $('input[name="earnings_rate"]');
+    if ($(this).val() == "") {
+        rate = "";
+    } else if (value < 0) {
+        rate = "5";
+    } else if (value >= 0 && value < 1) {
+        rate = "4";
+    } else if (value >= 1 && value < 3) {
+        rate = "3";
+    } else if (value >= 3 && value < 5) {
+        rate = "2";
+    } else if (value >= 5) {
+        rate = "1";
+    }
+    setTimeout(function () {
+        Hidden_Text(hidden, rate);
+        Total_Rate();
+    }, 100);
+});
+
+$(document).delegate('input[name="turnover"]', "paste keyup", function () {
+    var rate = "-";
+    var value = parseFloat($(this).val());
+    var hidden = $('input[name="turnover_rate"]');
+    if ($(this).val() == "") {
+        rate = "";
+    } else if (value < 10.01) {
+        rate = "1";
+    } else if (value >= 10.01 && value < 18.01) {
+        rate = "2";
+    } else if (value >= 18.01 && value < 25.01) {
+        rate = "3";
+    } else if (value >= 25.01 && value < 35.01) {
+        rate = "4";
+    } else if (value >= 35.01) {
+        rate = "5";
+    }
+    setTimeout(function () {
+        Hidden_Text(hidden, rate);
+        Total_Rate();
+    }, 100);
+});
+
+$(document).delegate('input[name="reglaments"]', "paste keyup", function () {
+    var rate = "-";
+    var value = parseFloat($(this).val());
+    var hidden = $('input[name="reglaments_rate"]');
+    if ($(this).val() == "") {
+        rate = "";
+    } else if (value < 4.1) {
+        rate = "1";
+    } else if (value >= 4.1 && value < 6) {
+        rate = "2";
+    } else if (value >= 6 && value < 7.9) {
+        rate = "3";
+    } else if (value >= 7.9 && value < 10) {
+        rate = "4";
+    } else if (value >= 10) {
+        rate = "5";
+    }
+    setTimeout(function () {
+        Hidden_Text(hidden, rate);
+        Total_Rate();
+    }, 100);
+});
+
+$(document).delegate('input[name="projection"]', "paste keyup", function () {
+    var rate = "-";
+    var value = parseFloat($(this).val());
+    var hidden = $('input[name="projection_rate"]');
+    if ($(this).val() == "") {
+        rate = "";
+    } else if (value < 70) {
+        rate = "5";
+    } else if (value >= 70 && value < 80) {
+        rate = "4";
+    } else if (value >= 80 && value < 90) {
+        rate = "3";
+    } else if (value >= 90 && value < 100) {
+        rate = "2";
+    } else if (value >= 100) {
+        rate = "1";
+    }
+    setTimeout(function () {
+        Hidden_Text(hidden, rate);
+        Total_Rate();
+    }, 100);
+});
+
+$(document).delegate('input[name="risk"]', "paste keyup", function () {
+    var rate = "-";
+    var value = parseFloat($(this).val());
+    var hidden = $('input[name="risk_rate"]');
+    if ($(this).val() == "") {
+        rate = "";
+    } else if (value < 2.01) {
+        rate = "1";
+    } else if (value >= 2.01 && value < 3.01) {
+        rate = "2";
+    } else if (value >= 3.01 && value < 4.01) {
+        rate = "3";
+    } else if (value >= 4.01 && value < 5.01) {
+        rate = "4";
+    } else if (value >= 5.01) {
+        rate = "5";
+    }
+    setTimeout(function () {
+        Hidden_Text(hidden, rate);
+        Total_Rate();
+    }, 100);
+
+});
+
+function Hidden_Text(hidden, rate) {
+    hidden.val(rate);
+    if (rate == "") {
+        hidden.next(".h-text").text("-")
+    } else {
+        hidden.next(".h-text").text(rate)
+    }
+}
+
+function Total_Rate() {
+    var rate = 0;
+    var r1 = $('input[name="assets_rate"]');
+    var r2 = $('input[name="management_rate_1"]');
+    var r3 = $('input[name="management_rate_2"]');
+    var r4 = $('input[name="management_rate_3"]');
+    var r5 = $('input[name="earnings_rate"]');
+    var r6 = $('input[name="turnover_rate"]');
+    var r7 = $('input[name="reglaments_rate"]');
+    var r8 = $('input[name="projection_rate"]');
+    var r9 = $('input[name="risk_rate"]');
+    //alert(r9.val())
+    if (r1.val() !== "" &&
+        r2.val() !== "" &&
+        r3.val() !== "" &&
+        r4.val() !== "" &&
+        r5.val() !== "" &&
+        r6.val() !== "" &&
+        r7.val() !== "" &&
+        r8.val() !== "" &&
+        r9.val() !== "") {
+
+        rate = (parseFloat(r1.val()) +
+            ((parseFloat(r2.val()) +
+                parseFloat(r3.val()) +
+                parseFloat(r4.val())) / 3) +
+            parseFloat(r5.val()) +
+            parseFloat(r6.val()) +
+            parseFloat(r7.val()) +
+            parseFloat(r8.val()) +
+            parseFloat(r9.val())) / 7;
+        rate += 0.01;
+        //alert(rate);
+        $('input[name="total_rate"]').val(rate.toFixed(2)).next(".h-text").text(rate.toFixed(2));
+
+    } else {
+        $('input[name="total_rate"]').val("").next(".h-text").text("-");
+    }
+}
+
+$(document).delegate('input[name="total_rate"]', "paste keyup", function () {
+
+});
+
 
 $(document).delegate(".ac-btn-add", "click", function () {
     $data = $(this).closest(".center-box").find('input[name],select[name],textarea[name]').serialize();

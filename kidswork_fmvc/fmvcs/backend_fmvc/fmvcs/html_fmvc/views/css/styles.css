@@ -577,6 +577,7 @@ input[type='text'] {
 .center-box-code {
        width: 25%;
        border-right: 1px solid #eee;
+       height: 100%;
 }
 
 
@@ -791,6 +792,10 @@ ul {
     color: #fff;
     cursor: pointer;
     margin-top: -6px;
+}
+
+.p-12{
+    padding: 12px;
 }
 
 

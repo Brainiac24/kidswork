@@ -47,13 +47,13 @@ class mDatabase extends mModels
             $this->fDatabase->get()->add_query_text_imploded('GROUP BY', $this->fDatabase->get()->query_group_by->get(), ",");
             $this->fDatabase->get()->add_query_text_imploded('ORDER BY', $this->fDatabase->get()->query_order_by->get(), ",");
             $this->fDatabase->get()->add_query_text_imploded('LIMIT', $this->fDatabase->get()->query_limit->get(), ",");
-            echo $this->fDatabase->get()->query_text->get() . '<br>';
+            //echo $this->fDatabase->get()->query_text->get() . '<br>';
             if ($this->fDatabase->get()->pdo->get() == null) {
                 $this->fDatabase->get()->pdo->set($this->Connection($this->fDatabase->get()));
             }
             $this->fDatabase->get()->pdo_stmt->set($this->fDatabase->get()->pdo->get()->prepare($this->fDatabase->get()->query_text->get()));
             $this->Bind_Value_Operation($this->fDatabase->get()->query_parameters->get());
-            $this->Bind_Value_Operation($this->fDatabase->get()->query_conditions->get());
+            $this->Bind_Value_Operation_2($this->fDatabase->get()->query_conditions->get());
             $this->fDatabase->get()->pdo_stmt->get()->execute();
             $this->fDatabase->get()->last_inserted_id->set($this->fDatabase->get()->pdo->get()->lastInsertId());
             $this->fDatabase->get()->pdo_error_code->set($this->fDatabase->get()->pdo_stmt->get()->errorCode());
@@ -74,6 +74,22 @@ class mDatabase extends mModels
             } else {
                 $value[0] = ':' . str_replace('.', '_', $value[0]) . '_pdo';
                 $this->fDatabase->get()->pdo_stmt->get()->bindValue($value[0], $value[2], $this->fDatabase->get()->get_query_value_type_value($value[3]));
+            }
+
+        }
+    }
+
+        public static function Bind_Value_Operation_2($array) {
+        foreach ($array as $key => $value) {
+            //echo ($value[2]).'/--/';
+            if ($value[5] == 'con') {
+                
+            } else if ($value[3] == 'arr') {
+                $value[1] = ':' . str_replace('.', '_', $value[1]) . '_pdo';
+                $this->fDatabase->get()->pdo_stmt->get()->bindValue($value[1], $value[3], $fDatabase->get_query_value_type_value($value[5]));
+            } else {
+                $value[1] = ':' . str_replace('.', '_', $value[1]) . '_pdo';
+                $this->fDatabase->get()->pdo_stmt->get()->bindValue($value[1], $value[3], $fDatabase->get_query_value_type_value($value[5]));
             }
         }
     }

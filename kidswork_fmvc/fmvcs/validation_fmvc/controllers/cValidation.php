@@ -27,6 +27,7 @@ class cValidation extends mValidation
 
     public function Request($fVariable, $sel_ins_upd_del)
     {
+        
         return $this->Validate($fVariable, $sel_ins_upd_del);
     }
 }

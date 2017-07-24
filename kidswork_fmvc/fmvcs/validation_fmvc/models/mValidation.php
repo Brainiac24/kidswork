@@ -33,7 +33,10 @@ class mValidation extends mModels
         $this->fValidation->get()->var_name->set(trim($this->fValidation->get()->var_name->get()));
         $this->Receive_Variables_From_Client();
         $err = array();
-
+        /*echo "<pre>";
+        $this->fValidation->get()->var_name->get();
+        \var_dump($this->fValidation->get()->rules->get());
+        echo "</pre>";*/
         if ($this->fValidation->get()->rules->ext($sel_ins_upd_del) === null) {
             $arr = explode("|", $this->fValidation->get()->rules->ext(0));
         }
@@ -44,6 +47,7 @@ class mValidation extends mModels
         foreach ($arr as $key => $val) {
             switch ($val) {
                 case "required" :
+                
                     $this->Required();
                     break;
                 case "int" :
@@ -148,12 +152,13 @@ class mValidation extends mModels
     {
         $value = $this->fValidation->value->get();
         if (!$this->Not_Null_Or_Empty($value)) {
+            
             if (!is_array($value)) {
-                $this->fValidation->errors->add($this->fValidation->var_name->get(), 'Значение поля не может быть пустым');
+                $this->fValidation->get()->errors->add($this->fValidation->var_name->get(), 'Значение поля не может быть пустым');
             }
             else {
                 if (empty($value)) {
-                    $this->fValidation->errors->add($this->fValidation->var_name->get(), 'Значение поля не может быть пустым');
+                    $this->fValidation->get()->errors->add($this->fValidation->var_name->get(), 'Значение поля не может быть пустым');
                 }
             }
         }

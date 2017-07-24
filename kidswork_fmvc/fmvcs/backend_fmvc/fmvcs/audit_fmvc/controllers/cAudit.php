@@ -25,67 +25,80 @@ class cAudit extends mAudit
         $this->cCenter->fCenter->get()->struct->con($this->Data_Control_View());
 
         //$this->cLeftmenu->fLeftmenu->add_struct($this->Print());
+
+
     }
 
     function Init_Ajax()
     {
         $this->cHtml = $this->cKidswork->ctrls_global->ext("cHtml");
         $this->cCenter = $this->cKidswork->ctrls_global->ext("cCenter");
-        
-        
+
+
         $this->cCenter->fCenter->get()->struct->con($this->Data_Control_Action());
     }
 
     public function Print()
     {
-        return $this->fAudit-get()->final_struct();
+        return $this->fAudit - get()->final_struct();
     }
 
     public function Menu()
     {
-        
+
         $menu = $this->cRouter->fRouter->get()->menu->get();
-        $active = array("3"=>null,"4"=>null,"5"=>null,"6"=>null,"7"=>null,"8"=>null,"9"=>null);
-        
-        \array_key_exists($menu, $active) ? $active[$menu]=true : false;
+        $active = array("3" => null, "4" => null, "5" => null, "6" => null, "7" => null, "8" => null, "9" => null);
+
+        \array_key_exists($menu, $active) ? $active[$menu] = true : false;
         /*echo "<pre>";
         \var_dump($active[$menu]); 
         echo "</pre>";*/
-        if ($menu=="5") {
+        if ($menu == "5") {
             $submenu = $this->cRouter->fRouter->get()->submenu->get();
-            $active2 = array("1"=>null,"2"=>null,"3"=>null);
-            \array_key_exists($submenu, $active2) ? $active2[$submenu]=true : false;
-            $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Мониторинг","?menu=".$menu."&submenu=1","1",$active2[1]));
-            $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Ввод данных","?menu=".$menu."&submenu=2","",$active2[2]));
-            $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Итоговый отчёт","?menu=".$menu."&submenu=3","",$active2[3]));
+            $active2 = array("1" => null, "2" => null, "3" => null);
+            \array_key_exists($submenu, $active2) ? $active2[$submenu] = true : false;
+            $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Мониторинг", "?menu=" . $menu . "&submenu=1", "1", $active2[1]));
+            $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Ввод данных", "?menu=" . $menu . "&submenu=2", "", $active2[2]));
+            $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Итоговый отчёт", "?menu=" . $menu . "&submenu=3", "", $active2[3]));
         }
-        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Фрод","?menu=3","",$active[3]));
-        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Жалобы","?menu=4","",$active[4]));
-        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Аудит","?menu=5","",$active[5]));
-        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Недосдачи / излишки кассы","?menu=6","",$active[6]));
-        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Операции более 1-го раза","?menu=7","",$active[7]));
-        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Ликвидированные документы","?menu=8","",$active[8]));
-        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Перелимиты","?menu=9","",$active[9]));
+        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Фрод", "?menu=3", "", $active[3]));
+        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Жалобы", "?menu=4", "", $active[4]));
+        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Аудит", "?menu=5", "", $active[5]));
+        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Недосдачи / излишки кассы", "?menu=6", "", $active[6]));
+        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Операции более 1-го раза", "?menu=7", "", $active[7]));
+        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Ликвидированные документы", "?menu=8", "", $active[8]));
+        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Перелимиты", "?menu=9", "", $active[9]));
 
         //\var_dump($this->cLeftmenu->fLeftmenu->get()->struct_array->get());
+
+
     }
 
     function Data_Control_Action()
-    {   
+    {
         $res = "";
         switch ($this->fAudit->get()->data_mode->get()) {
-            case 1:
+            case 1 :
                 break;
-            case 2:
-                $this->Insert();
+            case 2 :
+                foreach ($this->fAudit->get() as $key => $value) {
+                    if ($value->fValidation !== null) {
+                        //var_dump($value->fValidation->get()->errors->get()) ;
+
+
+                    }
+
+                }
+
+                //$this->Insert();
                 $res .= $this->cHtml->Action_Buttons_Text("Уведомление:");
                 $res .= $this->cHtml->Action_Message_Success("Данные успешно сохранены!");
                 break;
-            case 3:
+            case 3 :
                 break;
-            case 4:
+            case 4 :
                 break;
-            default:
+            default :
                 # code...
                 break;
         }
@@ -96,47 +109,67 @@ class cAudit extends mAudit
     function Data_Control_Switcher()
     {
         switch ($this->fAudit->get()->data_mode->get()) {
-            case 1:
+            case 1 :
+                $id = $this->cHtml->Start_Select_Element("1", "id", "btn-code-2", 'Код:');
+                $this->Select_Ids();
+                $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+                if ($stmt !== null) {
+                    foreach ($stmt as $key) {
+                        $id .= $this->cHtml->Option_Select_Element($key["id"], $key["id"]);
+                    }
+                }
+                $id .= $this->cHtml->End_Select_Element();
+                $this->fAudit->get()->id->set($id);
+
                 $this->fAudit->get()->date1->set("-");
                 break;
-            case 2:
-                $id_divisions = $this->cHtml->Start_Select_Element("1", "id_divisions", "listselectbox-2", 'Выберите значение' );
-                $id_divisions .= $this->cHtml->Option_Select_Element("1", '002 - ФҶСК "Бонки Эсхата" дар ш. Душанбе');
-                $id_divisions .= $this->cHtml->Option_Select_Element("1", '003 - ФҶСК "Бонки Эсхата" дар ш. Қӯрғонтеппа-1');
-                $id_divisions .= $this->cHtml->Option_Select_Element("1", '004 - ФҶСК "Бонки Эсхата" дар ш. Хуҷанд');
+            case 2 :
+
+                $id = $this->cHtml->New_Code("Код: Новый");
+                
+                $this->fAudit->get()->id->set($id);
+
+                $id_divisions = $this->cHtml->Start_Select_Element("1", "id_divisions", "listselectbox-2", 'Выберите значение');
+                $this->Select_Ids_Divisions();
+                $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+                if ($stmt !== null) {
+                    foreach ($stmt as $key) {
+                        $id_divisions .= $this->cHtml->Option_Select_Element($key["id"], $key["name"]);
+                    }
+                }
                 $id_divisions .= $this->cHtml->End_Select_Element();
                 $this->fAudit->get()->id_divisions->set($id_divisions);
 
-                $this->fAudit->get()->date1->set($this->cHtml->Input_Date("date1",(new \DateTime())->format('Y-m-d')));
+                $this->fAudit->get()->date1->set($this->cHtml->Input_Date("date1", (new \DateTime())->format('Y-m-d')));
 
                 $this->fAudit->get()->assets->set($this->cHtml->Input_Text("assets"));
-                $this->fAudit->get()->assets_rate->set('-');
+                $this->fAudit->get()->assets_rate->set($this->cHtml->Input_Hidden("assets_rate", '', '-'));
 
                 $this->fAudit->get()->management_1->set($this->cHtml->Input_Text("management_1"));
-                $this->fAudit->get()->management_rate_1->set('-');
+                $this->fAudit->get()->management_rate_1->set($this->cHtml->Input_Hidden("management_rate_1", '', '-'));
 
                 $this->fAudit->get()->management_2->set($this->cHtml->Input_Text("management_2"));
-                $this->fAudit->get()->management_rate_2->set('-');
+                $this->fAudit->get()->management_rate_2->set($this->cHtml->Input_Hidden("management_rate_2", '', '-'));
 
                 $this->fAudit->get()->management_3->set($this->cHtml->Input_Text("management_3"));
-                $this->fAudit->get()->management_rate_3->set('-');
+                $this->fAudit->get()->management_rate_3->set($this->cHtml->Input_Hidden("management_rate_3", '', '-'));
 
                 $this->fAudit->get()->earnings->set($this->cHtml->Input_Text("earnings"));
-                $this->fAudit->get()->earnings_rate->set('-');
+                $this->fAudit->get()->earnings_rate->set($this->cHtml->Input_Hidden("earnings_rate", '', '-'));
 
                 $this->fAudit->get()->turnover->set($this->cHtml->Input_Text("turnover"));
-                $this->fAudit->get()->turnover_rate->set('-');
+                $this->fAudit->get()->turnover_rate->set($this->cHtml->Input_Hidden("turnover_rate", '', '-'));
 
                 $this->fAudit->get()->reglaments->set($this->cHtml->Input_Text("reglaments"));
-                $this->fAudit->get()->reglaments_rate->set('-');
-                
-                $this->fAudit->get()->projection->set($this->cHtml->Input_Text("projection"));
-                $this->fAudit->get()->projection_rate->set('-');
-                
-                $this->fAudit->get()->risk->set($this->cHtml->Input_Text("risk"));
-                $this->fAudit->get()->risk_rate->set('-');
+                $this->fAudit->get()->reglaments_rate->set($this->cHtml->Input_Hidden("reglaments_rate", '', '-'));
 
-                $this->fAudit->get()->total_rate->set('-');
+                $this->fAudit->get()->projection->set($this->cHtml->Input_Text("projection"));
+                $this->fAudit->get()->projection_rate->set($this->cHtml->Input_Hidden("projection_rate", '', '-'));
+
+                $this->fAudit->get()->risk->set($this->cHtml->Input_Text("risk"));
+                $this->fAudit->get()->risk_rate->set($this->cHtml->Input_Hidden("risk_rate", '', '-'));
+
+                $this->fAudit->get()->total_rate->set($this->cHtml->Input_Hidden("total_rate", '', '-'));
 
                 $this->box_bottom = "";
                 $this->box_bottom .= $this->cHtml->Start_Center_Box_Bottom();
@@ -151,7 +184,7 @@ class cAudit extends mAudit
 
                 break;
 
-            case 3:
+            case 3 :
                 $this->box_bottom = "";
                 $this->box_bottom .= $this->cHtml->Start_Center_Box_Bottom();
                 $this->box_bottom .= $this->cHtml->Action_Buttons_Text("Действие:");
@@ -163,8 +196,8 @@ class cAudit extends mAudit
                 $this->box_bottom .= $this->cHtml->End_Action_Buttons();
                 $this->box_bottom .= $this->cHtml->End_Center_Box_Bottom();
                 break;
-            case 4:
-            $this->box_bottom = "";
+            case 4 :
+                $this->box_bottom = "";
                 $this->box_bottom .= $this->cHtml->Start_Center_Box_Bottom();
                 $this->box_bottom .= $this->cHtml->Action_Buttons_Text("Действие:");
                 $this->box_bottom .= $this->cHtml->Start_Action_Buttons("b-r-1");
@@ -175,8 +208,8 @@ class cAudit extends mAudit
                 $this->box_bottom .= $this->cHtml->End_Action_Buttons();
                 $this->box_bottom .= $this->cHtml->End_Center_Box_Bottom();
                 break;
-            
-            default:
+
+            default :
                 # code...
                 break;
         }
@@ -187,12 +220,12 @@ class cAudit extends mAudit
         $menu = $this->cRouter->fRouter->get()->menu->get();
         $submenu = $this->cRouter->fRouter->get()->submenu->get();
         $data_mode = $this->fAudit->get()->data_mode->get();
-        $sel = array(1=>null,2=>null,3=>null,4=>null);
+        $sel = array(1 => null, 2 => null, 3 => null, 4 => null);
 
-        
-        $sel[$data_mode]=true;
 
-        
+        $sel[$data_mode] = true;
+
+
 
         $res = "";
 
@@ -204,21 +237,17 @@ class cAudit extends mAudit
         $res .= $this->cHtml->End_Center_Box_Cap();
         $res .= $this->cHtml->Start_Center_Box_Cap_2();
         $res .= $this->cHtml->Start_Center_Box_Code();
-        $res .= $this->cHtml->Start_Select_Element("1", "id_audit", "btn-code-2", 'Код:' );
-        $res .= $this->cHtml->Option_Select_Element("1", "1");
-        $res .= $this->cHtml->Option_Select_Element("1", "2");
-        $res .= $this->cHtml->Option_Select_Element("1", "3");
-        $res .= $this->cHtml->End_Select_Element();
+        $res .= $this->fAudit->get()->id->get();
         $res .= $this->cHtml->End_Center_Box_Code();
-        $res .= $this->cHtml->C_Box_Menu_Item("Просмотр", "?menu=".$menu."&submenu=".$submenu."&data_mode=1", $sel[1]);
-        $res .= $this->cHtml->C_Box_Menu_Item("Добавление", "?menu=".$menu."&submenu=".$submenu."&data_mode=2", $sel[2]);
-        $res .= $this->cHtml->C_Box_Menu_Item("Изменение", "?menu=".$menu."&submenu=".$submenu."&data_mode=3", $sel[3]);
-        $res .= $this->cHtml->C_Box_Menu_Item("Удаление", "?menu=".$menu."&submenu=".$submenu."&data_mode=4", $sel[4]);
+        $res .= $this->cHtml->C_Box_Menu_Item("Просмотр", "?menu=" . $menu . "&submenu=" . $submenu . "&data_mode=1", $sel[1]);
+        $res .= $this->cHtml->C_Box_Menu_Item("Добавление", "?menu=" . $menu . "&submenu=" . $submenu . "&data_mode=2", $sel[2]);
+        $res .= $this->cHtml->C_Box_Menu_Item("Изменение", "?menu=" . $menu . "&submenu=" . $submenu . "&data_mode=3", $sel[3]);
+        $res .= $this->cHtml->C_Box_Menu_Item("Удаление", "?menu=" . $menu . "&submenu=" . $submenu . "&data_mode=4", $sel[4]);
         $res .= $this->cHtml->End_Center_Box_Cap_2();
         $res .= $this->cHtml->End_Center_Box_Top();
         $res .= $this->cHtml->Start_Center_Box_Cont();
         $res .= $this->cHtml->Start_Table("table-box");
-        $res .= $this->cHtml->Start_Datatable_Body();   
+        $res .= $this->cHtml->Start_Datatable_Body();
 
         $res .= $this->cHtml->Table_2_Row_C2("Филиал:", $this->fAudit->get()->id_divisions->get(), "2");
         $res .= $this->cHtml->Table_2_Row_C2("Дата:", $this->fAudit->get()->date1->get(), "2");
@@ -235,7 +264,7 @@ class cAudit extends mAudit
 
         $res .= $this->cHtml->End_Datatable_Body();
         $res .= $this->cHtml->End_Table();
-        
+
         $res .= $this->cHtml->End_Center_Box_Cont();
 
         $res .= $this->box_bottom;

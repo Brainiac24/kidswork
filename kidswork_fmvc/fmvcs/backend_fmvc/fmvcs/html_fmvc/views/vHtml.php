@@ -517,6 +517,11 @@ class vHtml
         return '<input type="text" class="w-100 '.$class.'" name="'.$name.'" value="'.$value.'" />';
     }
 
+    function Input_Hidden($name, $value, $value2="",  $class="")
+    {
+        return '<input type="hidden" class="w-100 '.$class.'" name="'.$name.'" value="'.$value.'" /><div class="h-text">'.$value2.'</div>';
+    }
+
     function Action_Buttons_Text($text)
     {
         return '<div class="ac-btn-text">'.$text.'</div>';
@@ -550,6 +555,11 @@ class vHtml
     function Action_Message_Success($text, $class="")
     {
         return '<div class="ac-btn-msg"><div class="ac-btn-msg-text">'.$text.'</div><button class="ac-btn-ok">Ок</button></div>';
+    }
+
+    function New_Code($text)
+    {
+        return '<div class="p-12">'.$text.'</div>';
     }
 
 }

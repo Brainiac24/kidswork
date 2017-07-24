@@ -545,6 +545,11 @@ class cHtml extends mHtml
         return $this->vHtml->Input_Text($name, $value, $class);
     }
 
+    function Input_Hidden($name, $value, $class="")
+    {
+        return $this->vHtml->Input_Hidden($name, $value, $class);
+    }
+
     function Action_Buttons_Text($text)
     {
         return $this->vHtml->Action_Buttons_Text($text);
@@ -588,6 +593,11 @@ class cHtml extends mHtml
     function End_Center_Box_Msg()
     {
         return $this->vHtml->End_Center_Box_Msg();
+    }
+
+    function New_Code($text)
+    {
+        return $this->vHtml->New_Code($text);
     }
 
 
