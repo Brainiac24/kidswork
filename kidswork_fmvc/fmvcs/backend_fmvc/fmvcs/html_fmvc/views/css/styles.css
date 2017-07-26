@@ -55,7 +55,7 @@ div{
     height: 45px;
     background-color: #666666;
     position: fixed;
-    z-index: 99;
+    z-index: 999;
 }
 
 .top-left{
@@ -241,7 +241,7 @@ th{
     font-weight: 500;
     border-top: 1px solid #E7E7E7;
     border-right: 1px solid #E7E7E7;
-    line-height: 24px;
+    line-height: 18px;
     padding: 2px 15px;
 }
 
@@ -497,7 +497,7 @@ input[type='text'] {
 }
 
 .center-wrap{
-    width: 55%;
+    width: 50%;
     margin-top: 20px;
 }
 
@@ -530,7 +530,7 @@ input[type='text'] {
 .tab-name {
     padding: 10px 5px 10px 12px;
     font-weight: 400;
-    width: 24.7%;
+    width: 35%;
     white-space: normal;
     text-align: left;
 }
@@ -707,7 +707,7 @@ ul {
 
 .ac-btn-text{
     display: inline-block;
-    width: 25%;
+    width: 32%;
     padding: 21px 12px;
     border-right: 1px solid #eee;
 }
@@ -719,7 +719,7 @@ ul {
     background: #18bb8e;
     background: -webkit-linear-gradient(top,#00b98e,#01a780);
     display: inline-block;
-    padding: 6px 54px;
+    padding: 6px 40px;
     color: #fff;
     cursor: pointer;
 }
@@ -730,7 +730,18 @@ ul {
     background: #4285f4;
     background: -webkit-linear-gradient(top,#4387fd,#4683ea);
     display: inline-block;
-    padding: 6px 54px;
+    padding: 6px 40px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.ac-btn-del{
+        border: 1px solid #e02b18;
+    outline: none;
+    background: #ff4e3c;
+    background: -webkit-linear-gradient(top,#ff4e3c,#d61d1d);
+    display: inline-block;
+    padding: 6px 40px;
     color: #fff;
     cursor: pointer;
 }
@@ -739,25 +750,25 @@ ul {
     border: 1px solid #4285f4;
     outline: none;
     display: inline-block;
-    padding: 6px 54px;
+    padding: 6px 40px;
     cursor: pointer;
     background: #ffffff;
     border: 1px solid #c3c3c3;
     color: black;
 }
 
-.ac-btn-add:hover, .ac-btn-default:hover, .ac-btn-edit:hover{
+.ac-btn-add:hover, .ac-btn-default:hover, .ac-btn-edit:hover, .ac-btn-del:hover{
     box-shadow: 0 1px 2px rgba(0,0,0,.15);
     -webkit-box-shadow: 0 0.5px 1px rgba(0,0,0,.15);
 }
 
-.ac-btn-add:active, .ac-btn-default:active, .ac-btn-edit:active{
+.ac-btn-add:active, .ac-btn-default:active, .ac-btn-edit:active, .ac-btn-del:active{
     -webkit-box-shadow: inset 0 2px 0 rgba(0,0,0,.15);
     box-shadow: inset 0 1px 2px rgba(0,0,0,.15);
 }
 
 .ac-btns{
-    width: 37.5%;
+    width: 34%;
     text-align: center;
     padding: 14px 0;
 }

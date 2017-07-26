@@ -21,12 +21,6 @@ class cAudit extends mAudit
         $this->cCenter = $this->cKidswork->ctrls_global->ext("cCenter");
         $this->Menu();
 
-        $this->Data_Control_Switcher();
-        $this->cCenter->fCenter->get()->struct->con($this->Data_Control_View());
-
-        //$this->cLeftmenu->fLeftmenu->add_struct($this->Print());
-
-
     }
 
     function Init_Ajax()
@@ -40,7 +34,7 @@ class cAudit extends mAudit
 
     public function Print()
     {
-        return $this->fAudit - get()->final_struct();
+        return $this->fAudit->get()->final_struct();
     }
 
     public function Menu()
@@ -59,7 +53,22 @@ class cAudit extends mAudit
             \array_key_exists($submenu, $active2) ? $active2[$submenu] = true : false;
             $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Мониторинг", "?menu=" . $menu . "&submenu=1", "1", $active2[1]));
             $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Ввод данных", "?menu=" . $menu . "&submenu=2", "", $active2[2]));
-            $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Итоговый отчёт", "?menu=" . $menu . "&submenu=3", "", $active2[3]));
+            $this->cTopmenu2->fTopmenu2->get()->struct_array->add(array("Отчётая таблица", "?menu=" . $menu . "&submenu=3", "", $active2[3]));
+            if ($submenu == "2") {
+                if ($this->fAudit->get()->data_mode->get() == "") {
+                    $this->fAudit->get()->data_mode->set("2");
+                }
+                $this->Data_Control_Switcher();
+                $this->cCenter->fCenter->get()->struct->con($this->Data_Control_View());
+            }
+            elseif ($submenu == "3") {
+                $this->Select_Audit_To_Table();
+                $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+                if ($stmt !== null) {
+                    $this->cCenter->fCenter->get()->struct->con($this->Datatable($stmt));
+                }
+                
+            }
         }
         $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Фрод", "?menu=3", "", $active[3]));
         $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Жалобы", "?menu=4", "", $active[4]));
@@ -72,31 +81,244 @@ class cAudit extends mAudit
         //\var_dump($this->cLeftmenu->fLeftmenu->get()->struct_array->get());
 
 
+
+
     }
 
     function Data_Control_Action()
     {
         $res = "";
+
         switch ($this->fAudit->get()->data_mode->get()) {
             case 1 :
+                $this->Select_Audit_By_Id();
+                $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+
+                if ($stmt !== null) {
+                    foreach ($stmt as $key) {
+                        $this->fAudit->get()->id_divisions->set($key["name"]);
+
+                        $this->fAudit->get()->date1->set($this->cDatabase->Convert_Date_To_Label($key["date1"]));
+
+                        $this->fAudit->get()->assets->set($key["assets"]);
+                        $this->fAudit->get()->assets_rate->set($key["assets_rate"]);
+
+                        $this->fAudit->get()->management_1->set($key["management_1"]);
+                        $this->fAudit->get()->management_rate_1->set($key["management_rate_1"]);
+
+                        $this->fAudit->get()->management_2->set($key["management_2"]);
+                        $this->fAudit->get()->management_rate_2->set($key["management_rate_2"]);
+
+                        $this->fAudit->get()->management_3->set($key["management_3"]);
+                        $this->fAudit->get()->management_rate_3->set($key["management_rate_3"]);
+
+                        $this->fAudit->get()->earnings->set($key["earnings"]);
+                        $this->fAudit->get()->earnings_rate->set($key["earnings_rate"]);
+
+                        $this->fAudit->get()->turnover->set($key["turnover"]);
+                        $this->fAudit->get()->turnover_rate->set($key["turnover_rate"]);
+
+                        $this->fAudit->get()->reglaments->set($key["reglaments"]);
+                        $this->fAudit->get()->reglaments_rate->set($key["reglaments_rate"]);
+
+                        $this->fAudit->get()->projection->set($key["projection"]);
+                        $this->fAudit->get()->projection_rate->set($key["projection_rate"]);
+
+                        $this->fAudit->get()->risk->set($key["risk"]);
+                        $this->fAudit->get()->risk_rate->set($key["risk_rate"]);
+
+                        $this->fAudit->get()->total_rate->set($key["total_rate"]);
+                    }
+                }
+
+                $res .= $this->cHtml->Start_Table("table-box");
+                $res .= $this->cHtml->Start_Datatable_Body();
+
+                $res .= $this->cHtml->Table_2_Row_C2("Филиал >:", $this->fAudit->get()->id_divisions->get(), "2");
+                $res .= $this->cHtml->Table_2_Row_C2("Дата:", $this->fAudit->get()->date1->get(), "2");
+                $res .= $this->cHtml->Table_2_Row_C3("Коэффициент нестандартных кредитов:", $this->fAudit->get()->assets->get(), $this->fAudit->get()->assets_rate->get());
+                $res .= $this->cHtml->Table_2_Row_C3("Нарушение на одно кредитное досье:", $this->fAudit->get()->management_1->get(), $this->fAudit->get()->management_rate_1->get());
+                $res .= $this->cHtml->Table_2_Row_C3("Амали муфиди хатоги ба як сайтвизити карзии гузаронда шуда:", $this->fAudit->get()->management_2->get(), $this->fAudit->get()->management_rate_2->get());
+                $res .= $this->cHtml->Table_2_Row_C3("Коэффициент ошибок на один сайтвизит по кредиту:", $this->fAudit->get()->management_3->get(), $this->fAudit->get()->management_rate_3->get());
+                $res .= $this->cHtml->Table_2_Row_C3("Рейтинг и показатели рентабельности:", $this->fAudit->get()->earnings->get(), $this->fAudit->get()->earnings_rate->get());
+                $res .= $this->cHtml->Table_2_Row_C3("Текучесть кадров:", $this->fAudit->get()->turnover->get(), $this->fAudit->get()->turnover_rate->get());
+                $res .= $this->cHtml->Table_2_Row_C3("Соблюдение регламентов:", $this->fAudit->get()->reglaments->get(), $this->fAudit->get()->reglaments_rate->get());
+                $res .= $this->cHtml->Table_2_Row_C3("Выполнение проекции:", $this->fAudit->get()->projection->get(), $this->fAudit->get()->projection_rate->get());
+                $res .= $this->cHtml->Table_2_Row_C3("Выявленные риски:", $this->fAudit->get()->risk->get(), $this->fAudit->get()->risk_rate->get());
+                $res .= $this->cHtml->Table_2_Row_C2("Итоговый рейтинг:", $this->fAudit->get()->total_rate->get(), "2");
+
+                $res .= $this->cHtml->End_Datatable_Body();
+                $res .= $this->cHtml->End_Table();
+
+
+
                 break;
             case 2 :
                 foreach ($this->fAudit->get() as $key => $value) {
                     if ($value->fValidation !== null) {
                         //var_dump($value->fValidation->get()->errors->get()) ;
 
-
                     }
-
                 }
 
-                //$this->Insert();
+                $this->Insert();
                 $res .= $this->cHtml->Action_Buttons_Text("Уведомление:");
                 $res .= $this->cHtml->Action_Message_Success("Данные успешно сохранены!");
                 break;
             case 3 :
+                if ($this->fAudit->get()->action->get() == 3) {
+                    $this->Update();
+                    $res .= $this->cHtml->Action_Buttons_Text("Уведомление:");
+                    $res .= $this->cHtml->Action_Message_Success("Данные успешно сохранены!");
+                }
+                else {
+
+                    $this->Select_Audit_By_Id();
+                    $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+
+                    if ($stmt !== null) {
+                        foreach ($stmt as $key) {
+
+                             //\var_dump($key["assets"]);
+
+                            $id_divisions = $this->cHtml->Start_Select_Element("1", "id_divisions", $key["id_divisions2"], "listselectbox-2", 'Выберите значение');
+                            $this->Select_Ids_Divisions();
+                            $stmt2 = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+                            if ($stmt2 !== null) {
+                                foreach ($stmt2 as $key2) {
+                                    $selected = "";
+                                    //echo $key["audit_id"];
+                                    if ($key2["id"] == $key["id_divisions2"]) {
+                                        $selected = "selected";
+
+                                    }
+                                    $id_divisions .= $this->cHtml->Option_Select_Element($key2["id"], $key2["name"], $selected);
+                                }
+                            }
+                            $id_divisions .= $this->cHtml->End_Select_Element();
+                            $this->fAudit->get()->id_divisions->set($id_divisions);
+
+                            $this->fAudit->get()->date1->set($this->cHtml->Input_Date("date1", $key["date1"]));
+
+                            $this->fAudit->get()->assets->set($this->cHtml->Input_Text("assets", $key["assets"]));
+                            $this->fAudit->get()->assets_rate->set($this->cHtml->Input_Hidden("assets_rate", $key["assets_rate"], $key["assets_rate"]));
+
+                            $this->fAudit->get()->management_1->set($this->cHtml->Input_Text("management_1", $key["management_1"]));
+                            $this->fAudit->get()->management_rate_1->set($this->cHtml->Input_Hidden("management_rate_1", $key["management_rate_1"], $key["management_rate_1"]));
+
+                            $this->fAudit->get()->management_2->set($this->cHtml->Input_Text("management_2", $key["management_2"]));
+                            $this->fAudit->get()->management_rate_2->set($this->cHtml->Input_Hidden("management_rate_2", $key["management_rate_2"], $key["management_rate_2"]));
+
+                            $this->fAudit->get()->management_3->set($this->cHtml->Input_Text("management_3", $key["management_3"]));
+                            $this->fAudit->get()->management_rate_3->set($this->cHtml->Input_Hidden("management_rate_3", $key["management_rate_3"], $key["management_rate_3"]));
+
+                            $this->fAudit->get()->earnings->set($this->cHtml->Input_Text("earnings", $key["earnings"]));
+                            $this->fAudit->get()->earnings_rate->set($this->cHtml->Input_Hidden("earnings_rate", $key["earnings_rate"], $key["earnings_rate"]));
+
+                            $this->fAudit->get()->turnover->set($this->cHtml->Input_Text("turnover", $key["turnover"]));
+                            $this->fAudit->get()->turnover_rate->set($this->cHtml->Input_Hidden("turnover_rate", $key["turnover_rate"], $key["turnover_rate"]));
+
+                            $this->fAudit->get()->reglaments->set($this->cHtml->Input_Text("reglaments", $key["reglaments"]));
+                            $this->fAudit->get()->reglaments_rate->set($this->cHtml->Input_Hidden("reglaments_rate", $key["reglaments_rate"], $key["reglaments_rate"]));
+
+                            $this->fAudit->get()->projection->set($this->cHtml->Input_Text("projection", $key["projection"]));
+                            $this->fAudit->get()->projection_rate->set($this->cHtml->Input_Hidden("projection_rate", $key["projection_rate"], $key["projection_rate"]));
+
+                            $this->fAudit->get()->risk->set($this->cHtml->Input_Text("risk", $key["risk"]));
+                            $this->fAudit->get()->risk_rate->set($this->cHtml->Input_Hidden("risk_rate", $key["risk_rate"], $key["risk_rate"]));
+
+                            $this->fAudit->get()->total_rate->set($this->cHtml->Input_Hidden("total_rate", $key["total_rate"], $key["total_rate"]));
+                        }
+                    }
+
+                    $res .= $this->cHtml->Start_Table("table-box");
+                    $res .= $this->cHtml->Start_Datatable_Body();
+
+                    $res .= $this->cHtml->Table_2_Row_C2("Филиал +:", $this->fAudit->get()->id_divisions->get(), "2");
+                    $res .= $this->cHtml->Table_2_Row_C2("Дата:", $this->fAudit->get()->date1->get(), "2");
+                    $res .= $this->cHtml->Table_2_Row_C3("Коэффициент нестандартных кредитов:", $this->fAudit->get()->assets->get(), $this->fAudit->get()->assets_rate->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Нарушение на одно кредитное досье:", $this->fAudit->get()->management_1->get(), $this->fAudit->get()->management_rate_1->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Амали муфиди хатоги ба як сайтвизити карзии гузаронда шуда:", $this->fAudit->get()->management_2->get(), $this->fAudit->get()->management_rate_2->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Коэффициент ошибок на один сайтвизит по кредиту:", $this->fAudit->get()->management_3->get(), $this->fAudit->get()->management_rate_3->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Рейтинг и показатели рентабельности:", $this->fAudit->get()->earnings->get(), $this->fAudit->get()->earnings_rate->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Текучесть кадров:", $this->fAudit->get()->turnover->get(), $this->fAudit->get()->turnover_rate->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Соблюдение регламентов:", $this->fAudit->get()->reglaments->get(), $this->fAudit->get()->reglaments_rate->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Выполнение проекции:", $this->fAudit->get()->projection->get(), $this->fAudit->get()->projection_rate->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Выявленные риски:", $this->fAudit->get()->risk->get(), $this->fAudit->get()->risk_rate->get());
+                    $res .= $this->cHtml->Table_2_Row_C2("Итоговый рейтинг:", $this->fAudit->get()->total_rate->get(), "2");
+
+                    $res .= $this->cHtml->End_Datatable_Body();
+                    $res .= $this->cHtml->End_Table();
+                }
+
+
                 break;
             case 4 :
+                if ($this->fAudit->get()->action->get() == 4) {
+                    $this->Delete();
+                    $res .= $this->cHtml->Action_Buttons_Text("Уведомление:");
+                    $res .= $this->cHtml->Action_Message_Success("Данные успешно сохранены!");
+                }
+                else {
+                    $this->Select_Audit_By_Id();
+                    $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+
+                    if ($stmt !== null) {
+                        foreach ($stmt as $key) {
+                            $this->fAudit->get()->id_divisions->set($key["name"]);
+
+                            $this->fAudit->get()->date1->set($this->cDatabase->Convert_Date_To_Label($key["date1"]));
+
+                            $this->fAudit->get()->assets->set($key["assets"]);
+                            $this->fAudit->get()->assets_rate->set($key["assets_rate"]);
+
+                            $this->fAudit->get()->management_1->set($key["management_1"]);
+                            $this->fAudit->get()->management_rate_1->set($key["management_rate_1"]);
+
+                            $this->fAudit->get()->management_2->set($key["management_2"]);
+                            $this->fAudit->get()->management_rate_2->set($key["management_rate_2"]);
+
+                            $this->fAudit->get()->management_3->set($key["management_3"]);
+                            $this->fAudit->get()->management_rate_3->set($key["management_rate_3"]);
+
+                            $this->fAudit->get()->earnings->set($key["earnings"]);
+                            $this->fAudit->get()->earnings_rate->set($key["earnings_rate"]);
+
+                            $this->fAudit->get()->turnover->set($key["turnover"]);
+                            $this->fAudit->get()->turnover_rate->set($key["turnover_rate"]);
+
+                            $this->fAudit->get()->reglaments->set($key["reglaments"]);
+                            $this->fAudit->get()->reglaments_rate->set($key["reglaments_rate"]);
+
+                            $this->fAudit->get()->projection->set($key["projection"]);
+                            $this->fAudit->get()->projection_rate->set($key["projection_rate"]);
+
+                            $this->fAudit->get()->risk->set($key["risk"]);
+                            $this->fAudit->get()->risk_rate->set($key["risk_rate"]);
+
+                            $this->fAudit->get()->total_rate->set($key["total_rate"]);
+                        }
+                    }
+
+                    $res .= $this->cHtml->Start_Table("table-box");
+                    $res .= $this->cHtml->Start_Datatable_Body();
+
+                    $res .= $this->cHtml->Table_2_Row_C2("Филиал +:", $this->fAudit->get()->id_divisions->get(), "2");
+                    $res .= $this->cHtml->Table_2_Row_C2("Дата:", $this->fAudit->get()->date1->get(), "2");
+                    $res .= $this->cHtml->Table_2_Row_C3("Коэффициент нестандартных кредитов:", $this->fAudit->get()->assets->get(), $this->fAudit->get()->assets_rate->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Нарушение на одно кредитное досье:", $this->fAudit->get()->management_1->get(), $this->fAudit->get()->management_rate_1->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Амали муфиди хатоги ба як сайтвизити карзии гузаронда шуда:", $this->fAudit->get()->management_2->get(), $this->fAudit->get()->management_rate_2->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Коэффициент ошибок на один сайтвизит по кредиту:", $this->fAudit->get()->management_3->get(), $this->fAudit->get()->management_rate_3->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Рейтинг и показатели рентабельности:", $this->fAudit->get()->earnings->get(), $this->fAudit->get()->earnings_rate->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Текучесть кадров:", $this->fAudit->get()->turnover->get(), $this->fAudit->get()->turnover_rate->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Соблюдение регламентов:", $this->fAudit->get()->reglaments->get(), $this->fAudit->get()->reglaments_rate->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Выполнение проекции:", $this->fAudit->get()->projection->get(), $this->fAudit->get()->projection_rate->get());
+                    $res .= $this->cHtml->Table_2_Row_C3("Выявленные риски:", $this->fAudit->get()->risk->get(), $this->fAudit->get()->risk_rate->get());
+                    $res .= $this->cHtml->Table_2_Row_C2("Итоговый рейтинг:", $this->fAudit->get()->total_rate->get(), "2");
+
+                    $res .= $this->cHtml->End_Datatable_Body();
+                    $res .= $this->cHtml->End_Table();
+                }
                 break;
             default :
                 # code...
@@ -110,26 +332,70 @@ class cAudit extends mAudit
     {
         switch ($this->fAudit->get()->data_mode->get()) {
             case 1 :
-                $id = $this->cHtml->Start_Select_Element("1", "id", "btn-code-2", 'Код:');
+                $id = $this->cHtml->Start_Select_Element("1", "id_audit", $this->fAudit->get()->id->get(), "btn-code-2", 'Код:');
                 $this->Select_Ids();
                 $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
                 if ($stmt !== null) {
                     foreach ($stmt as $key) {
-                        $id .= $this->cHtml->Option_Select_Element($key["id"], $key["id"]);
+                        $selected = "";
+                        if ($key["id"] == $this->fAudit->get()->id->get()) {
+                            $selected = "selected";
+                        }
+                        $id .= $this->cHtml->Option_Select_Element($key["id"], $key["id"], $selected);
                     }
                 }
                 $id .= $this->cHtml->End_Select_Element();
+
                 $this->fAudit->get()->id->set($id);
 
+                /*$this->Select_Audit_By_Id();
+                $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+                if ($stmt !== null) {
+                    foreach ($stmt as $key) {
+
+                    }
+                }*/
+                $this->fAudit->get()->id_divisions->set("-");
+
                 $this->fAudit->get()->date1->set("-");
+
+                $this->fAudit->get()->assets->set("-");
+                $this->fAudit->get()->assets_rate->set("-");
+
+                $this->fAudit->get()->management_1->set("-");
+                $this->fAudit->get()->management_rate_1->set("-");
+
+                $this->fAudit->get()->management_2->set("-");
+                $this->fAudit->get()->management_rate_2->set("-");
+
+                $this->fAudit->get()->management_3->set("-");
+                $this->fAudit->get()->management_rate_3->set("-");
+
+                $this->fAudit->get()->earnings->set("-");
+                $this->fAudit->get()->earnings_rate->set("-");
+
+                $this->fAudit->get()->turnover->set("-");
+                $this->fAudit->get()->turnover_rate->set("-");
+
+                $this->fAudit->get()->reglaments->set("-");
+                $this->fAudit->get()->reglaments_rate->set("-");
+
+                $this->fAudit->get()->projection->set("-");
+                $this->fAudit->get()->projection_rate->set("-");
+
+                $this->fAudit->get()->risk->set("-");
+                $this->fAudit->get()->risk_rate->set("-");
+
+                $this->fAudit->get()->total_rate->set("-");
+
                 break;
             case 2 :
 
                 $id = $this->cHtml->New_Code("Код: Новый");
-                
+
                 $this->fAudit->get()->id->set($id);
 
-                $id_divisions = $this->cHtml->Start_Select_Element("1", "id_divisions", "listselectbox-2", 'Выберите значение');
+                $id_divisions = $this->cHtml->Start_Select_Element("1", "id_divisions", $this->fAudit->get()->id_divisions->get(), "listselectbox-2", 'Выберите значение');
                 $this->Select_Ids_Divisions();
                 $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
                 if ($stmt !== null) {
@@ -185,6 +451,64 @@ class cAudit extends mAudit
                 break;
 
             case 3 :
+                $id = $this->cHtml->Start_Select_Element("1", "id_audit", $this->fAudit->get()->id->get(), "btn-code-2", 'Код:');
+                $this->Select_Ids();
+                $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+                if ($stmt !== null) {
+                    foreach ($stmt as $key) {
+                        $selected = "";
+                        if ($key["id"] == $this->fAudit->get()->id->get()) {
+                            $selected = "selected";
+                        }
+                        $id .= $this->cHtml->Option_Select_Element($key["id"], $key["id"], $selected);
+                    }
+                }
+                $id .= $this->cHtml->End_Select_Element();
+                $this->fAudit->get()->id->set($id);
+
+                $id_divisions = $this->cHtml->Start_Select_Element("1", "id_divisions", $this->fAudit->get()->id_divisions->get(), "listselectbox-2", 'Выберите значение');
+                $this->Select_Ids_Divisions();
+                $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+                if ($stmt !== null) {
+                    foreach ($stmt as $key) {
+                        $id_divisions .= $this->cHtml->Option_Select_Element($key["id"], $key["name"]);
+                    }
+                }
+                $id_divisions .= $this->cHtml->End_Select_Element();
+                $this->fAudit->get()->id_divisions->set($id_divisions);
+
+                $this->fAudit->get()->date1->set($this->cHtml->Input_Date("date1", (new \DateTime())->format('Y-m-d')));
+
+                $this->fAudit->get()->assets->set($this->cHtml->Input_Text("assets"));
+                $this->fAudit->get()->assets_rate->set($this->cHtml->Input_Hidden("assets_rate", '', '-'));
+
+                $this->fAudit->get()->management_1->set($this->cHtml->Input_Text("management_1"));
+                $this->fAudit->get()->management_rate_1->set($this->cHtml->Input_Hidden("management_rate_1", '', '-'));
+
+                $this->fAudit->get()->management_2->set($this->cHtml->Input_Text("management_2"));
+                $this->fAudit->get()->management_rate_2->set($this->cHtml->Input_Hidden("management_rate_2", '', '-'));
+
+                $this->fAudit->get()->management_3->set($this->cHtml->Input_Text("management_3"));
+                $this->fAudit->get()->management_rate_3->set($this->cHtml->Input_Hidden("management_rate_3", '', '-'));
+
+                $this->fAudit->get()->earnings->set($this->cHtml->Input_Text("earnings"));
+                $this->fAudit->get()->earnings_rate->set($this->cHtml->Input_Hidden("earnings_rate", '', '-'));
+
+                $this->fAudit->get()->turnover->set($this->cHtml->Input_Text("turnover"));
+                $this->fAudit->get()->turnover_rate->set($this->cHtml->Input_Hidden("turnover_rate", '', '-'));
+
+                $this->fAudit->get()->reglaments->set($this->cHtml->Input_Text("reglaments"));
+                $this->fAudit->get()->reglaments_rate->set($this->cHtml->Input_Hidden("reglaments_rate", '', '-'));
+
+                $this->fAudit->get()->projection->set($this->cHtml->Input_Text("projection"));
+                $this->fAudit->get()->projection_rate->set($this->cHtml->Input_Hidden("projection_rate", '', '-'));
+
+                $this->fAudit->get()->risk->set($this->cHtml->Input_Text("risk"));
+                $this->fAudit->get()->risk_rate->set($this->cHtml->Input_Hidden("risk_rate", '', '-'));
+
+                $this->fAudit->get()->total_rate->set($this->cHtml->Input_Hidden("total_rate", '', '-'));
+
+
                 $this->box_bottom = "";
                 $this->box_bottom .= $this->cHtml->Start_Center_Box_Bottom();
                 $this->box_bottom .= $this->cHtml->Action_Buttons_Text("Действие:");
@@ -197,11 +521,60 @@ class cAudit extends mAudit
                 $this->box_bottom .= $this->cHtml->End_Center_Box_Bottom();
                 break;
             case 4 :
+
+                $id = $this->cHtml->Start_Select_Element("1", "id_audit", $this->fAudit->get()->id->get(), "btn-code-2", 'Код:');
+                $this->Select_Ids();
+                $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+                if ($stmt !== null) {
+                    foreach ($stmt as $key) {
+                        $selected = "";
+                        if ($key["id"] == $this->fAudit->get()->id->get()) {
+                            $selected = "selected";
+                        }
+                        $id .= $this->cHtml->Option_Select_Element($key["id"], $key["id"], $selected);
+                    }
+                }
+                $id .= $this->cHtml->End_Select_Element();
+                $this->fAudit->get()->id->set($id);
+
+                $this->fAudit->get()->id_divisions->set("-");
+
+                $this->fAudit->get()->date1->set("-");
+
+                $this->fAudit->get()->assets->set("-");
+                $this->fAudit->get()->assets_rate->set("-");
+
+                $this->fAudit->get()->management_1->set("-");
+                $this->fAudit->get()->management_rate_1->set("-");
+
+                $this->fAudit->get()->management_2->set("-");
+                $this->fAudit->get()->management_rate_2->set("-");
+
+                $this->fAudit->get()->management_3->set("-");
+                $this->fAudit->get()->management_rate_3->set("-");
+
+                $this->fAudit->get()->earnings->set("-");
+                $this->fAudit->get()->earnings_rate->set("-");
+
+                $this->fAudit->get()->turnover->set("-");
+                $this->fAudit->get()->turnover_rate->set("-");
+
+                $this->fAudit->get()->reglaments->set("-");
+                $this->fAudit->get()->reglaments_rate->set("-");
+
+                $this->fAudit->get()->projection->set("-");
+                $this->fAudit->get()->projection_rate->set("-");
+
+                $this->fAudit->get()->risk->set("-");
+                $this->fAudit->get()->risk_rate->set("-");
+
+                $this->fAudit->get()->total_rate->set("-");
+
                 $this->box_bottom = "";
                 $this->box_bottom .= $this->cHtml->Start_Center_Box_Bottom();
                 $this->box_bottom .= $this->cHtml->Action_Buttons_Text("Действие:");
                 $this->box_bottom .= $this->cHtml->Start_Action_Buttons("b-r-1");
-                $this->box_bottom .= $this->cHtml->Action_Buttons_Add("Удалить");
+                $this->box_bottom .= $this->cHtml->Action_Buttons_Delete("Удалить");
                 $this->box_bottom .= $this->cHtml->End_Action_Buttons();
                 $this->box_bottom .= $this->cHtml->Start_Action_Buttons();
                 $this->box_bottom .= $this->cHtml->Action_Buttons_Default("Очистить");
@@ -249,7 +622,7 @@ class cAudit extends mAudit
         $res .= $this->cHtml->Start_Table("table-box");
         $res .= $this->cHtml->Start_Datatable_Body();
 
-        $res .= $this->cHtml->Table_2_Row_C2("Филиал:", $this->fAudit->get()->id_divisions->get(), "2");
+        $res .= $this->cHtml->Table_2_Row_C2("<div>Филиал:</div> <div>+</div>", $this->fAudit->get()->id_divisions->get(), "2");
         $res .= $this->cHtml->Table_2_Row_C2("Дата:", $this->fAudit->get()->date1->get(), "2");
         $res .= $this->cHtml->Table_2_Row_C3("Коэффициент нестандартных кредитов:", $this->fAudit->get()->assets->get(), $this->fAudit->get()->assets_rate->get());
         $res .= $this->cHtml->Table_2_Row_C3("Нарушение на одно кредитное досье:", $this->fAudit->get()->management_1->get(), $this->fAudit->get()->management_rate_1->get());
@@ -276,4 +649,78 @@ class cAudit extends mAudit
 
         return $res;
     }
+
+
+    function Datatable($stmt)
+    {
+
+        $cHtml = $this->cHtml;
+        $res = '';
+        $res .= $cHtml->Start_Datatable();
+        $res .= $cHtml->Start_Table("table-1");
+        $res .= $cHtml->Start_Datatable_Head();
+        $res .= $cHtml->Start_Datatable_Tr();
+        $res .= $cHtml->Datatable_Th("Код");
+        $res .= $cHtml->Datatable_Th("Дата");
+        $res .= $cHtml->Datatable_Th("Филиал");
+        $res .= $cHtml->Datatable_Th("Коэффициент нестандартных кредитов");
+        $res .= $cHtml->Datatable_Th("Рейтинг коэффициента нестандартных кредитов");
+        $res .= $cHtml->Datatable_Th("Нарушение на одно кредитное досье");
+        $res .= $cHtml->Datatable_Th("Рейтинг нарушениа на одно кредитное досье");
+        $res .= $cHtml->Datatable_Th("Амали муфиди хатоги ба як сайтвизити карзии гузаронда шуда");
+        $res .= $cHtml->Datatable_Th("Рейтинг амали муфиди хатоги ба як сайтвизити карзии гузаронда шуда");
+        $res .= $cHtml->Datatable_Th("Коэффициент ошибок на один сайтвизит по кредиту");
+        $res .= $cHtml->Datatable_Th("Рейтинг коэффициента ошибок на один сайтвизит по кредиту");
+        $res .= $cHtml->Datatable_Th("Рейтинг и показатели рентабельности");
+        $res .= $cHtml->Datatable_Th("Бал рейтинга и показателий рентабельности");
+        $res .= $cHtml->Datatable_Th("Текучесть кадров");
+        $res .= $cHtml->Datatable_Th("Рейтинг текучести кадров");
+        $res .= $cHtml->Datatable_Th("Соблюдение регламентов");
+        $res .= $cHtml->Datatable_Th("Рейтинг соблюдения регламентов");
+        $res .= $cHtml->Datatable_Th("Выполнение проекции");
+        $res .= $cHtml->Datatable_Th("Рейтинг выполнения проекции");
+        $res .= $cHtml->Datatable_Th("Выявленные риски");
+        $res .= $cHtml->Datatable_Th("Рейтинг выявленных рисков");
+        $res .= $cHtml->Datatable_Th("Итоговый рейтинг");
+        $res .= $cHtml->End_Datatable_Tr();
+        $res .= $cHtml->End_Datatable_Head();
+        $res .= $cHtml->Start_Datatable_Body();
+        if ($stmt != null) {
+            foreach ($stmt as $key) {
+                $res .= $cHtml->Start_Datatable_Tr();
+                $res .= $cHtml->Datatable_Td($key['id_audit']);
+                $res .= $cHtml->Datatable_Td($key['date1']);
+                $res .= $cHtml->Datatable_Td($key['name']);
+                $res .= $cHtml->Datatable_Td($key['assets']);
+                $res .= $cHtml->Datatable_Td($key['assets_rate']);
+                $res .= $cHtml->Datatable_Td($key['management_1']);
+                $res .= $cHtml->Datatable_Td($key['management_2']);
+                $res .= $cHtml->Datatable_Td($key['management_3']);
+                $res .= $cHtml->Datatable_Td($key['management_rate_1']);
+                $res .= $cHtml->Datatable_Td($key['management_rate_2']);
+                $res .= $cHtml->Datatable_Td($key['management_rate_3']);
+                $res .= $cHtml->Datatable_Td($key['earnings']);
+                $res .= $cHtml->Datatable_Td($key['earnings_rate']);
+                $res .= $cHtml->Datatable_Td($key['turnover']);
+                $res .= $cHtml->Datatable_Td($key['turnover_rate']);
+                $res .= $cHtml->Datatable_Td($key['reglaments']);
+                $res .= $cHtml->Datatable_Td($key['reglaments_rate']);
+                $res .= $cHtml->Datatable_Td($key['projection']);
+                $res .= $cHtml->Datatable_Td($key['projection_rate']);
+                $res .= $cHtml->Datatable_Td($key['risk']);
+                $res .= $cHtml->Datatable_Td($key['risk_rate']);
+                $res .= $cHtml->Datatable_Td($key['total_rate']);
+                $res .= $cHtml->End_Datatable_Tr();
+            }
+        }
+
+        $res .= $cHtml->End_Datatable_Body();
+        $res .= $cHtml->End_Table();
+        $res .= $cHtml->End_Datatable();
+
+        return $res;
+    }
+
+
+
 }

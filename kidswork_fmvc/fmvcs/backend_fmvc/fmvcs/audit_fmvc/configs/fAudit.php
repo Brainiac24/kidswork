@@ -5,8 +5,9 @@ use \Kidswork\fConfigs;
 
 class fAudit extends fConfigs
 {
+    public $action = array("validation" => array("act" => array("rules" => array(0 => "int|required"))));
     public $data_mode = array("validation" => array("data_mode" => array("rules" => array(0 => "int|required"))));
-    public $id = array("validation" => array("id" => array("rules" => array(0 => "int|required", 2 => ""))));
+    public $id = array("validation" => array("id_audit" => array("rules" => array(0 => "int|required", 2 => ""))));
     public $id_divisions = array("validation" => array("id_divisions" => array("rules" => array(0 => "int", 2 => "required", 3 => "required"))));
     public $date1 = array("validation" => array("date1" => array("rules" => array(0 => "str", 2 => "required", 3 => "required"))));
     public $assets = array("validation" => array("assets" => array("rules" => array(0 => "float", 2 => "required", 3 => "required"))));

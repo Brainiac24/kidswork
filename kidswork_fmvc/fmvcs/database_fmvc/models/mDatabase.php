@@ -79,17 +79,17 @@ class mDatabase extends mModels
         }
     }
 
-        public static function Bind_Value_Operation_2($array) {
+        public function Bind_Value_Operation_2($array) {
         foreach ($array as $key => $value) {
             //echo ($value[2]).'/--/';
             if ($value[5] == 'con') {
                 
             } else if ($value[3] == 'arr') {
                 $value[1] = ':' . str_replace('.', '_', $value[1]) . '_pdo';
-                $this->fDatabase->get()->pdo_stmt->get()->bindValue($value[1], $value[3], $fDatabase->get_query_value_type_value($value[5]));
+                $this->fDatabase->get()->pdo_stmt->get()->bindValue($value[1], $value[3], $this->fDatabase->get()->get_query_value_type_value($value[5]));
             } else {
                 $value[1] = ':' . str_replace('.', '_', $value[1]) . '_pdo';
-                $this->fDatabase->get()->pdo_stmt->get()->bindValue($value[1], $value[3], $fDatabase->get_query_value_type_value($value[5]));
+                $this->fDatabase->get()->pdo_stmt->get()->bindValue($value[1], $value[3], $this->fDatabase->get()->get_query_value_type_value($value[5]));
             }
         }
     }
@@ -130,7 +130,8 @@ class mDatabase extends mModels
     {
         if ($date_string != null || $date_string != '') {
             date_default_timezone_set('GMT');
-            return date_format(date_create(str_replace("T", " ", $date_string)), 'd.m.Y H:i');
+            return date_format(date_create(str_replace("T", " ", $date_string)), 'd.m.Y');
+            // H:i
         }
     }
 

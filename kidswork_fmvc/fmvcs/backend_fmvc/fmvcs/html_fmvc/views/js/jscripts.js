@@ -479,14 +479,25 @@ function Total_Rate() {
     }
 }
 
-$(document).delegate('input[name="total_rate"]', "paste keyup", function () {
-
+$(document).delegate('input[name="id_audit"]', "change", function () {
+    $data = $(this).serialize();
+    SendAjax(location.href + "&ajax=1", $data, $(this).closest(".center-box").find(".center-box-cont"));
 });
 
 
 $(document).delegate(".ac-btn-add", "click", function () {
     $data = $(this).closest(".center-box").find('input[name],select[name],textarea[name]').serialize();
-    SendAjax(location.href + "&ajax=1", $data, $(this).closest(".center-box-bot").next(".center-box-msg"), Box_Msg($(this)));
+    SendAjax(location.href + "&ajax=1&act=2", $data, $(this).closest(".center-box-bot").next(".center-box-msg"), Box_Msg($(this)));
+});
+
+$(document).delegate(".ac-btn-edit", "click", function () {
+    $data = $(this).closest(".center-box").find('input[name],select[name],textarea[name]').serialize();
+    SendAjax(location.href + "&ajax=1&act=3", $data, $(this).closest(".center-box-bot").next(".center-box-msg"), Box_Msg($(this)));
+});
+
+$(document).delegate(".ac-btn-del", "click", function () {
+    $data = $(this).closest(".center-box").find('input[name],select[name],textarea[name]').serialize();
+    SendAjax(location.href + "&ajax=1&act=4", $data, $(this).closest(".center-box-bot").next(".center-box-msg"), Box_Msg($(this)));
 });
 
 function Box_Msg($this1) {
@@ -504,6 +515,7 @@ function SendAjax($url_mode, $data_serialize, $print_container, $callback) {
         success: function (msg) {
             if ($print_container !== '') {
                 $print_container.html(msg);
+                $('.listselectbox-2.noactive').ListSelectBox({ btn_text: "" });
             }
             if (typeof $callback !== "undefined") {
                 $callback();

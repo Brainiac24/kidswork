@@ -477,12 +477,12 @@ class vHtml
         return '</div>';
     }
 
-    function Start_Select_Element($id_cmb, $name_for_form, $class="", $name = 'Выберите значение') {
+    function Start_Select_Element($id_cmb, $name_for_form, $value="", $class="", $name = 'Выберите значение') {
         $res = '<div class="listselectbox noactive '.$class.' " tabindex="-1">
                 <div class="btn btn-code btn-select">' . $name . '</div>
                 <div class="dropdownlist" >
                     <input type="text" class="textbox" placeholder="Поиск">
-                    <input type="hidden" class="hiddenbox ' . $id_cmb . '" name = "' . $name_for_form . '" >
+                    <input type="hidden" class="hiddenbox ' . $id_cmb . '" name = "' . $name_for_form . '" value="'.$value.'" >
                 <ul class="orig-list">';
         return $res;
     }
@@ -540,6 +540,11 @@ class vHtml
     function Action_Buttons_Edit($text)
     {
         return '<button class="ac-btn-edit">'.$text.'</button>';
+    }
+
+    function Action_Buttons_Delete($text)
+    {
+        return '<button class="ac-btn-del">'.$text.'</button>';
     }
 
     function Start_Action_Buttons($class="")

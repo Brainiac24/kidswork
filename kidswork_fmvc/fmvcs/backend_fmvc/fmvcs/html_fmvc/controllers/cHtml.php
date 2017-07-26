@@ -510,9 +510,9 @@ class cHtml extends mHtml
         return $res;
     }
 
-    function Start_Select_Element($id_cmb, $name_for_form, $class = "", $name = 'Выберите значение')
+    function Start_Select_Element($id_cmb, $name_for_form, $value,  $class = "", $name = 'Выберите значение')
     {
-        return $this->vHtml->Start_Select_Element($id_cmb, $name_for_form, $class, $name);
+        return $this->vHtml->Start_Select_Element($id_cmb, $name_for_form, $value, $class, $name);
     }
 
     function End_Select_Element()
@@ -568,6 +568,11 @@ class cHtml extends mHtml
     function Action_Buttons_Edit($text)
     {
         return $this->vHtml->Action_Buttons_Edit($text);
+    }
+
+    function Action_Buttons_Delete($text)
+    {
+        return $this->vHtml->Action_Buttons_Delete($text);
     }
 
     function Start_Action_Buttons($class = "")
