@@ -205,10 +205,11 @@ $(document).delegate(".excel-btn", "click", function () {
 
 
 $(document).delegate(".ac-btn-ok", "click", function () {
-    $message = $(this).closest(".center-box-msg");
-    $bottom = $message.prev(".center-box-bot");
+    //alert();
+    $message = $(this).closest("tr");
+    $btn = $message.prev(".center-box-btn");
+    $btn.show();
     $message.hide();
-    $bottom.show();
 });
 
 $(document).delegate('input[name="assets"]', "paste keyup", function () {
@@ -479,31 +480,74 @@ function Total_Rate() {
     }
 }
 
-$(document).delegate('input[name="id_audit"]', "change", function () {
-    $data = $(this).serialize();
+$(document).delegate('.id_module_code', "change", function () {
+    $data = $(this).closest(".center-box").find('input').serialize();
+    //alert($data);
     SendAjax(location.href + "&ajax=1", $data, $(this).closest(".center-box").find(".center-box-cont"));
 });
 
+$(document).delegate('.b-item', "click", function () {
+    $(this).closest(".dropdown").find('.b-item').removeClass("item-sel-a").removeClass("item-add-a").removeClass("item-upd-a").removeClass("item-del-a");
+    var value = $(this).data("val");
+    if (value=="1") {
+        $(this).addClass("item-sel-a");
+    }else if(value=="2"){
+         $(this).addClass("item-add-a");
+    }else if(value=="3"){
+         $(this).addClass("item-upd-a");
+    }else if(value=="4"){
+         $(this).addClass("item-del-a");
+    }else if(value=="0"){
+         $(this).closest(".center-box").html("");
+         return;
+    }
+    $(this).closest(".box-menu").find('input[name="data_mode"]').val(value).trigger("change");
+    //alert($(this).closest(".center-box-cap").html());
+    $(this).closest(".center-box-cap").trigger("hover");
+    
+});
+
+$(document).delegate('input[name="data_mode"]', "change", function () {
+    //alert(123);
+    $data = $(this).closest(".center-box").find('input').serialize();
+    
+    //alert(location.href + "&ajax=1");
+    if ($(this).val()=="1") {
+        $data = $(this).closest(".center-box").find('input[name="module"]').serialize() + "&" + $(this).serialize();
+        $(this).closest(".center-box").find('.center-box-cap').attr("class","center-box-cap").addClass("cap-sel");
+    } else if ($(this).val()=="2"){
+        $data = $(this).closest(".center-box").find('input[name="module"]').serialize() + "&" + $(this).serialize();
+        $(this).closest(".center-box").find('.center-box-cap').attr("class","center-box-cap").addClass("cap-add");
+    } else if ($(this).val()=="3"){
+        $data = $(this).closest(".center-box").find('input').serialize();
+        $(this).closest(".center-box").find('.center-box-cap').attr("class","center-box-cap").addClass("cap-upd");
+    } else if ($(this).val()=="4"){
+        $data = $(this).closest(".center-box").find('input').serialize();
+        $(this).closest(".center-box").find('.center-box-cap').attr("class","center-box-cap").addClass("cap-del");
+    }
+
+    SendAjax(location.href + "&ajax=1", $data, $(this).closest(".center-box").find(".center-box-cont"));
+});
 
 $(document).delegate(".ac-btn-add", "click", function () {
     $data = $(this).closest(".center-box").find('input[name],select[name],textarea[name]').serialize();
-    SendAjax(location.href + "&ajax=1&act=2", $data, $(this).closest(".center-box-bot").next(".center-box-msg"), Box_Msg($(this)));
+    SendAjax(location.href + "&ajax=1&act=2", $data, $(this).closest("tr").next(".center-box-msg"), Box_Msg($(this)));
 });
 
 $(document).delegate(".ac-btn-edit", "click", function () {
     $data = $(this).closest(".center-box").find('input[name],select[name],textarea[name]').serialize();
-    SendAjax(location.href + "&ajax=1&act=3", $data, $(this).closest(".center-box-bot").next(".center-box-msg"), Box_Msg($(this)));
+    SendAjax(location.href + "&ajax=1&act=3", $data, $(this).closest("tr").next(".center-box-msg"), Box_Msg($(this)));
 });
 
 $(document).delegate(".ac-btn-del", "click", function () {
     $data = $(this).closest(".center-box").find('input[name],select[name],textarea[name]').serialize();
-    SendAjax(location.href + "&ajax=1&act=4", $data, $(this).closest(".center-box-bot").next(".center-box-msg"), Box_Msg($(this)));
+    SendAjax(location.href + "&ajax=1&act=4", $data, $(this).closest("tr").next(".center-box-msg"), Box_Msg($(this)));
 });
 
 function Box_Msg($this1) {
-    $bottom = $this1.closest(".center-box-bot");
-    $message = $bottom.next(".center-box-msg");
-    $bottom.hide();
+    $btn = $($this1).closest("tr");
+    $message = $btn.next(".center-box-msg");
+    $btn.hide();
     $message.show();
 }
 
@@ -514,13 +558,13 @@ function SendAjax($url_mode, $data_serialize, $print_container, $callback) {
         data: $data_serialize,
         success: function (msg) {
             if ($print_container !== '') {
+                //alert(msg);
                 $print_container.html(msg);
                 $('.listselectbox-2.noactive').ListSelectBox({ btn_text: "" });
             }
             if (typeof $callback !== "undefined") {
-                $callback();
+                //$callback(msg);
             }
-
         },
         error: function (xhr, str) {
             alert('Возникла ошибка: ' + xhr.responseCode);

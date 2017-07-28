@@ -6,6 +6,7 @@ class cKidswork extends mKidswork
 {
     function Init($fClass=null)
     {
+        
         parent::Init($fClass);
 
         $cRouter = $this->ctrls->ext("cRouter");
@@ -23,6 +24,7 @@ class cKidswork extends mKidswork
 
     function Init_Ajax()
     {
+        
         return $this->Print();
     }
 

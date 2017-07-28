@@ -210,9 +210,9 @@ class vHtml
         return '</thead>';
     }
 
-    function Start_Datatable_Body()
+    function Start_Datatable_Body($class)
     {
-        return '<tbody>';
+        return '<tbody class="'.$class.'">';
     }
 
     function End_Datatable_Body()
@@ -220,9 +220,9 @@ class vHtml
         return '</tbody>';
     }
 
-    function Start_Datatable_Tr()
+    function Start_Datatable_Tr($class="")
     {
-        return '<tr>';
+        return '<tr class="'.$class.'">';
     }
 
     function End_Datatable_Tr()
@@ -372,9 +372,9 @@ class vHtml
         return '</div>';
     }
 
-    function Start_Center_Box_Top()
+    function Start_Center_Box_Top($text)
     {
-        return '<div class="center-box-top">';
+        return '<div class="center-box-top"> '.$text;
     }
 
     function End_Center_Box_Top()
@@ -479,7 +479,7 @@ class vHtml
 
     function Start_Select_Element($id_cmb, $name_for_form, $value="", $class="", $name = 'Выберите значение') {
         $res = '<div class="listselectbox noactive '.$class.' " tabindex="-1">
-                <div class="btn btn-code btn-select">' . $name . '</div>
+                <div class="btn btn-code btn-select">' . $name . ' </div>
                 <div class="dropdownlist" >
                     <input type="text" class="textbox" placeholder="Поиск">
                     <input type="hidden" class="hiddenbox ' . $id_cmb . '" name = "' . $name_for_form . '" value="'.$value.'" >
@@ -564,7 +564,142 @@ class vHtml
 
     function New_Code($text)
     {
-        return '<div class="p-12">'.$text.'</div>';
+        return '<div class="t-a-l">'.$text.'</div>';
     }
+
+    function Start_K_Table_1($class="")
+    {
+        return '<div class="'.$class.' k-table-1">';
+    }
+
+    function End_K_Table_1()
+    {
+        return '</div>';
+    }
+
+    function Start_K_Thead()
+    {
+        return '<div class="k-thead">';
+    }
+
+    function End_K_Thead()
+    {
+        return '</div>';
+    }
+
+    function Start_K_Tbody($class="")
+    {
+        return '<div class="'.$class.' k-tbody">';
+    }
+
+    function End_K_Tbody()
+    {
+        return '</div>';
+    }
+
+    function Start_K_Tfoot()
+    {
+        return '<div class="k-tfoot">';
+    }
+
+    function End_K_Tfoot()
+    {
+        return '</div>';
+    }
+
+    function Start_K_Tr()
+    {
+        return '<div class="k-tr">';
+    }
+
+    function End_K_Tr()
+    {
+        return '</div>';
+    }
+
+    function Start_K_Th()
+    {
+        return '<div class="k-th">';
+    }
+
+    function End_K_Th()
+    {
+        return '</div>';
+    }
+
+    function Start_K_Td_1()
+    {
+        return '<div class="k-td-1">';
+    }
+
+    function End_K_Td_1()
+    {
+        return '</div>';
+    }
+    
+    function K_Td_1($text)
+    {
+        return '<div class="k-td-1">'.$text.'</div>';
+    }
+
+    function Start_K_Td_2()
+    {
+        return '<div class="k-td-2">';
+    }
+
+    function End_K_Td_2()
+    {
+        return '</div>';
+    }
+
+    function K_Td_2($text)
+    {
+        return '<div class="k-td-2">'.$text.'</div>';
+    }
+
+    function Start_K_Td_3()
+    {
+        return '<div class="k-td-3">';
+    }
+
+    function End_K_Td_3()
+    {
+        return '</div>';
+    }
+
+    function K_Td_3($text)
+    {
+        return '<div class="k-td-3">'.$text.'</div>';
+    }
+
+    function Start_K_Tgroup()
+    {
+        return '<div class="k-tgroup">';
+    }
+
+    function End_K_Tgroup()
+    {
+        return '</div>';
+    }
+
+    function Ic_Add()
+    {
+        return '<i class="ic-add"></i>';
+    }
+
+    function Box_Menu()
+    {
+        return '<div class="box-menu icons ic-menu">
+                    <input type="hidden" name="data_mode">
+                    <div class="dropdown">
+                        <div class="b-item item-sel" data-val="1"><i class="icons ic-menu-sel"></i>Просмотр</div>
+                        <div class="b-item item-add" data-val="2"><i class="icons ic-menu-add"></i>Добавление</div>
+                        <div class="b-item item-upd" data-val="3"><i class="icons ic-menu-upd"></i>Изменение</div>
+                        <div class="b-item item-del" data-val="4"><i class="icons ic-menu-del"></i>Удаление</div>
+                        <div class="b-item item-close" data-val="0"><i class="icons ic-menu-close"></i>Закрыть</div>
+                    </div>
+                </div>';
+    }
+
 
 }

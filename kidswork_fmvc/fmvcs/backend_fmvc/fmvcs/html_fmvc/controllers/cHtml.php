@@ -205,9 +205,9 @@ class cHtml extends mHtml
         return $this->vHtml->End_Datatable_Head();
     }
 
-    function Start_Datatable_Body()
+    function Start_Datatable_Body($class="")
     {
-        return $this->vHtml->Start_Datatable_Body();
+        return $this->vHtml->Start_Datatable_Body($class);
     }
 
     function End_Datatable_Body()
@@ -215,9 +215,9 @@ class cHtml extends mHtml
         return $this->vHtml->End_Datatable_Body();
     }
 
-    function Start_Datatable_Tr()
+    function Start_Datatable_Tr($class="")
     {
-        return $this->vHtml->Start_Datatable_Tr();
+        return $this->vHtml->Start_Datatable_Tr($class);
     }
 
     function End_Datatable_Tr()
@@ -253,9 +253,9 @@ class cHtml extends mHtml
         return $this->vHtml->End_Datatable_Td();
     }
 
-    function Datatable_Td($val)
+    function Datatable_Td($val, $class = "", $colspan = "")
     {
-        return $this->vHtml->Start_Datatable_Td() . $val . $this->vHtml->End_Datatable_Td();
+        return $this->vHtml->Start_Datatable_Td($class, $colspan) . $val . $this->vHtml->End_Datatable_Td();
     }
 
     function Start_Middle_Center()
@@ -377,9 +377,9 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box();
     }
 
-    function Start_Center_Box_Top()
+    function Start_Center_Box_Top($text="")
     {
-        return $this->vHtml->Start_Center_Box_Top();
+        return $this->vHtml->Start_Center_Box_Top($text);
     }
 
     function End_Center_Box_Top()
@@ -476,11 +476,27 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box_Bottom();
     }
 
-    public function Table_2_Row_C2($name, $text, $colspan = "")
+    public function Table_Btn_Row_C2($name, $text, $colspan = "", $trclass="")
     {
         $res = "";
-        $res .= $this->Start_Datatable_Tr();
-        $res .= $this->Start_Datatable_Td("tab-name");
+        $res .= $this->Start_Datatable_Tr($trclass);
+        $res .= $this->Start_Datatable_Td("box-child-btn");
+        $res .= $name;
+        $res .= $this->Ic_Add();
+        $res .= $this->End_Datatable_Td();
+        $res .= $this->Start_Datatable_Td("tab-text", $colspan);
+        $res .= $text;
+        $res .= $this->End_Datatable_Td();
+        $res .= $this->End_Datatable_Tr();
+
+        return $res;
+    }
+
+    public function Table_2_Row_C2($name, $text, $colspan = "", $trclass="", $tdclass="tab-name")
+    {
+        $res = "";
+        $res .= $this->Start_Datatable_Tr($trclass);
+        $res .= $this->Start_Datatable_Td($tdclass);
         $res .= $name;
         $res .= $this->End_Datatable_Td();
         $res .= $this->Start_Datatable_Td("tab-text", $colspan);
@@ -491,10 +507,22 @@ class cHtml extends mHtml
         return $res;
     }
 
-    public function Table_2_Row_C3($name, $text1, $text2)
+    public function Table_2_Td_C2($name, $text)
     {
         $res = "";
-        $res .= $this->Start_Datatable_Tr();
+        $res .= $this->Start_Datatable_Td("tab-name");
+        $res .= $name;
+        $res .= $this->End_Datatable_Td();
+        $res .= $this->Start_Datatable_Td("tab-text","2");
+        $res .= $text;
+        $res .= $this->End_Datatable_Td();
+        return $res;
+    }
+
+    public function Table_2_Row_C3($name, $text1, $text2, $trclass="")
+    {
+        $res = "";
+        $res .= $this->Start_Datatable_Tr($trclass);
         $res .= $this->Start_Datatable_Td("tab-name");
         $res .= $name;
         $res .= $this->End_Datatable_Td();
@@ -510,7 +538,7 @@ class cHtml extends mHtml
         return $res;
     }
 
-    function Start_Select_Element($id_cmb, $name_for_form, $value,  $class = "", $name = 'Выберите значение')
+    function Start_Select_Element($id_cmb, $name_for_form, $value, $class = "", $name = 'Выберите значение')
     {
         return $this->vHtml->Start_Select_Element($id_cmb, $name_for_form, $value, $class, $name);
     }
@@ -545,7 +573,7 @@ class cHtml extends mHtml
         return $this->vHtml->Input_Text($name, $value, $class);
     }
 
-    function Input_Hidden($name, $value, $class="")
+    function Input_Hidden($name, $value, $class = "")
     {
         return $this->vHtml->Input_Hidden($name, $value, $class);
     }
@@ -605,6 +633,155 @@ class cHtml extends mHtml
         return $this->vHtml->New_Code($text);
     }
 
+    function Start_K_Table_1($class = "")
+    {
+        return $this->vHtml->Start_K_Table_1($class);
+    }
+
+    function End_K_Table_1()
+    {
+        return $this->vHtml->End_K_Table_1();
+    }
+
+    function Start_K_Thead()
+    {
+        return $this->vHtml->Start_K_Thead();
+    }
+
+    function End_K_Thead()
+    {
+        return $this->vHtml->End_K_Thead();
+    }
+
+    function Start_K_Tbody($class = "")
+    {
+        return $this->vHtml->Start_K_Tbody($class);
+    }
+
+    function End_K_Tbody()
+    {
+        return $this->vHtml->End_K_Tbody();
+    }
+
+    function Start_K_Tfoot()
+    {
+        return $this->vHtml->Start_K_Tfoot();
+    }
+
+    function End_K_Tfoot()
+    {
+        return $this->vHtml->End_K_Tfoot();
+    }
+
+    function Start_K_Tr()
+    {
+        return $this->vHtml->Start_K_Tr();
+    }
+
+    function End_K_Tr()
+    {
+        return $this->vHtml->End_K_Tr();
+    }
+
+    function Start_K_Th()
+    {
+        return $this->vHtml->Start_K_Th();
+    }
+
+    function End_K_Th()
+    {
+        return $this->vHtml->End_K_Th();
+    }
+
+    function Start_K_Td_1()
+    {
+        return $this->vHtml->Start_K_Td_1();
+    }
+
+    function End_K_Td_1()
+    {
+        return $this->vHtml->End_K_Td_1();
+    }
+
+    function K_Td_1($text)
+    {
+        return $this->vHtml->K_Td_1($text);
+    }
+
+    function Start_K_Td_2()
+    {
+        return $this->vHtml->Start_K_Td_2();
+    }
+
+    function End_K_Td_2()
+    {
+        return $this->vHtml->End_K_Td_2();
+    }
+
+    function K_Td_2($text)
+    {
+        return $this->vHtml->K_Td_2($text);
+    }
+
+
+    function Box_K_Row_2($text1, $text2)
+    {
+        $res = "";
+        $res .= $this->Start_K_Tr();
+        $res .= $this->K_Td_1($text1);
+        $res .= $this->Start_K_Td_2();
+        $res .= $text2;
+        $res .= $this->End_K_Td_2();
+        $res .= $this->End_K_Tr();
+        return $res;
+    }
+
+    function Start_K_Td_3()
+    {
+        return $this->vHtml->Start_K_Td_3();
+    }
+
+    function End_K_Td_3()
+    {
+        return $this->vHtml->End_K_Td_3();
+    }
+
+    function K_Td_3($text)
+    {
+        return $this->vHtml->K_Td_3($text);
+    }
+
+    function Box_K_Row_3($text1, $text2, $text3)
+    {
+        $res = "";
+        $res .= $this->Start_K_Tr();
+        $res .= $this->K_Td_1($text1);
+        $res .= $this->K_Td_3($text2);
+        $res .= $this->K_Td_3($text3);
+        $res .= $this->End_K_Tr();
+        return $res;
+    }
+
+    function Start_K_Tgroup()
+    {
+        return $this->vHtml->Start_K_Tgroup();
+    }
+
+    function End_K_Tgroup()
+    {
+        return $this->vHtml->End_K_Tgroup();
+    }
+
+
+    function Ic_Add()
+    {
+        return $this->vHtml->Ic_Add();
+    }
+
+    function Box_Menu()
+    {
+        return $this->vHtml->Box_Menu();
+    }
 
 
 }

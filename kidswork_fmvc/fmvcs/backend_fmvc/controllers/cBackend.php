@@ -25,6 +25,7 @@ class cBackend extends mBackend
 
     function Init_Ajax()
     {
+        
         $this->cKidswork->fKidswork->get()->struct->con($this->Print());
     }
 
