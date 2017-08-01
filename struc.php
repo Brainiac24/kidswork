@@ -53,15 +53,13 @@ use \Kidswork\fConfigs;
 
 class f'.$name.' extends fConfigs
 {
-    private $fmvc_array = array();
-   
+    //public $VAR = array("validation" => array("VAR" => array("rules" => array(0 => "int|required"))));
     function __construct()
     {
-        /*
-        $this->fmvc_array["NAME_fmvc"] = "Kidswork\NAME";
-        $this->set_fmvc_array($this->fmvc_array);
-        $this->set_path(__DIR__);
-        */
+        parent::__construct();
+        //$this->fmvc_array->add("NAME_fmvc", "Kidswork\Backend");
+        //$this->path->set(__DIR__);
+        
     }
 }';
     }
@@ -74,21 +72,11 @@ namespace Kidswork'.$this->namespace2.';
 
 class c'.$name.' extends m'.$name.'
 {
-    public function __construct($cKidswork)
-    {   
-        parent::__construct($cKidswork);
-    }
-
-    function Init($fClass=null)
-    {
-        parent::Init($fClass);
-        $cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
-        return !isset($cRouter->get_requests()["ajax"]) ? $this->Init_Full() : $this->Init_Ajax();
-    }
+    private $cHtml = null;
 
     function Init_Full()
     {
-        $cHtml = $this->cKidswork->fKidswork->get_controllers_array()["cHtml"];
+        $this->cHtml = $this->cKidswork->ctrls_global->ext("cHtml");
     }
 
     function Init_Ajax()
@@ -97,7 +85,7 @@ class c'.$name.' extends m'.$name.'
 
     public function Print()
     {
-        return $this->f'.$name.'->get_final_struct();
+        return $this->f'.$name.'->get()->final_struct();
     }
 }
 ';
@@ -113,19 +101,21 @@ use \Kidswork\mModels;
 class m'.$name.' extends mModels
 {
     public $f'.$name.';
-    public $cKidswork;
     public $cRouter;
+    public $fAudit;
+    public $cDatabase; 
 
     public function __construct($cKidswork)
     {
-        $this->cKidswork = $cKidswork;
-        $this->cRouter = $this->cKidswork->fKidswork->get_controllers_array()["cRouter"];
         $this->f'.$name.' = new f'.$name.'();
-        //$cKidswork->Import($this->f'.$name.');
+        $this->fConfig = $this->f'.$name.';
+        parent::__construct($cKidswork);
     }
 
     function Init($fClass = null)
     {
+        $this->cDatabase = $this->cKidswork->ctrls_global->ext("cDatabase");
+        $this->cRouter = $this->cKidswork->ctrls_global->ext("cRouter");
         parent::Init($this->f'.$name.');
     }
 

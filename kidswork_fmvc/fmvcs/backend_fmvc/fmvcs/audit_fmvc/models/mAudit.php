@@ -19,7 +19,6 @@ class mAudit extends mModels
         $this->cDatabase = $this->cKidswork->ctrls_global->ext("cDatabase");
         parent::Init($this->fAudit);
         
-
     }
 
     function Select_Ids() {

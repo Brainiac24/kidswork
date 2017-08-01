@@ -1,16 +1,16 @@
 <?php
 namespace Kidswork\Backend;
-    
+
 class vHtml
 {
-    
+
     function Init()
     {
     }
 
     function Start_Html()
     {
-        
+
         return '<html>';
     }
 
@@ -55,6 +55,7 @@ class vHtml
                 <script type="text/javascript" src="' . self::Path() . 'js/jscripts.js"></script>';
 
         //<script type="text/javascript" src="' . self::Path() . 'js/jssor.slider.mini.js"></script>
+
     }
 
     function Footers()
@@ -81,7 +82,7 @@ class vHtml
     function Top_Left($Logo_name = '"Банк Эсхата" - ДБР')
     {
         return '<div class="top-left">
-                    <a href="#" class="top-left-logo">'.$Logo_name.'</a>
+                    <a href="#" class="top-left-logo">' . $Logo_name . '</a>
                 </div>';
     }
 
@@ -107,7 +108,7 @@ class vHtml
 
     function Start_Top_Menu_Item($name, $url, $class = "")
     {
-        return '<li><a href="'.$url.'" class="m-t-items '.$class.'">'.$name;
+        return '<li><a href="' . $url . '" class="m-t-items ' . $class . '">' . $name;
     }
 
     function End_Top_Menu_Item()
@@ -117,7 +118,7 @@ class vHtml
 
     function Top_Menu_Badge($number)
     {
-        return '<sup>'.$number.'</sup>';
+        return '<sup>' . $number . '</sup>';
     }
 //-----------------------------------------------
     function Start_Top_Menu_2()
@@ -132,7 +133,7 @@ class vHtml
 
     function Start_Top_Menu_2_Item($name, $url, $class = "")
     {
-        return '<a href="'.$url.'" class="top-2-menu '.$class.'">'.$name;
+        return '<a href="' . $url . '" class="top-2-menu ' . $class . '">' . $name;
     }
 
     function End_Top_Menu_2_Item()
@@ -167,7 +168,7 @@ class vHtml
 
     function Start_Left_Menu_Item($name, $url, $class = "")
     {
-        return '<li><a href="'.$url.'" class="m-items '.$class.'">'.$name."";
+        return '<li><a href="' . $url . '" class="m-items ' . $class . '">' . $name . "";
     }
 
     function End_Left_Menu_Item()
@@ -190,9 +191,9 @@ class vHtml
         return '</div>';
     }
 
-    function Start_Table($class="table-1")
+    function Start_Table($class = "table-1")
     {
-        return '<table class="'.$class.'">';
+        return '<table class="' . $class . '">';
     }
 
     function End_Table()
@@ -212,7 +213,7 @@ class vHtml
 
     function Start_Datatable_Body($class)
     {
-        return '<tbody class="'.$class.'">';
+        return '<tbody class="' . $class . '">';
     }
 
     function End_Datatable_Body()
@@ -220,9 +221,9 @@ class vHtml
         return '</tbody>';
     }
 
-    function Start_Datatable_Tr($class="")
+    function Start_Datatable_Tr($class = "")
     {
-        return '<tr class="'.$class.'">';
+        return '<tr class="' . $class . '">';
     }
 
     function End_Datatable_Tr()
@@ -240,9 +241,9 @@ class vHtml
         return '</th>';
     }
 
-    function Start_Datatable_Td($class="", $colspan="")
+    function Start_Datatable_Td($class = "", $colspan = "", $child_module = "")
     {
-        return '<td class="'.$class.'" '.$colspan.'>';
+        return '<td class="' . $class . '" ' . $colspan . ' data-child-module="' . $child_module . '">';
     }
 
     function End_Datatable_Td()
@@ -283,8 +284,7 @@ class vHtml
                     </div>
                 </div>
             <div class="sticky-cont">
-            <table class = "' . $classes . '" data-table="' . $table_name . '">'
-        ;
+            <table class = "' . $classes . '" data-table="' . $table_name . '">';
     }
 
     function Start_Thead_Element()
@@ -372,9 +372,19 @@ class vHtml
         return '</div>';
     }
 
+    function Start_Center_Child_Box()
+    {
+        return '<div class="center-child-box">';
+    }
+
+    function End_Center_Child_Box()
+    {
+        return '</div>';
+    }
+
     function Start_Center_Box_Top($text)
     {
-        return '<div class="center-box-top"> '.$text;
+        return '<div class="center-box-top"> ' . $text;
     }
 
     function End_Center_Box_Top()
@@ -392,9 +402,9 @@ class vHtml
         return '</div>';
     }
 
-    function Start_Center_Box_Cap()
+    function Start_Center_Box_Cap($chid_num = "0")
     {
-        return '<div class="center-box-cap">';
+        return '<div class="center-box-cap"><input type="hidden" name="ischild" value="' . $chid_num . '">';
     }
 
     function End_Center_Box_Cap()
@@ -404,7 +414,7 @@ class vHtml
 
     function C_Box_Caption_Text($name)
     {
-        return '<div class="c-box-cap-text">'.$name.'</div>';
+        return '<div class="c-box-cap-text">' . $name . '</div>';
     }
 
     function Start_Center_Box_Cap_2()
@@ -417,9 +427,9 @@ class vHtml
         return '</div>';
     }
 
-    function C_Box_Menu_Item($name, $url, $class="" )
+    function C_Box_Menu_Item($name, $url, $class = "")
     {
-        return '<a href="'.$url.'" class="c-box-menu-item '.$class.'" data-tab-btn="1">'.$name.'</a>';
+        return '<a href="' . $url . '" class="c-box-menu-item ' . $class . '" data-tab-btn="1">' . $name . '</a>';
     }
 
     function Start_Center_Box_Cont()
@@ -444,7 +454,7 @@ class vHtml
 
     function C_Box_Row_Name($name)
     {
-        return '<div class="tab-name">'.$name.'</div>';
+        return '<div class="tab-name">' . $name . '</div>';
     }
 
     function Start_C_Box_Row_Text()
@@ -477,23 +487,27 @@ class vHtml
         return '</div>';
     }
 
-    function Start_Select_Element($id_cmb, $name_for_form, $value="", $class="", $name = 'Выберите значение') {
-        $res = '<div class="listselectbox noactive '.$class.' " tabindex="-1">
+    function Start_Select_Element($id_cmb, $name_for_form, $value = "", $class = "", $name = 'Выберите значение')
+    {
+        $res = '<div class="listselectbox noactive ' . $class . ' " tabindex="-1">
+                <div class="icons btn-grid"></div>
                 <div class="btn btn-code btn-select">' . $name . ' </div>
                 <div class="dropdownlist" >
                     <input type="text" class="textbox" placeholder="Поиск">
-                    <input type="hidden" class="hiddenbox ' . $id_cmb . '" name = "' . $name_for_form . '" value="'.$value.'" >
+                    <input type="hidden" class="hiddenbox ' . $id_cmb . '" name = "' . $name_for_form . '" value="' . $value . '" >
                 <ul class="orig-list">';
         return $res;
     }
 
-    function End_Select_Element() {
+    function End_Select_Element()
+    {
         return '</ul> <ul class="filtered-list"></ul> 
             </div>
             </div>';
     }
 
-    function Option_Select_Element($value, $name, $selected_text = '') {
+    function Option_Select_Element($value, $name, $selected_text = '')
+    {
         return '<li data-v= "' . $value . '" class="' . $selected_text . '">' . $name . '</li>';
     }
 
@@ -507,49 +521,49 @@ class vHtml
         return '</div>';
     }
 
-    function Input_Date($name, $value, $class="")
+    function Input_Date($name, $value, $class = "")
     {
-        return '<input type="date" class="w-100 '.$class.'" name="'.$name.'" value="'.$value.'" />';
+        return '<input type="date" class="w-100 ' . $class . '" name="' . $name . '" value="' . $value . '" />';
     }
 
-    function Input_Text($name, $value, $class="")
+    function Input_Text($name, $value, $class = "")
     {
-        return '<input type="text" class="w-100 '.$class.'" name="'.$name.'" value="'.$value.'" />';
+        return '<input type="text" class="w-100 ' . $class . '" name="' . $name . '" value="' . $value . '" />';
     }
 
-    function Input_Hidden($name, $value, $value2="",  $class="")
+    function Input_Hidden($name, $value, $value2 = "", $class = "")
     {
-        return '<input type="hidden" class="w-100 '.$class.'" name="'.$name.'" value="'.$value.'" /><div class="h-text">'.$value2.'</div>';
+        return '<input type="hidden" class="w-100 ' . $class . '" name="' . $name . '" value="' . $value . '" /><div class="h-text">' . $value2 . '</div>';
     }
 
     function Action_Buttons_Text($text)
     {
-        return '<div class="ac-btn-text">'.$text.'</div>';
+        return '<div class="ac-btn-text">' . $text . '</div>';
     }
 
     function Action_Buttons_Add($text)
     {
-        return '<button class="ac-btn-add">'.$text.'</button>';
+        return '<button class="ac-btn-add">' . $text . '</button>';
     }
 
     function Action_Buttons_Default($text)
     {
-        return '<button class="ac-btn-default">'.$text.'</button>';
+        return '<button class="ac-btn-default">' . $text . '</button>';
     }
 
     function Action_Buttons_Edit($text)
     {
-        return '<button class="ac-btn-edit">'.$text.'</button>';
+        return '<button class="ac-btn-edit">' . $text . '</button>';
     }
 
     function Action_Buttons_Delete($text)
     {
-        return '<button class="ac-btn-del">'.$text.'</button>';
+        return '<button class="ac-btn-del">' . $text . '</button>';
     }
 
-    function Start_Action_Buttons($class="")
+    function Start_Action_Buttons($class = "")
     {
-        return '<div class="ac-btns '.$class.'">';
+        return '<div class="ac-btns ' . $class . '">';
     }
 
     function End_Action_Buttons()
@@ -557,19 +571,19 @@ class vHtml
         return '</div>';
     }
 
-    function Action_Message_Success($text, $class="")
+    function Action_Message_Success($text, $class = "")
     {
-        return '<div class="ac-btn-msg"><div class="ac-btn-msg-text">'.$text.'</div><button class="ac-btn-ok">Ок</button></div>';
+        return '<div class="ac-btn-msg"><div class="ac-btn-msg-text">' . $text . '</div><button class="ac-btn-ok">Ок</button></div>';
     }
 
     function New_Code($text)
     {
-        return '<div class="t-a-l">'.$text.'</div>';
+        return '<div class="t-a-l">' . $text . '</div>';
     }
 
-    function Start_K_Table_1($class="")
+    function Start_K_Table_1($class = "")
     {
-        return '<div class="'.$class.' k-table-1">';
+        return '<div class="' . $class . ' k-table-1">';
     }
 
     function End_K_Table_1()
@@ -587,9 +601,9 @@ class vHtml
         return '</div>';
     }
 
-    function Start_K_Tbody($class="")
+    function Start_K_Tbody($class = "")
     {
-        return '<div class="'.$class.' k-tbody">';
+        return '<div class="' . $class . ' k-tbody">';
     }
 
     function End_K_Tbody()
@@ -636,10 +650,10 @@ class vHtml
     {
         return '</div>';
     }
-    
+
     function K_Td_1($text)
     {
-        return '<div class="k-td-1">'.$text.'</div>';
+        return '<div class="k-td-1">' . $text . '</div>';
     }
 
     function Start_K_Td_2()
@@ -654,7 +668,7 @@ class vHtml
 
     function K_Td_2($text)
     {
-        return '<div class="k-td-2">'.$text.'</div>';
+        return '<div class="k-td-2">' . $text . '</div>';
     }
 
     function Start_K_Td_3()
@@ -669,7 +683,7 @@ class vHtml
 
     function K_Td_3($text)
     {
-        return '<div class="k-td-3">'.$text.'</div>';
+        return '<div class="k-td-3">' . $text . '</div>';
     }
 
     function Start_K_Tgroup()
@@ -699,6 +713,17 @@ class vHtml
                         <div class="b-item item-close" data-val="0"><i class="icons ic-menu-close"></i>Закрыть</div>
                     </div>
                 </div>';
+    }
+
+    function Start_Dialog_Box()
+    {
+        return '<div class="dialog-box" tabindex="1">
+                <div class="fade-box">';
+    }
+
+    function End_Dialog_Box()
+    {
+        return '</div><div class="center-d-box"></div></div>';
     }
 
 

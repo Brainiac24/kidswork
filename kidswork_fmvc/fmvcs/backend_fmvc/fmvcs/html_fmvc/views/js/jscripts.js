@@ -487,43 +487,44 @@ $(document).delegate('.id_module_code', "change", function () {
 });
 
 $(document).delegate('.b-item', "click", function () {
-    $(this).closest(".dropdown").find('.b-item').removeClass("item-sel-a").removeClass("item-add-a").removeClass("item-upd-a").removeClass("item-del-a");
+    $(this).closest(".dropdown").children('.b-item').removeClass("item-sel-a").removeClass("item-add-a").removeClass("item-upd-a").removeClass("item-del-a");
     var value = $(this).data("val");
-    if (value=="1") {
+    if (value == "1") {
         $(this).addClass("item-sel-a");
-    }else if(value=="2"){
-         $(this).addClass("item-add-a");
-    }else if(value=="3"){
-         $(this).addClass("item-upd-a");
-    }else if(value=="4"){
-         $(this).addClass("item-del-a");
-    }else if(value=="0"){
-         $(this).closest(".center-box").html("");
-         return;
+        //$(this).closest(".dropdown").focusout();
+    } else if (value == "2") {
+        $(this).addClass("item-add-a");
+    } else if (value == "3") {
+        $(this).addClass("item-upd-a");
+    } else if (value == "4") {
+        $(this).addClass("item-del-a");
+    } else if (value == "0") {
+        $(this).closest(".center-box").html("");
+        return;
     }
     $(this).closest(".box-menu").find('input[name="data_mode"]').val(value).trigger("change");
     //alert($(this).closest(".center-box-cap").html());
     $(this).closest(".center-box-cap").trigger("hover");
-    
+
 });
 
 $(document).delegate('input[name="data_mode"]', "change", function () {
     //alert(123);
     $data = $(this).closest(".center-box").find('input').serialize();
-    
+
     //alert(location.href + "&ajax=1");
-    if ($(this).val()=="1") {
+    if ($(this).val() == "1") {
         $data = $(this).closest(".center-box").find('input[name="module"]').serialize() + "&" + $(this).serialize();
-        $(this).closest(".center-box").find('.center-box-cap').attr("class","center-box-cap").addClass("cap-sel");
-    } else if ($(this).val()=="2"){
+        $(this).closest(".center-box").find('.center-box-cap').eq(0).attr("class", "center-box-cap").addClass("cap-sel");
+    } else if ($(this).val() == "2") {
         $data = $(this).closest(".center-box").find('input[name="module"]').serialize() + "&" + $(this).serialize();
-        $(this).closest(".center-box").find('.center-box-cap').attr("class","center-box-cap").addClass("cap-add");
-    } else if ($(this).val()=="3"){
+        $(this).closest(".center-box").find('.center-box-cap').eq(0).attr("class", "center-box-cap").addClass("cap-add");
+    } else if ($(this).val() == "3") {
         $data = $(this).closest(".center-box").find('input').serialize();
-        $(this).closest(".center-box").find('.center-box-cap').attr("class","center-box-cap").addClass("cap-upd");
-    } else if ($(this).val()=="4"){
+        $(this).closest(".center-box").find('.center-box-cap').eq(0).attr("class", "center-box-cap").addClass("cap-upd");
+    } else if ($(this).val() == "4") {
         $data = $(this).closest(".center-box").find('input').serialize();
-        $(this).closest(".center-box").find('.center-box-cap').attr("class","center-box-cap").addClass("cap-del");
+        $(this).closest(".center-box").find('.center-box-cap').eq(0).attr("class", "center-box-cap").addClass("cap-del");
     }
 
     SendAjax(location.href + "&ajax=1", $data, $(this).closest(".center-box").find(".center-box-cont"));
@@ -544,6 +545,35 @@ $(document).delegate(".ac-btn-del", "click", function () {
     SendAjax(location.href + "&ajax=1&act=4", $data, $(this).closest("tr").next(".center-box-msg"), Box_Msg($(this)));
 });
 
+
+
+$(document).delegate(".dialog-box", "keyup", function (e) {
+    //alert(e.keyCode );
+    if (e.keyCode  === 27) {
+        $(this).hide();
+    }
+});
+
+$(document).delegate(".fade-box", "click", function () {
+    $(this).parent(".dialog-box").hide();
+});
+
+$(document).delegate(".btn-grid", "click", function () {
+    $(".dialog-box").show().focus();
+});
+
+$(document).delegate(".box-child-btn", "click", function () {
+    var childnum = parseInt(($(this).closest(".center-box").find('input[name="ischild"]').val()))+1;
+    $link = $(this).data("child-module") + "&ischild=" + childnum;
+    var pathArray = location.href.split( '/' );
+    $host =  pathArray[0] + '//' + pathArray[2] + "/" +  pathArray[3] + "/";
+    $data = $host + $link;
+    alert($data);
+    SendAjax($data, "", $(this).closest(".center-box").find(".center-child-box"));
+});
+
+
+
 function Box_Msg($this1) {
     $btn = $($this1).closest("tr");
     $message = $btn.next(".center-box-msg");
@@ -558,7 +588,7 @@ function SendAjax($url_mode, $data_serialize, $print_container, $callback) {
         data: $data_serialize,
         success: function (msg) {
             if ($print_container !== '') {
-                //alert(msg);
+                alert(msg);
                 $print_container.html(msg);
                 $('.listselectbox-2.noactive').ListSelectBox({ btn_text: "" });
             }

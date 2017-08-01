@@ -54,7 +54,7 @@ body a{
     text-decoration: none;
 }
 
-i, .icons:before{
+i, .icons:before, .icons:after{
     font-family: "Material";
     font-style: normal;
     float: right;
@@ -245,8 +245,9 @@ ul {
     margin: 10px 1% 18px 1%;
     cursor: default;
     table-layout: auto;
-    height: 80%;
+    height: calc(100% - 95px);
     width: 98%;
+    overflow: auto;
 }
 
 th{
@@ -493,8 +494,7 @@ input[type='text'] {
 }
 
 .center-box {
-    width: 94%;
-    margin: 0 3% 3% 3%;
+    width: 100%;
     background-color: #fff;
     box-shadow: 0 1px 2px 0 rgba(0,0,0,0.14);
 }
@@ -519,7 +519,7 @@ input[type='text'] {
 }
 
 .c-box-cap-text:hover{
-    background-color: #f7f7f7;
+    /*background-color: #fdfdfd;*/
     color: #0087e6;
 }
 
@@ -543,6 +543,7 @@ input[type='text'] {
 .center-wrap{
     width: 50%;
     margin-top: 20px;
+    margin: 1.5%;
 }
 
 .center-box-cap-2 {
@@ -724,6 +725,10 @@ ul {
 .listselectbox-2 .btn-select {
     border: 1px solid #c7c7c7;
     padding: 3px 5px;
+}
+
+.btn-code.btn-select:hover {
+    background-color: #f7f7f7;
 }
 
 .listselectbox-2 .dropdownlist{
@@ -958,7 +963,7 @@ ul {
 }
 
 .box-child-btn:hover i:before{
-    color: #08c599;
+    color: #00bb90;
     transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -972,6 +977,7 @@ ul {
     line-height: 21px;
     margin: 0px;
     float: right;
+    padding-right: 32px;
 }
 
 .box-menu{
@@ -1078,6 +1084,7 @@ ul {
     font-size: 24px;
     margin: -2px 0px;
     float: left;
+    padding-top: 2px;
 }
 
 .ic-menu-close:before{
@@ -1086,6 +1093,66 @@ ul {
     font-size: 24px;
     margin: -2px 0px;
     float: left;
+}
+
+.btn-grid{
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-left: 1px solid #e6e6e6;
+    width: 36px;
+    cursor: pointer;
+    border: 1px solid #c7c7c7;
+    background-color: #ffffff;
+}
+
+.btn-grid:hover{
+    background-color: #f7f7f7;
+}
+
+
+.btn-grid:after{
+    content: '\E42A';
+    color: #777777;
+    font-size: 24px;
+    float: right;
+    line-height: 21px;
+    padding: 6px 6px 4px 3px;
+}
+
+.dialog-box{
+    display: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.fade-box{
+    height: 100%;
+    width: 100%;
+    opacity: 0.3;
+    background-color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.center-d-box{
+    height: calc(100% - 110px);
+    margin-left: 19%;
+    width: 80%;
+    background-color: white;
+    position: absolute;
+    top: 97px;
+    box-shadow: 0 0 24px 9px rgba(0,0,0,0.20);
+}
+
+.center-child-box{
+    margin: 0;
+    width: 100%;
 }
 
 

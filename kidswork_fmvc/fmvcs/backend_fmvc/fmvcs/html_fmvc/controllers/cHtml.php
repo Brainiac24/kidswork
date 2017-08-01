@@ -240,12 +240,12 @@ class cHtml extends mHtml
         return $this->vHtml->Start_Datatable_Th() . $val . $this->vHtml->End_Datatable_Th();
     }
 
-    function Start_Datatable_Td($class = "", $colspan = "")
+    function Start_Datatable_Td($class = "", $colspan = "", $child_module="")
     {
         if ($colspan != "") {
             $colspan = 'colspan="' . $colspan . '"';
         }
-        return $this->vHtml->Start_Datatable_Td($class, $colspan);
+        return $this->vHtml->Start_Datatable_Td($class, $colspan, $child_module);
     }
 
     function End_Datatable_Td()
@@ -397,9 +397,9 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box_Content();
     }
 
-    function Start_Center_Box_Cap()
+    function Start_Center_Box_Cap($chid_num="0")
     {
-        return $this->vHtml->Start_Center_Box_Cap();
+        return $this->vHtml->Start_Center_Box_Cap($chid_num);
     }
 
     function End_Center_Box_Cap()
@@ -476,11 +476,11 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box_Bottom();
     }
 
-    public function Table_Btn_Row_C2($name, $text, $colspan = "", $trclass="")
+    public function Table_Btn_Row_C2($name, $text, $colspan = "", $trclass="", $child_module="")
     {
         $res = "";
         $res .= $this->Start_Datatable_Tr($trclass);
-        $res .= $this->Start_Datatable_Td("box-child-btn");
+        $res .= $this->Start_Datatable_Td("box-child-btn","", $child_module);
         $res .= $name;
         $res .= $this->Ic_Add();
         $res .= $this->End_Datatable_Td();
@@ -781,6 +781,26 @@ class cHtml extends mHtml
     function Box_Menu()
     {
         return $this->vHtml->Box_Menu();
+    }
+
+    function Start_Dialog_Box()
+    {
+        return $this->vHtml->Start_Dialog_Box();
+    }
+
+    function End_Dialog_Box()
+    {
+        return $this->vHtml->End_Dialog_Box();
+    }
+
+    function Start_Center_Child_Box()
+    {
+        return $this->vHtml->Start_Center_Child_Box();
+    }
+
+    function End_Center_Child_Box()
+    {
+        return $this->vHtml->End_Center_Child_Box();
     }
 
 
