@@ -515,12 +515,11 @@ input[type='text'] {
     font-weight: 500;
     cursor: default;
     width: calc(100% - 52px);
-    cursor: pointer;
 }
 
 .c-box-cap-text:hover{
-    /*background-color: #fdfdfd;*/
-    color: #0087e6;
+    /*background-color: #fdfdfd;
+    color: #0087e6;*/
 }
 
 .cap-sel {
@@ -927,6 +926,12 @@ ul {
     text-align: left;
 }
 
+.ic-add{
+    position: absolute;
+    top: calc(50% - 9px);
+    right: 5px;
+}
+
 
 .ic-add:before{
     content: 'add_circle';
@@ -948,12 +953,13 @@ ul {
 
 
 .box-child-btn{
-    padding: 10px 5px 10px 12px;
+    padding: 10px 28px 10px 12px;
     font-weight: 400;
     width: 35%;
     white-space: normal;
     text-align: left;
     cursor: pointer;
+    position: relative;
 }
 
 .box-child-btn:hover{
@@ -1155,7 +1161,22 @@ ul {
     width: 100%;
 }
 
+textarea{
+    min-height: 70px;
+}
 
+.ic-dot{
+    float: left;
+    margin-top: 3px;
+    margin-right: 6px;
+}
+
+.ic-dot:before{
+    content: '\E061';
+    color:  #676767;
+    font-size: 12px;
+    margin: -2px 0px;
+}
 
 
 

@@ -36,7 +36,7 @@ class mAudit extends mModels
         $db->query_switcher->set('s');
         $db->query_table_names->set(array('divisions'));
         $db->query_column_names->set(array("id","name"));
-        $db->add_query_conditions('', 'id_category', '=', '2', '', 'int', '');
+        $db->add_query_conditions('', 'id_divisions_category', '=', '2', '', 'int', '');
         $this->cDatabase->Operation();
     }
 

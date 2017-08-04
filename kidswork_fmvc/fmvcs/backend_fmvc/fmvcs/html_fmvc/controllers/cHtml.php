@@ -397,9 +397,9 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box_Content();
     }
 
-    function Start_Center_Box_Cap($chid_num="0")
+    function Start_Center_Box_Cap($chid_num="0", $selected="")
     {
-        return $this->vHtml->Start_Center_Box_Cap($chid_num);
+        return $this->vHtml->Start_Center_Box_Cap($chid_num, $selected);
     }
 
     function End_Center_Box_Cap()
@@ -571,6 +571,12 @@ class cHtml extends mHtml
     function Input_Text($name, $value = "", $class = "")
     {
         return $this->vHtml->Input_Text($name, $value, $class);
+    }
+
+    
+    function Input_RichText($name, $value, $class = "")
+    {
+        return $this->vHtml->Input_RichText($name, $value, $class);
     }
 
     function Input_Hidden($name, $value, $class = "")
@@ -778,9 +784,9 @@ class cHtml extends mHtml
         return $this->vHtml->Ic_Add();
     }
 
-    function Box_Menu()
+    function Box_Menu($value="", $sel="")
     {
-        return $this->vHtml->Box_Menu();
+        return $this->vHtml->Box_Menu($value, $sel);
     }
 
     function Start_Dialog_Box()
@@ -803,5 +809,13 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Child_Box();
     }
 
+    function Icon_Dot($dot_count)
+    {
+        $res = "";
+        for ($i=0; $i < $dot_count; $i++) { 
+            $res .= $this->vHtml->Icon_Dot();
+        }
+        return $res;
+    }
 
 }

@@ -402,9 +402,9 @@ class vHtml
         return '</div>';
     }
 
-    function Start_Center_Box_Cap($chid_num = "0")
+    function Start_Center_Box_Cap($chid_num = "0", $selected="")
     {
-        return '<div class="center-box-cap"><input type="hidden" name="ischild" value="' . $chid_num . '">';
+        return '<div class="center-box-cap '.$selected.'"><input type="hidden" name="ischild" value="' . $chid_num . '">';
     }
 
     function End_Center_Box_Cap()
@@ -529,6 +529,11 @@ class vHtml
     function Input_Text($name, $value, $class = "")
     {
         return '<input type="text" class="w-100 ' . $class . '" name="' . $name . '" value="' . $value . '" />';
+    }
+
+    function Input_RichText($name, $value, $class = "")
+    {
+        return '<textarea class="w-100 ' . $class . '" name="' . $name . '" >' . $value . '</textarea>';
     }
 
     function Input_Hidden($name, $value, $value2 = "", $class = "")
@@ -701,15 +706,15 @@ class vHtml
         return '<i class="ic-add"></i>';
     }
 
-    function Box_Menu()
+    function Box_Menu($value, $selected)
     {
         return '<div class="box-menu icons ic-menu">
-                    <input type="hidden" name="data_mode">
+                    <input type="hidden" name="data_mode" value="'.$value.'">
                     <div class="dropdown">
-                        <div class="b-item item-sel" data-val="1"><i class="icons ic-menu-sel"></i>Просмотр</div>
-                        <div class="b-item item-add" data-val="2"><i class="icons ic-menu-add"></i>Добавление</div>
-                        <div class="b-item item-upd" data-val="3"><i class="icons ic-menu-upd"></i>Изменение</div>
-                        <div class="b-item item-del" data-val="4"><i class="icons ic-menu-del"></i>Удаление</div>
+                        <div class="b-item item-sel '.$selected[1].'" data-val="1"><i class="icons ic-menu-sel"></i>Просмотр</div>
+                        <div class="b-item item-add '.$selected[2].'" data-val="2"><i class="icons ic-menu-add"></i>Добавление</div>
+                        <div class="b-item item-upd '.$selected[3].'" data-val="3"><i class="icons ic-menu-upd"></i>Изменение</div>
+                        <div class="b-item item-del '.$selected[4].'" data-val="4"><i class="icons ic-menu-del"></i>Удаление</div>
                         <div class="b-item item-close" data-val="0"><i class="icons ic-menu-close"></i>Закрыть</div>
                     </div>
                 </div>';
@@ -725,6 +730,13 @@ class vHtml
     {
         return '</div><div class="center-d-box"></div></div>';
     }
+
+    function Icon_Dot()
+    {
+        return '<i class="ic-dot"></i>';
+    }
+
+
 
 
 }
