@@ -564,7 +564,7 @@ $(document).delegate(".btn-grid", "click", function () {
 
 $(document).delegate(".box-child-btn", "click", function () {
     var childnum = parseInt(($(this).closest(".center-box").find('input[name="ischild"]').val()))+1;
-    $link = "child_module=" + $(this).data("child-module") + "&ajax=1&ischild=" + childnum;
+    $link = "child_module=" + $(this).data("child-module") + "&ajax=1&is_child=" + childnum;
     //var pathArray = location.href.split( '/' );
     //$host =  pathArray[0] + '//' + pathArray[2] + "/" +  pathArray[3] + "/";
     //$data = $host + $link;
