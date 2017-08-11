@@ -215,20 +215,20 @@ class cAudit extends mAudit
                 $this->fAudit->get()->id->set($id);
                 $this->fAudit->get()->id_divisions->set($this->Fill_Id_Divisions());
                 $this->Set_Default_Form_Content_View();
-                $this->box_bottom = $this->cHtml->Table_2_Row_C3("Действие:", $this->cHtml->Action_Buttons_Add("Добавить"), $this->cHtml->Action_Buttons_Default("Очистить"), "center-box-btn");
+                $this->box_bottom = $this->cHtml->Table_2_Row_C3("Действие:", $this->cHtml->Action_Buttons_Add("Добавить"), $this->cHtml->Action_Buttons_Default("Отмена"), "center-box-btn");
                 break;
             case 3 :
                 $this->fAudit->get()->id->set($this->Fill_Id_Audit());
                 $this->fAudit->get()->id_divisions->set($this->Fill_Id_Divisions());
                 $this->Set_Default_Update_View($stmt);
-                $this->box_bottom = $this->cHtml->Table_2_Row_C3("Действие:", $this->cHtml->Action_Buttons_Edit("Изменить"), $this->cHtml->Action_Buttons_Default("Очистить"), "center-box-btn");
+                $this->box_bottom = $this->cHtml->Table_2_Row_C3("Действие:", $this->cHtml->Action_Buttons_Edit("Изменить"), $this->cHtml->Action_Buttons_Default("Отмена"), "center-box-btn");
                 break;
             case 4 :
                 $this->Select_Audit_By_Id();
                 $stmt2 = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
                 $this->fAudit->get()->id->set($this->Fill_Id_Audit());
                 $this->Set_Default_Select_View($stmt);
-                $this->box_bottom = $this->cHtml->Table_2_Row_C3("Действие:", $this->cHtml->Action_Buttons_Delete("Удалить"), $this->cHtml->Action_Buttons_Default("Очистить"), "center-box-btn");
+                $this->box_bottom = $this->cHtml->Table_2_Row_C3("Действие:", $this->cHtml->Action_Buttons_Delete("Удалить"), $this->cHtml->Action_Buttons_Default("Отмена"), "center-box-btn");
                 break;
             default :
                 break;
@@ -261,12 +261,11 @@ class cAudit extends mAudit
         }
 
         $res = "";
-        $res .= $this->cHtml->Start_Center_Wrapper();
         $res .= $this->cHtml->Start_Center_Box();
         $res .= $this->cHtml->Start_Center_Box_Top();
         $res .= $this->cHtml->Start_Center_Box_Cap(0,$cap);
         $res .= $this->cHtml->C_Box_Caption_Text($this->cHtml->Input_Hidden("module", 'audit', "Ввод данных аудита"));
-        $res .= $this->cHtml->Box_Menu($data_mode, $sel);
+        $res .= $this->cHtml->Box_Menu($data_mode, $sel, $menu, $submenu);
 
         $res .= $this->cHtml->End_Center_Box_Cap();
         $res .= $this->cHtml->End_Center_Box_Top();
@@ -301,7 +300,6 @@ class cAudit extends mAudit
         $res .= $this->cHtml->End_Center_Child_Box();
 
         $res .= $this->cHtml->End_Center_Box();
-        $res .= $this->cHtml->End_Center_Wrapper();
 
 
         return $res;

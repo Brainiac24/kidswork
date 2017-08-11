@@ -21,6 +21,8 @@ class mNames extends mModels
     {
         $this->cDatabase = $this->cKidswork->ctrls_global->ext("cDatabase");
         $this->cRouter = $this->cKidswork->ctrls_global->ext("cRouter");
+        //\var_dump($this->cKidswork->ctrls_global->ext("cRouter"));
+        
         parent::Init($this->fNames);
     }
 
@@ -29,7 +31,7 @@ class mNames extends mModels
         $this->cDatabase->Clear();
         $db->query_switcher->set('s');
         $db->query_table_names->set(array($this->fNames->get()->table->get()));
-        $db->query_column_names->set(array("id"));
+        $db->query_column_names->set(array("id","name"));
         $this->cDatabase->Operation();
     }
 
@@ -40,6 +42,34 @@ class mNames extends mModels
         $db->query_table_names->set(array($this->fNames->get()->table->get()));
         $db->query_column_names->set(array('id', 'name'));
         $db->add_query_conditions('', 'id', '=', $this->fNames->get()->id->get(), '', 'int','');
+        $this->cDatabase->Operation();
+    }
+
+    function Insert() {
+        $db = $this->cDatabase->fDatabase->get();
+        $this->cDatabase->Clear();
+        $db->query_switcher->set('i');
+        $db->query_table_names->set(array($this->fNames->get()->table->get()));
+        $db->add_query_parameters('name', '=', $this->fNames->get()->name->get(), 'str');
+        $this->cDatabase->Operation();
+    }
+
+    function Update() {
+        $db = $this->cDatabase->fDatabase->get();
+        $this->cDatabase->Clear();
+        $db->query_switcher->set('u');
+        $db->query_table_names->set(array($this->fNames->get()->table->get()));
+        $db->add_query_parameters('name', '=', $this->fNames->get()->name->get(), 'str');
+        $db->add_query_conditions('', 'id', '=', $this->fNames->get()->id->get(), '', 'int', '');
+        $this->cDatabase->Operation();
+    }
+
+    function Delete() {
+        $db = $this->cDatabase->fDatabase->get();
+        $this->cDatabase->Clear();
+        $db->query_switcher->set('d');
+        $db->query_table_names->set(array($this->fNames->get()->table->get()));
+        $db->add_query_conditions('', 'id', '=', $this->fNames->get()->id->get(), '', 'int', '');
         $this->cDatabase->Operation();
     }
 

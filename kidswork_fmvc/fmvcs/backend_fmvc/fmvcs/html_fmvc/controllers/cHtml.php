@@ -205,7 +205,7 @@ class cHtml extends mHtml
         return $this->vHtml->End_Datatable_Head();
     }
 
-    function Start_Datatable_Body($class="")
+    function Start_Datatable_Body($class = "")
     {
         return $this->vHtml->Start_Datatable_Body($class);
     }
@@ -215,7 +215,7 @@ class cHtml extends mHtml
         return $this->vHtml->End_Datatable_Body();
     }
 
-    function Start_Datatable_Tr($class="")
+    function Start_Datatable_Tr($class = "")
     {
         return $this->vHtml->Start_Datatable_Tr($class);
     }
@@ -240,7 +240,7 @@ class cHtml extends mHtml
         return $this->vHtml->Start_Datatable_Th() . $val . $this->vHtml->End_Datatable_Th();
     }
 
-    function Start_Datatable_Td($class = "", $colspan = "", $child_module="")
+    function Start_Datatable_Td($class = "", $colspan = "", $child_module = "")
     {
         if ($colspan != "") {
             $colspan = 'colspan="' . $colspan . '"';
@@ -377,7 +377,7 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box();
     }
 
-    function Start_Center_Box_Top($text="")
+    function Start_Center_Box_Top($text = "")
     {
         return $this->vHtml->Start_Center_Box_Top($text);
     }
@@ -397,7 +397,7 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box_Content();
     }
 
-    function Start_Center_Box_Cap($chid_num="0", $selected="")
+    function Start_Center_Box_Cap($chid_num = "0", $selected = "")
     {
         return $this->vHtml->Start_Center_Box_Cap($chid_num, $selected);
     }
@@ -476,11 +476,11 @@ class cHtml extends mHtml
         return $this->vHtml->End_Center_Box_Bottom();
     }
 
-    public function Table_Btn_Row_C2($name, $text, $colspan = "", $trclass="", $child_module="")
+    public function Table_Btn_Row_C2($name, $text, $colspan = "", $trclass = "", $child_module = "")
     {
         $res = "";
         $res .= $this->Start_Datatable_Tr($trclass);
-        $res .= $this->Start_Datatable_Td("box-child-btn","", $child_module);
+        $res .= $this->Start_Datatable_Td("box-child-btn", "", $child_module);
         $res .= $name;
         $res .= $this->Ic_Add();
         $res .= $this->End_Datatable_Td();
@@ -492,7 +492,7 @@ class cHtml extends mHtml
         return $res;
     }
 
-    public function Table_2_Row_C2($name, $text, $colspan = "", $trclass="", $tdclass="tab-name")
+    public function Table_2_Row_C2($name, $text, $colspan = "", $trclass = "", $tdclass = "tab-name")
     {
         $res = "";
         $res .= $this->Start_Datatable_Tr($trclass);
@@ -513,13 +513,13 @@ class cHtml extends mHtml
         $res .= $this->Start_Datatable_Td("tab-name");
         $res .= $name;
         $res .= $this->End_Datatable_Td();
-        $res .= $this->Start_Datatable_Td("tab-text","2");
+        $res .= $this->Start_Datatable_Td("tab-text", "2");
         $res .= $text;
         $res .= $this->End_Datatable_Td();
         return $res;
     }
 
-    public function Table_2_Row_C3($name, $text1, $text2, $trclass="")
+    public function Table_2_Row_C3($name, $text1, $text2, $trclass = "")
     {
         $res = "";
         $res .= $this->Start_Datatable_Tr($trclass);
@@ -573,7 +573,7 @@ class cHtml extends mHtml
         return $this->vHtml->Input_Text($name, $value, $class);
     }
 
-    
+
     function Input_RichText($name, $value, $class = "")
     {
         return $this->vHtml->Input_RichText($name, $value, $class);
@@ -784,9 +784,9 @@ class cHtml extends mHtml
         return $this->vHtml->Ic_Add();
     }
 
-    function Box_Menu($value="", $sel="")
+    function Box_Menu($value, $sel, $menu, $submenu)
     {
-        return $this->vHtml->Box_Menu($value, $sel);
+        return $this->vHtml->Box_Menu($value, $sel, $menu, $submenu);
     }
 
     function Start_Dialog_Box()
@@ -812,10 +812,15 @@ class cHtml extends mHtml
     function Icon_Dot($dot_count)
     {
         $res = "";
-        for ($i=0; $i < $dot_count; $i++) { 
+        for ($i = 0; $i < \intval($dot_count); $i++) {
             $res .= $this->vHtml->Icon_Dot();
         }
         return $res;
+    }
+
+    function Expand_Code($text)
+    {
+        return $this->vHtml->Expand_Code($text);
     }
 
 }

@@ -32,34 +32,49 @@ class mFraud extends mModels
         $db->query_column_names->set(array("id"));
         $this->cDatabase->Operation();
     }
-
-    function Select_Ids_Fraud_Attr() {
-        $db = $this->cDatabase->fDatabase->get();
-        $this->cDatabase->Clear();
-        $db->query_switcher->set('s');
-        $db->query_table_names->set(array('fraud_attr'));
-        $db->query_column_names->set(array("id","date1"));
-        $this->cDatabase->Operation();
-    }
     
     function Select_Fraud_By_Id() {
         $db = $this->cDatabase->fDatabase->get();
         $this->cDatabase->Clear();
         $db->query_switcher->set('s');
-        $db->query_table_names->set(array('fraud, fraud_attr'));
-        $db->query_column_names->set(array('fraud.id AS fraud_id', 'fraud_attr.id AS fraud_attr_id', 'fraud.id_fraud_attr as id_fraud_attr2','fraud.date1'));
+        $db->query_table_names->set(array('fraud', 'fraud_actions'));
+        $db->query_column_names->set(array('fraud.id as id_fraud', 'id_fraud_attr','fraud.date1', 'fraud.id_fraud_actions', 'fraud.`desc`', "fraud_actions.name as name_fraud_actions"));
         $db->add_query_conditions('', 'fraud.id', '=', $this->fFraud->get()->id->get(), '', 'int', 'AND');
-        $db->add_query_conditions('', 'fraud.id_fraud_attr', '=', 'fraud_attr.id', '', 'con', '');
+        $db->add_query_conditions('', 'fraud.id_fraud_actions', '=', "fraud_actions.id", '', 'con', '');
         $this->cDatabase->Operation();
     }
 
-    function Select_Fraud_Attr_By_Id() {
+    function Insert() {
         $db = $this->cDatabase->fDatabase->get();
         $this->cDatabase->Clear();
-        $db->query_switcher->set('s');
-        $db->query_table_names->set(array('fraud_attr'));
-        $db->query_column_names->set(array("id","desc"));
-        $db->add_query_conditions('', 'id', '=', $this->fFraud->get()->id_fraud_attr->get(), '', 'int', '');
+        $db->query_switcher->set('i');
+        $db->query_table_names->set(array('fraud'));
+        $db->add_query_parameters('id_fraud_attr', '=', $this->fFraud->get()->id_fraud_attr->get(), 'int');
+        $db->add_query_parameters('date1', '=', $this->cDatabase->Convert_Date_To_Mysql($this->fFraud->get()->date1->get()), 'str');
+        $db->add_query_parameters('id_fraud_actions', '=', $this->fFraud->get()->id_fraud_actions->get(), 'int');
+        $db->add_query_parameters('desc', '=', $this->fFraud->get()->desc->get(), 'str');
+        $this->cDatabase->Operation();
+    }
+
+    function Update() {
+        $db = $this->cDatabase->fDatabase->get();
+        $this->cDatabase->Clear();
+        $db->query_switcher->set('u');
+        $db->query_table_names->set(array('fraud'));
+        $db->add_query_parameters('id_fraud_attr', '=', $this->fFraud->get()->id_fraud_attr->get(), 'int');
+        $db->add_query_parameters('date1', '=', $this->cDatabase->Convert_Date_To_Mysql($this->fFraud->get()->date1->get()), 'str');
+        $db->add_query_parameters('id_fraud_actions', '=', $this->fFraud->get()->id_fraud_actions->get(), 'int');
+        $db->add_query_parameters('desc', '=', $this->fFraud->get()->desc->get(), 'str');
+        $db->add_query_conditions('', 'id', '=', $this->fFraud->get()->id->get(), '', 'int', '');
+        $this->cDatabase->Operation();
+    }
+
+    function Delete() {
+        $db = $this->cDatabase->fDatabase->get();
+        $this->cDatabase->Clear();
+        $db->query_switcher->set('d');
+        $db->query_table_names->set(array('fraud'));
+        $db->add_query_conditions('', 'id', '=', $this->fFraud->get()->id->get(), '', 'int', '');
         $this->cDatabase->Operation();
     }
         

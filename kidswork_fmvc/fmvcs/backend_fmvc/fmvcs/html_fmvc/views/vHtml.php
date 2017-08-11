@@ -56,6 +56,7 @@ class vHtml
 
         //<script type="text/javascript" src="' . self::Path() . 'js/jssor.slider.mini.js"></script>
 
+
     }
 
     function Footers()
@@ -402,9 +403,9 @@ class vHtml
         return '</div>';
     }
 
-    function Start_Center_Box_Cap($chid_num = "0", $selected="")
+    function Start_Center_Box_Cap($chid_num = "0", $selected = "")
     {
-        return '<div class="center-box-cap '.$selected.'"><input type="hidden" name="ischild" value="' . $chid_num . '">';
+        return '<div class="center-box-cap ' . $selected . '"><input type="hidden" name="ischild" value="' . $chid_num . '">';
     }
 
     function End_Center_Box_Cap()
@@ -583,7 +584,7 @@ class vHtml
 
     function New_Code($text)
     {
-        return '<div class="t-a-l">' . $text . '</div>';
+        return '<div class="">' . $text . '</div>';
     }
 
     function Start_K_Table_1($class = "")
@@ -706,15 +707,17 @@ class vHtml
         return '<i class="ic-add"></i>';
     }
 
-    function Box_Menu($value, $selected)
+    function Box_Menu($value, $selected, $menu, $submenu)
     {
         return '<div class="box-menu icons ic-menu">
-                    <input type="hidden" name="data_mode" value="'.$value.'">
+                    <input type="hidden" name="menu" value="' . $menu . '">
+                    <input type="hidden" name="submenu" value="' . $submenu . '">
+                    <input type="hidden" name="data_mode" value="' . $value . '">
                     <div class="dropdown">
-                        <div class="b-item item-sel '.$selected[1].'" data-val="1"><i class="icons ic-menu-sel"></i>Просмотр</div>
-                        <div class="b-item item-add '.$selected[2].'" data-val="2"><i class="icons ic-menu-add"></i>Добавление</div>
-                        <div class="b-item item-upd '.$selected[3].'" data-val="3"><i class="icons ic-menu-upd"></i>Изменение</div>
-                        <div class="b-item item-del '.$selected[4].'" data-val="4"><i class="icons ic-menu-del"></i>Удаление</div>
+                        <div class="b-item item-sel ' . $selected[1] . '" data-val="1"><i class="icons ic-menu-sel"></i>Просмотр</div>
+                        <div class="b-item item-add ' . $selected[2] . '" data-val="2"><i class="icons ic-menu-add"></i>Добавление</div>
+                        <div class="b-item item-upd ' . $selected[3] . '" data-val="3"><i class="icons ic-menu-upd"></i>Изменение</div>
+                        <div class="b-item item-del ' . $selected[4] . '" data-val="4"><i class="icons ic-menu-del"></i>Удаление</div>
                         <div class="b-item item-close" data-val="0"><i class="icons ic-menu-close"></i>Закрыть</div>
                     </div>
                 </div>';
@@ -734,6 +737,11 @@ class vHtml
     function Icon_Dot()
     {
         return '<i class="ic-dot"></i>';
+    }
+
+    function Expand_Code($text)
+    {
+        return '<div class="exp-code">' . $text . '<i class="ic-exp-code"></i><div>';
     }
 
 

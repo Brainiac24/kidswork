@@ -7,11 +7,15 @@ use \Kidswork\fConfigs;
 class fFraud_attr extends fConfigs
 {
     public $data_mode = array("validation" => array("data_mode" => array("rules" => array(0 => "int|required"))));
-    public $action = array("validation" => array("action" => array("rules" => array(0 => "int|required", 2 => ""))));
-    public $id = array("validation" => array("id_fraud" => array("rules" => array(0 => "int|required", 2 => ""))));
+    public $action = array("validation" => array("act" => array("rules" => array(0 => "int|required", 2 => ""))));
+    public $is_child = array("validation" => array("ischild" => array("rules" => array(0 => "int|required", 2 => ""))),"value"=>"1");
+    public $child_module = array("validation" => array("child_module" => array("rules" => array(0 => "str|required", 2 => ""))));
+
+    public $id = array("validation" => array("id_fraud_attr" => array("rules" => array(0 => "int|required", 2 => ""))));
     public $date1 = array("validation" => array("date1" => array("rules" => array(0 => "str|required", 2 => ""))));
-    public $id_divisions = array("validation" => array("id_divisions" => array("rules" => array(0 => "int|required", 2 => ""))));
-    public $id_divisions_2 = array("validation" => array("id_divisions_2" => array("rules" => array(0 => "int|required", 2 => ""))));
+    public $id_divisions_filial = array("validation" => array("id_divisions_filial" => array("rules" => array(0 => "int|required", 2 => ""))));
+    public $id_divisions_mhb = array("validation" => array("id_divisions_mhb" => array("rules" => array(0 => "int|required", 2 => ""))));
+    public $id_divisions_otdel = array("validation" => array("id_divisions_otdel" => array("rules" => array(0 => "int|required", 2 => ""))));
     public $id_business_line = array("validation" => array("id_business_line" => array("rules" => array(0 => "int|required", 2 => ""))));
     public $id_risk_category = array("validation" => array("id_risk_category" => array("rules" => array(0 => "int|required", 2 => ""))));
     public $id_risk_factor = array("validation" => array("id_risk_factor" => array("rules" => array(0 => "int|required", 2 => ""))));

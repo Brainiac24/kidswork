@@ -1168,7 +1168,7 @@ textarea{
 .ic-dot{
     float: left;
     margin-top: 3px;
-    margin-right: 6px;
+    margin-right: 2px;
 }
 
 .ic-dot:before{
@@ -1176,6 +1176,10 @@ textarea{
     color:  #676767;
     font-size: 12px;
     margin: -2px 0px;
+}
+
+.c-box-cap-text .ic-dot:last-of-type{
+    margin-right: 5px;
 }
 
 

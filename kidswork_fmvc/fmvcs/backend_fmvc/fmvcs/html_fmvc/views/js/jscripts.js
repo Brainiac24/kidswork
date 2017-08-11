@@ -483,7 +483,7 @@ function Total_Rate() {
 $(document).delegate('.id_module_code', "change", function () {
     $data = $(this).closest(".center-box").find('input').serialize();
     //alert($data);
-    SendAjax(location.href + "&ajax=1", $data, $(this).closest(".center-box").find(".center-box-cont"));
+    SendAjax("?ajax=1", $data, $(this).closest(".center-box").find(".center-box-cont"));
 });
 
 $(document).delegate('.b-item', "click", function () {
@@ -502,6 +502,7 @@ $(document).delegate('.b-item', "click", function () {
         $(this).closest(".center-box").html("");
         return;
     }
+    //alert($(this).closest(".box-menu").html());
     $(this).closest(".box-menu").find('input[name="data_mode"]').val(value).trigger("change");
     //alert($(this).closest(".center-box-cap").html());
     $(this).closest(".center-box-cap").trigger("hover");
@@ -514,10 +515,10 @@ $(document).delegate('input[name="data_mode"]', "change", function () {
 
     //alert(location.href + "&ajax=1");
     if ($(this).val() == "1") {
-        $data = $(this).closest(".center-box").find('input[name="module"]').serialize() + "&" + $(this).serialize();
+        $data = $(this).closest(".center-box").find('input').serialize();
         $(this).closest(".center-box").find('.center-box-cap').eq(0).attr("class", "center-box-cap").addClass("cap-sel");
     } else if ($(this).val() == "2") {
-        $data = $(this).closest(".center-box").find('input[name="module"]').serialize() + "&" + $(this).serialize();
+        $data = $(this).closest(".center-box").find('input').serialize();
         $(this).closest(".center-box").find('.center-box-cap').eq(0).attr("class", "center-box-cap").addClass("cap-add");
     } else if ($(this).val() == "3") {
         $data = $(this).closest(".center-box").find('input').serialize();
@@ -527,29 +528,32 @@ $(document).delegate('input[name="data_mode"]', "change", function () {
         $(this).closest(".center-box").find('.center-box-cap').eq(0).attr("class", "center-box-cap").addClass("cap-del");
     }
 
-    SendAjax(location.href + "&ajax=1", $data, $(this).closest(".center-box").find(".center-box-cont"));
+    SendAjax("?ajax=1", $data, $(this).closest(".center-box").find(".center-box-cont"));
 });
 
 $(document).delegate(".ac-btn-add", "click", function () {
     $data = $(this).closest(".center-box").find('input[name],select[name],textarea[name]').serialize();
-    SendAjax(location.href + "&ajax=1&act=2", $data, $(this).closest("tr").next(".center-box-msg"), Box_Msg($(this)));
+    $ajax_this = $(this);
+    SendAjax("?ajax=1&act=2", $data, '', Box_Msg);
 });
 
 $(document).delegate(".ac-btn-edit", "click", function () {
     $data = $(this).closest(".center-box").find('input[name],select[name],textarea[name]').serialize();
-    SendAjax(location.href + "&ajax=1&act=3", $data, $(this).closest("tr").next(".center-box-msg"), Box_Msg($(this)));
+    $ajax_this = $(this);
+    SendAjax("?ajax=1&act=3", $data, '', Box_Msg);
 });
 
 $(document).delegate(".ac-btn-del", "click", function () {
     $data = $(this).closest(".center-box").find('input[name],select[name],textarea[name]').serialize();
-    SendAjax(location.href + "&ajax=1&act=4", $data, $(this).closest("tr").next(".center-box-msg"), Box_Msg($(this)));
+    $ajax_this = $(this);
+    SendAjax("?ajax=1&act=4", $data, '', Box_Msg);
 });
 
 
 
 $(document).delegate(".dialog-box", "keyup", function (e) {
     //alert(e.keyCode );
-    if (e.keyCode  === 27) {
+    if (e.keyCode === 27) {
         $(this).hide();
     }
 });
@@ -562,24 +566,53 @@ $(document).delegate(".btn-grid", "click", function () {
     $(".dialog-box").show().focus();
 });
 
+$(document).delegate(".ac-btn-default", "click", function () {
+    var is_child = parseInt($(this).closest('.center-box').find('input[name="ischild"]').val());
+
+    if (is_child > 0) {
+        $(this).closest('.center-child-box').hide()
+        $(this).closest('.center-child-box').closest('.center-box').find(".table-box").show();
+        $(this).closest('.center-child-box').html("");
+    }
+
+});
+
 $(document).delegate(".box-child-btn", "click", function () {
-    var childnum = parseInt(($(this).closest(".center-box").find('input[name="ischild"]').val()))+1;
-    $link = "child_module=" + $(this).data("child-module") + "&ajax=1&is_child=" + childnum;
+    var childnum = parseInt(($(this).closest(".center-box").find('input[name="ischild"]').val())) + 1;
+    $link = $(this).data("child-module") + "&ajax=2&ischild=" + childnum;
     //var pathArray = location.href.split( '/' );
     //$host =  pathArray[0] + '//' + pathArray[2] + "/" +  pathArray[3] + "/";
     //$data = $host + $link;
-    //alert($link);
-    SendAjax(location.href + $link, "", $(this).closest(".center-box").find(".center-child-box"));
+    //alert(location.href + $link);
+    $(this).closest('.center-box-cont').find('.box-child-btn').removeClass('active-child');
+    $(this).addClass("active-child");
+    SendAjax($link, "", $(this).closest(".center-box").find(".center-child-box")), Box_Hide($(this));
+    $(this).closest(".center-box").find(".center-child-box").show();
+
 });
 
 
+function Box_Hide($this1) {
+    $this1.closest(".table-box").hide();
+}
 
 function Box_Msg($this1) {
     $btn = $($this1).closest("tr");
     $message = $btn.next(".center-box-msg");
+    try {
+        $resp = jQuery.parseJSON(JSON.stringify($ajax_msg));
+        alert($ajax_msg);
+        $this1.closest('.center-child-box').closest('.center-box').find('.box-child-btn.active-child').next('td').html($resp.cmb);
+        $message.html($resp.msg);
+    } catch (error) {
+        //alert(error);
+    }
     $btn.hide();
     $message.show();
 }
+
+$ajax_this = null;
+$ajax_msg = null;
 
 function SendAjax($url_mode, $data_serialize, $print_container, $callback) {
     $options = {
@@ -587,14 +620,15 @@ function SendAjax($url_mode, $data_serialize, $print_container, $callback) {
         url: $url_mode,
         data: $data_serialize,
         success: function (msg) {
+            $ajax_msg = msg;
+            //alert(msg);
             if ($print_container !== '') {
-                alert(msg);
                 $print_container.html(msg);
-                $('.listselectbox-2.noactive').ListSelectBox({ btn_text: "" });
             }
             if (typeof $callback !== "undefined") {
-                //$callback(msg);
+                $callback($ajax_this);
             }
+            $('.listselectbox-2.noactive').ListSelectBox({ btn_text: "" });
         },
         error: function (xhr, str) {
             alert('Возникла ошибка: ' + xhr.responseCode);
