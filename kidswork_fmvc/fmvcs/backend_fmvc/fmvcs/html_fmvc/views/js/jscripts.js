@@ -509,6 +509,10 @@ $(document).delegate('.b-item', "click", function () {
 
 });
 
+function Refresh_Listbox(this2) {
+    $(this2).next('.orig-list').find('li[data-v="'+this2.val()+'"]').click();
+}
+
 $(document).delegate('input[name="data_mode"]', "change", function () {
     //alert(123);
     $data = $(this).closest(".center-box").find('input').serialize();
@@ -554,17 +558,26 @@ $(document).delegate(".ac-btn-del", "click", function () {
 $(document).delegate(".dialog-box", "keyup", function (e) {
     //alert(e.keyCode );
     if (e.keyCode === 27) {
+        $(this).children('.center-d-box').html("");
+        $('.tab-text').removeClass('active-table-id');
         $(this).hide();
     }
 });
 
 $(document).delegate(".fade-box", "click", function () {
+    $(this).next('.center-d-box').html("");
+    $('.tab-text').removeClass('active-table-id');
     $(this).parent(".dialog-box").hide();
 });
 
-$(document).delegate(".btn-grid", "click", function () {
-    $(".dialog-box").show().focus();
+$(document).delegate(".dialog-box td", "click", function () {
+    var hidden = $('.active-table-id').find('input[name^="id_"]');
+    hidden.val($(this).parent('tr').children('td').eq(0).text());
+    $(this).closest('.center-d-box').html("").closest(".dialog-box").hide();
+    Refresh_Listbox(hidden);
+    //$('.tab-text').removeClass('active-table-id');
 });
+
 
 $(document).delegate(".ac-btn-default", "click", function () {
     var is_child = parseInt($(this).closest('.center-box').find('input[name="ischild"]').val());
@@ -579,7 +592,7 @@ $(document).delegate(".ac-btn-default", "click", function () {
 
 $(document).delegate(".box-child-btn", "click", function () {
     var childnum = parseInt(($(this).closest(".center-box").find('input[name="ischild"]').val())) + 1;
-    $link = $(this).data("child-module") + "&ajax=2&ischild=" + childnum;
+    $link = $(this).data("child-module") + "&submenu=2&ajax=2&ischild=" + childnum;
     //var pathArray = location.href.split( '/' );
     //$host =  pathArray[0] + '//' + pathArray[2] + "/" +  pathArray[3] + "/";
     //$data = $host + $link;
@@ -589,6 +602,15 @@ $(document).delegate(".box-child-btn", "click", function () {
     SendAjax($link, "", $(this).closest(".center-box").find(".center-child-box")), Box_Hide($(this));
     $(this).closest(".center-box").find(".center-child-box").show();
 
+});
+
+$(document).delegate(".btn-grid", "click", function () {
+    var parent = $(this).closest('tr');
+    $link = parent.children('.box-child-btn').data('child-module') + "&submenu=3&ajax=3";
+    $(this).closest('.center-box-cont').find('.tab-text').removeClass('active-table-id');
+    parent.children('.tab-text').addClass("active-table-id");
+    SendAjax($link, "", $(".dialog-box").children(".center-d-box"));
+    $(".dialog-box").show().focus();
 });
 
 

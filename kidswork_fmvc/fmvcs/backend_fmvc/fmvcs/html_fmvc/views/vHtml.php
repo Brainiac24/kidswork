@@ -174,7 +174,7 @@ class vHtml
 
     function End_Left_Menu_Item()
     {
-        return '</a></li>';
+        return '</a><div class="child-menu"></div></li>';
     }
 
     function Left_Menu_Triangle()
@@ -182,9 +182,9 @@ class vHtml
         return '<div class="triangle-left"></div>';
     }
 
-    function Start_Datatable()
+    function Start_Datatable($class = 'datatable')
     {
-        return '<div class="datatable">';
+        return '<div class="'.$class.'">';
     }
 
     function End_Datatable()
@@ -244,7 +244,7 @@ class vHtml
 
     function Start_Datatable_Td($class = "", $colspan = "", $child_module = "")
     {
-        return '<td class="' . $class . '" ' . $colspan . ' data-child-module="' . $child_module . '">';
+        return '<td class="' . $class . '" ' . $colspan . ' ' . $child_module . '>';
     }
 
     function End_Datatable_Td()

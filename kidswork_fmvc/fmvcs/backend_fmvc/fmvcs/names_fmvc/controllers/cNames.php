@@ -31,12 +31,21 @@ class cNames extends mNames
 
 
         if ($this->cRouter->fRouter->get()->menu->get() == "10") {
-            if ($this->cRouter->fRouter->get()->ajax->get() == "2") {
+            $ajax = $this->cRouter->fRouter->get()->ajax->get();
+            if ($ajax == "2") {
                 if ($this->fNames->get()->data_mode->get() == "") {
                     $this->fNames->get()->data_mode->set("2");
                 }
                 $this->Data_Control_Switcher();
                 $this->cCenter->fCenter->get()->struct->con($this->Data_Control_View());
+            }
+            elseif ($ajax == "3") {
+
+                $this->Select_Names_To_Table();
+                $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+                if ($stmt !== null) {
+                    $this->cCenter->fCenter->get()->struct->con($this->Datatable($stmt,'datatable-2'));
+                }
             }
             else {
                 if ($this->fNames->get()->table->get() == "") {
@@ -80,7 +89,10 @@ class cNames extends mNames
             $this->cCenter->fCenter->get()->struct->con($this->Data_Control_View());
         }
         elseif ($submenu == "3") {
-            $this->Select_Audit_To_Table();
+            if ($this->fNames->get()->table->get() == "") {
+                $this->fNames->get()->table->set("fraud_actions");
+            }
+            $this->Select_Names_To_Table();
             $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
             if ($stmt !== null) {
                 $this->cCenter->fCenter->get()->struct->con($this->Datatable($stmt));
@@ -135,10 +147,10 @@ class cNames extends mNames
         return $id;
     }
 
-        
+
     public function Fill_Names_Parent()
     {
-        $res0 = $this->Fill_Names("id_".$this->fNames->get()->table->get());
+        $res0 = $this->Fill_Names("id_" . $this->fNames->get()->table->get());
         $res1 = $this->cHtml->Table_2_Td_C2("Уведомление", $this->cHtml->Action_Message_Success("Данные успешно сохранены!"));
         header("Content-Type: application/json;charset=utf-8");
         $res = \json_encode(array('cmb' => $res0, 'msg' => $res1));
@@ -356,6 +368,36 @@ class cNames extends mNames
         else {
             $this->Set_Default_Form_Content_View();
         }
+    }
+
+    function Datatable($stmt, $class='datatable')
+    {
+
+        $cHtml = $this->cHtml;
+        $res = '';
+        $res .= $cHtml->Start_Datatable($class);
+        $res .= $cHtml->Start_Table("table-1");
+        $res .= $cHtml->Start_Datatable_Head();
+        $res .= $cHtml->Start_Datatable_Tr();
+        $res .= $cHtml->Datatable_Th("Код");
+        $res .= $cHtml->Datatable_Th("Наименование");
+        $res .= $cHtml->End_Datatable_Tr();
+        $res .= $cHtml->End_Datatable_Head();
+        $res .= $cHtml->Start_Datatable_Body();
+        if ($stmt != null) {
+            foreach ($stmt as $key) {
+                $res .= $cHtml->Start_Datatable_Tr();
+                $res .= $cHtml->Datatable_Td($key['id']);
+                $res .= $cHtml->Datatable_Td($key['name']);
+                $res .= $cHtml->End_Datatable_Tr();
+            }
+        }
+
+        $res .= $cHtml->End_Datatable_Body();
+        $res .= $cHtml->End_Table();
+        $res .= $cHtml->End_Datatable();
+
+        return $res;
     }
 
 }

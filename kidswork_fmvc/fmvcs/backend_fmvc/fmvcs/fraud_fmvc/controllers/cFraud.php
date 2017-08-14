@@ -336,7 +336,7 @@ class cFraud extends mFraud
         if ($stmt !== null) {
             if ($stmt->rowCount() != 0) {
                 foreach ($stmt as $key) {
-                    
+                    \var_dump($key["id_fraud_attr"]);
                     $this->fFraud->get()->id_fraud_attr->set($this->cFraud_attr->Fill_Id_Fraud_Attr($key["id_fraud_attr"],false));
                     $this->fFraud->get()->date1->set($this->cHtml->Input_Date("date1", $key["date1"]));
                     $this->fFraud->get()->desc->set($this->cHtml->Input_RichText("desc", $key["desc"]));

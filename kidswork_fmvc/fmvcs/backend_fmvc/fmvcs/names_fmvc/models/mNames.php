@@ -35,6 +35,15 @@ class mNames extends mModels
         $this->cDatabase->Operation();
     }
 
+    function Select_Names_To_Table() {
+        $db = $this->cDatabase->fDatabase->get();
+        $this->cDatabase->Clear();
+        $db->query_switcher->set('s');
+        $db->query_table_names->set(array($this->fNames->get()->table->get()));
+        $db->query_column_names->set(array('id', 'name'));
+        $this->cDatabase->Operation();
+    }
+
     function Select_Names_By_Id() {
         $db = $this->cDatabase->fDatabase->get();
         $this->cDatabase->Clear();

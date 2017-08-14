@@ -185,9 +185,9 @@ class cHtml extends mHtml
         return $this->vHtml->Left_Menu_Triangle();
     }
 
-    function Start_Datatable()
+    function Start_Datatable($class = 'datatable')
     {
-        return $this->vHtml->Start_Datatable();
+        return $this->vHtml->Start_Datatable($class);
     }
 
     function End_Datatable()
@@ -244,6 +244,9 @@ class cHtml extends mHtml
     {
         if ($colspan != "") {
             $colspan = 'colspan="' . $colspan . '"';
+        }
+        if ($child_module!='') {
+            $child_module = 'data-child-module="'.$child_module.'"';
         }
         return $this->vHtml->Start_Datatable_Td($class, $colspan, $child_module);
     }

@@ -20,9 +20,10 @@ class cLeftmenu extends mLeftmenu
             $res = '';
             if (!isset($array[3])) {
                 $res .= $cHtml->Start_Left_Menu_Item($array[0], $array[1]);
+                $res .= $cHtml->Left_Menu_Triangle();
             } else {
                 //, "m-items-a"
-                $res .= $cHtml->Start_Left_Menu_Item($array[0], $array[1]);
+                $res .= $cHtml->Start_Left_Menu_Item($array[0], $array[1], "m-items-a");
                 $res .= $cHtml->Left_Menu_Triangle();
             }
             

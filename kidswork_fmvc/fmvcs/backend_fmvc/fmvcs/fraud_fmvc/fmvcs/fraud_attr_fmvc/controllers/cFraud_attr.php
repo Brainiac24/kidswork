@@ -47,6 +47,12 @@ class cFraud_attr extends mFraud_attr
                 }
                 $this->Data_Control_Switcher();
                 $this->cCenter->fCenter->get()->struct->con($this->Data_Control_View());
+            }elseif($this->cRouter->fRouter->get()->ajax->get() == "3"){
+                 $this->Select_Fraud_Attr_To_Table();
+                $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
+                if ($stmt !== null) {
+                    $this->cCenter->fCenter->get()->struct->con($this->Datatable($stmt,'datatable-2'));
+                }
             }
             else {
                 if ($this->fFraud_attr->get()->is_child->get() == "") {
@@ -88,10 +94,10 @@ class cFraud_attr extends mFraud_attr
             $this->cCenter->fCenter->get()->struct->con($this->Data_Control_View());
         }
         elseif ($submenu == "3") {
-            $this->Select_Audit_To_Table();
+            $this->Select_Fraud_Attr_To_Table();
             $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
             if ($stmt !== null) {
-                $this->cCenter->fCenter->get()->struct->con($this->Datatable($stmt));
+                $this->cCenter->fCenter->get()->struct->con($this->Datatable($stmt,'datatable'));
             }
         }
     }
@@ -99,8 +105,8 @@ class cFraud_attr extends mFraud_attr
     public function Fill_Id_Fraud_Attr($selected_value = null, $self = true)
     {
 
-        if ($selected_value !== "") {
-            //$this->fFraud_attr->get()->id->set($selected_value);
+        if ($selected_value !== null) {
+            $this->fFraud_attr->get()->id->set($selected_value);
 
         }
 
@@ -309,15 +315,15 @@ class cFraud_attr extends mFraud_attr
         $res = "";
         $res .= $this->cHtml->Table_2_Row_C2('Код:', $this->fFraud_attr->get()->id->get(), "2");
         $res .= $this->cHtml->Table_2_Row_C2("Дата:", $this->fFraud_attr->get()->date1->get(), "2");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Филиал:", $this->fFraud_attr->get()->id_divisions_filial->get(), "2", "", "?menu=10&submenu=2&module=names&table=divisions_filial&table_name=Филиал");
-        $res .= $this->cHtml->Table_Btn_Row_C2("ЦБО:", $this->fFraud_attr->get()->id_divisions_mhb->get(), "2", "", "?menu=10&submenu=2&module=names&table=divisions_mhb&table_name=ЦБО");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Департамент/Отдел:", $this->fFraud_attr->get()->id_divisions_otdel->get(), "2", "", "?menu=10&submenu=2&module=names&table=divisions_otdel&table_name=Департамент/Отдел");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Бизнес линия:", $this->fFraud_attr->get()->id_business_line->get(), "2", "", "?menu=10&submenu=2&module=names&table=business_line&table_name=Бизнес+линия");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Вид риска:", $this->fFraud_attr->get()->id_risk_category->get(), "2", "", "?menu=10&submenu=2&module=names&table=risk_category&table_name=Вид+риска");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Факторы риска:", $this->fFraud_attr->get()->id_risk_factor->get(), "2", "", "?menu=10&submenu=2&module=names&table=risk_factor&table_name=Факторы+риска");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Вид потерь:", $this->fFraud_attr->get()->id_loss_type->get(), "2", "", "?menu=10&submenu=2&module=names&table=loss_type&table_name=Вид+потерь");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Филиал:", $this->fFraud_attr->get()->id_divisions_filial->get(), "2", "", "?menu=10&module=names&table=divisions_filial&table_name=Филиал");
+        $res .= $this->cHtml->Table_Btn_Row_C2("ЦБО:", $this->fFraud_attr->get()->id_divisions_mhb->get(), "2", "", "?menu=10&module=names&table=divisions_mhb&table_name=ЦБО");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Департамент/Отдел:", $this->fFraud_attr->get()->id_divisions_otdel->get(), "2", "", "?menu=10&module=names&table=divisions_otdel&table_name=Департамент/Отдел");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Бизнес линия:", $this->fFraud_attr->get()->id_business_line->get(), "2", "", "?menu=10&module=names&table=business_line&table_name=Бизнес+линия");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Вид риска:", $this->fFraud_attr->get()->id_risk_category->get(), "2", "", "?menu=10&module=names&table=risk_category&table_name=Вид+риска");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Факторы риска:", $this->fFraud_attr->get()->id_risk_factor->get(), "2", "", "?menu=10&module=names&table=risk_factor&table_name=Факторы+риска");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Вид потерь:", $this->fFraud_attr->get()->id_loss_type->get(), "2", "", "?menu=10&module=names&table=loss_type&table_name=Вид+потерь");
         $res .= $this->cHtml->Table_2_Row_C2("Сумма потерь:", $this->fFraud_attr->get()->loss_amount->get(), "2");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Валюта:", $this->fFraud_attr->get()->id_currency->get(), "2", "", "?menu=10&submenu=2&module=names&table=currency&table_name=Валюта");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Валюта:", $this->fFraud_attr->get()->id_currency->get(), "2", "", "?menu=10&module=names&table=currency&table_name=Валюта");
         $res .= $this->cHtml->Table_2_Row_C2("Сумма потерь в Сомони:", $this->fFraud_attr->get()->loss_amount_tjs->get(), "2");
         $res .= $this->cHtml->Table_2_Row_C2("Ответственные лица:", $this->fFraud_attr->get()->responsible_person->get(), "2");
         $res .= $this->cHtml->Table_2_Row_C2("Подробное описание события:", $this->fFraud_attr->get()->desc->get(), "2");
@@ -414,4 +420,61 @@ class cFraud_attr extends mFraud_attr
         }
 
     }
+
+    function Datatable($stmt, $class='datatable')
+    {
+
+        $cHtml = $this->cHtml;
+        $res = '';
+        $res .= $cHtml->Start_Datatable($class);
+        $res .= $cHtml->Start_Table("table-1");
+        $res .= $cHtml->Start_Datatable_Head();
+        $res .= $cHtml->Start_Datatable_Tr();
+        $res .= $cHtml->Datatable_Th("Код");
+        $res .= $cHtml->Datatable_Th("Дата");
+        $res .= $cHtml->Datatable_Th("Филиал");
+        $res .= $cHtml->Datatable_Th("ЦБО");
+        $res .= $cHtml->Datatable_Th("Департамент/Отдел");
+        $res .= $cHtml->Datatable_Th("Бизнес линия");
+        $res .= $cHtml->Datatable_Th("Вид риска");
+        $res .= $cHtml->Datatable_Th("Факторы риска");
+        $res .= $cHtml->Datatable_Th("Вид потерь");
+        $res .= $cHtml->Datatable_Th("Сумма потерь");
+        $res .= $cHtml->Datatable_Th("Валюта");
+        $res .= $cHtml->Datatable_Th("Сумма потерь в Сомони");
+        $res .= $cHtml->Datatable_Th("Ответственные лица");
+        $res .= $cHtml->Datatable_Th("Подробное описание события");
+        $res .= $cHtml->End_Datatable_Tr();
+        $res .= $cHtml->End_Datatable_Head();
+        $res .= $cHtml->Start_Datatable_Body();
+        if ($stmt != null) {
+            foreach ($stmt as $key) {
+                $res .= $cHtml->Start_Datatable_Tr();
+                $res .= $cHtml->Datatable_Td($key['id_fraud_attr']);
+                $res .= $cHtml->Datatable_Td($key['date1']);
+                $res .= $cHtml->Datatable_Td($key['name_divisions_filial']);
+                $res .= $cHtml->Datatable_Td($key['name_divisions_mhb']);
+                $res .= $cHtml->Datatable_Td($key['name_divisions_otdel']);
+                $res .= $cHtml->Datatable_Td($key['name_business_line']);
+                $res .= $cHtml->Datatable_Td($key['name_risk_category']);
+                $res .= $cHtml->Datatable_Td($key['name_risk_factor']);
+                $res .= $cHtml->Datatable_Td($key['name_loss_type']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount']);
+                $res .= $cHtml->Datatable_Td($key['name_currency']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_tjs']);
+                $res .= $cHtml->Datatable_Td($key['responsible_person']);
+                $res .= $cHtml->Datatable_Td($key['desc_fraud_attr']);
+                $res .= $cHtml->End_Datatable_Tr();
+            }
+        }
+
+        $res .= $cHtml->End_Datatable_Body();
+        $res .= $cHtml->End_Table();
+        $res .= $cHtml->End_Datatable();
+
+        return $res;
+    }
+
+
+
 }
