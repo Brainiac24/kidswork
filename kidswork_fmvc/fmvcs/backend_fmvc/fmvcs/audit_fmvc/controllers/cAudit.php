@@ -76,6 +76,7 @@ class cAudit extends mAudit
             $this->Select_Audit_To_Table();
             $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
             if ($stmt !== null) {
+                $this->cCenter->fCenter->get()->width->set("100");
                 $this->cCenter->fCenter->get()->struct->con($this->Datatable($stmt));
             }
 

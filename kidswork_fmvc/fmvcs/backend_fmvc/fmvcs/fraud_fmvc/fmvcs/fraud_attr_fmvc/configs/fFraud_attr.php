@@ -20,9 +20,11 @@ class fFraud_attr extends fConfigs
     public $id_risk_category = array("validation" => array("id_risk_category" => array("rules" => array(0 => "int|required", 2 => ""))));
     public $id_risk_factor = array("validation" => array("id_risk_factor" => array("rules" => array(0 => "int|required", 2 => ""))));
     public $id_loss_type = array("validation" => array("id_loss_type" => array("rules" => array(0 => "int|required", 2 => ""))));
-    public $loss_amount = array("validation" => array("loss_amount" => array("rules" => array(0 => "float|required", 2 => ""))));
-    public $id_currency = array("validation" => array("id_currency" => array("rules" => array(0 => "int|required", 2 => ""))));
-    public $loss_amount_tjs = array("validation" => array("loss_amount_tjs" => array("rules" => array(0 => "float|required", 2 => ""))));
+    public $loss_amount_base = array("validation" => array("loss_amount_base" => array("rules" => array(0 => "float|required", 2 => ""))));
+    public $loss_amount_current = array("validation" => array("loss_amount_current" => array("rules" => array(0 => "float|required", 2 => ""))));
+    public $loss_amount_restored = array("validation" => array("loss_amount_restored" => array("rules" => array(0 => "float|required", 2 => ""))));
+    public $loss_amount_fact = array("validation" => array("loss_amount_fact" => array("rules" => array(0 => "float|required", 2 => ""))));
+    public $id_currency_rates = array("validation" => array("id_currency_rates" => array("rules" => array(0 => "int|required", 2 => ""))));
     public $responsible_person = array("validation" => array("responsible_person" => array("rules" => array(0 => "str|required", 2 => ""))));
     public $desc = array("validation" => array("desc" => array("rules" => array(0 => "str|required", 2 => ""))));
     function __construct()

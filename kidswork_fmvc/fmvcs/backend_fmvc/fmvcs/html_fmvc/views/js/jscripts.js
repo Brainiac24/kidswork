@@ -499,7 +499,13 @@ $(document).delegate('.b-item', "click", function () {
     } else if (value == "4") {
         $(this).addClass("item-del-a");
     } else if (value == "0") {
-        $(this).closest(".center-box").html("");
+        var is_child = parseInt($(this).closest('.center-box').find('input[name="ischild"]').val());
+        //alert(is_child);
+        if (is_child > 0) {
+            $(this).closest('.center-child-box').hide()
+            $(this).closest('.center-child-box').closest('.center-box').find(".table-box").show();
+            $(this).closest('.center-child-box').html("");
+        }
         return;
     }
     //alert($(this).closest(".box-menu").html());
@@ -510,7 +516,7 @@ $(document).delegate('.b-item', "click", function () {
 });
 
 function Refresh_Listbox(this2) {
-    $(this2).next('.orig-list').find('li[data-v="'+this2.val()+'"]').click();
+    $(this2).next('.orig-list').find('li[data-v="' + this2.val() + '"]').click();
 }
 
 $(document).delegate('input[name="data_mode"]', "change", function () {
@@ -606,7 +612,15 @@ $(document).delegate(".box-child-btn", "click", function () {
 
 $(document).delegate(".btn-grid", "click", function () {
     var parent = $(this).closest('tr');
-    $link = parent.children('.box-child-btn').data('child-module') + "&submenu=3&ajax=3";
+    if (typeof (parent.children('.box-child-btn')) !== 'undefined') {
+        
+        $link = parent.children('.box-child-btn').data('child-module') + "&submenu=3&ajax=3";
+    } else {
+        if (parent.children('.tab-name').data('child-module')!=="") {
+            $link = parent.children('.tab-name').data('child-module') + "&submenu=3&ajax=3";
+        }
+        
+    }
     $(this).closest('.center-box-cont').find('.tab-text').removeClass('active-table-id');
     parent.children('.tab-text').addClass("active-table-id");
     SendAjax($link, "", $(".dialog-box").children(".center-d-box"));
@@ -623,7 +637,7 @@ function Box_Msg($this1) {
     $message = $btn.next(".center-box-msg");
     try {
         $resp = jQuery.parseJSON(JSON.stringify($ajax_msg));
-        alert($ajax_msg);
+        //alert($ajax_msg);
         $this1.closest('.center-child-box').closest('.center-box').find('.box-child-btn.active-child').next('td').html($resp.cmb);
         $message.html($resp.msg);
     } catch (error) {

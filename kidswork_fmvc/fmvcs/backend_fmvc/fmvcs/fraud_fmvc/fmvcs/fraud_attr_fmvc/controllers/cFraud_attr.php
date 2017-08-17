@@ -10,6 +10,7 @@ class cFraud_attr extends mFraud_attr
     private $cTopmenu2 = null;
     private $cCenter = null;
     private $cNames = null;
+    private $cFraud = null;
     private $box_bottom = null;
 
     function Init_Full()
@@ -20,6 +21,7 @@ class cFraud_attr extends mFraud_attr
         $this->cTopmenu2 = $this->cKidswork->ctrls_global->ext("cTopmenu2");
         $this->cCenter = $this->cKidswork->ctrls_global->ext("cCenter");
         $this->cNames = $this->cKidswork->ctrls_global->ext("cNames");
+        $this->cFraud = $this->cKidswork->ctrls_global->ext("cFraud");
         $this->Menu();
     }
 
@@ -71,7 +73,7 @@ class cFraud_attr extends mFraud_attr
         if ($menu == "11") {
             $this->Submenu();
         }
-        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Фрод описание", "?menu=11", "", $active[11]));
+        $this->cFraud->fFraud->get()->submenu->add(array("Фрод описание", "?menu=11", "" , $active[11]));
     }
 
     public function Submenu()
@@ -97,6 +99,7 @@ class cFraud_attr extends mFraud_attr
             $this->Select_Fraud_Attr_To_Table();
             $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
             if ($stmt !== null) {
+                $this->cCenter->fCenter->get()->width->set("100");
                 $this->cCenter->fCenter->get()->struct->con($this->Datatable($stmt,'datatable'));
             }
         }
@@ -156,9 +159,8 @@ class cFraud_attr extends mFraud_attr
 
                 break;
             case 2 :
-                
-
                 if ($this->fFraud_attr->get()->action->get() == 2) {
+                    $this->Set_Default_1_Insert();
                     $this->Insert();
                     if ($this->cDatabase->fDatabase->get()->last_inserted_id->get() > 0) {
                         $this->fFraud_attr->get()->id->set($this->cDatabase->fDatabase->get()->last_inserted_id->get());
@@ -365,6 +367,42 @@ class cFraud_attr extends mFraud_attr
         $this->fFraud_attr->get()->desc->set("-");
     }
 
+    public function Set_Default_1_Insert()
+    {
+        if ($this->fFraud_attr->get()->id_divisions_filial->get()=="") {
+            $this->fFraud_attr->get()->id_divisions_filial->set('1');
+        }
+        if ($this->fFraud_attr->get()->id_divisions_mhb->get()=="") {
+            $this->fFraud_attr->get()->id_divisions_mhb->set('1');
+        }
+        if ($this->fFraud_attr->get()->id_divisions_otdel->get()=="") {
+            $this->fFraud_attr->get()->id_divisions_otdel->set('1');
+        }
+        if ($this->fFraud_attr->get()->id_business_line->get()=="") {
+            $this->fFraud_attr->get()->id_business_line->set('1');
+        }
+        if ($this->fFraud_attr->get()->id_risk_category->get()=="") {
+            $this->fFraud_attr->get()->id_risk_category->set('1');
+        }
+        if ($this->fFraud_attr->get()->id_risk_factor->get()=="") {
+            $this->fFraud_attr->get()->id_risk_factor->set('1');
+        }
+        if ($this->fFraud_attr->get()->id_loss_type->get()=="") {
+            $this->fFraud_attr->get()->id_loss_type->set('1');
+        }
+        if ($this->fFraud_attr->get()->loss_amount->get()=="") {
+            $this->fFraud_attr->get()->loss_amount->set('0');
+        }
+        if ($this->fFraud_attr->get()->id_currency->get()=="") {
+            $this->fFraud_attr->get()->id_currency->set('1');
+        }
+        if ($this->fFraud_attr->get()->loss_amount_tjs->get()=="") {
+            $this->fFraud_attr->get()->loss_amount_tjs->set('0');
+        }
+    }
+
+    
+
     public function Set_Default_Select_View($stmt)
     {
         if ($stmt != null) {
@@ -439,9 +477,16 @@ class cFraud_attr extends mFraud_attr
         $res .= $cHtml->Datatable_Th("Вид риска");
         $res .= $cHtml->Datatable_Th("Факторы риска");
         $res .= $cHtml->Datatable_Th("Вид потерь");
-        $res .= $cHtml->Datatable_Th("Сумма потерь");
+        $res .= $cHtml->Datatable_Th("Сумма номинальных потерь");
+        $res .= $cHtml->Datatable_Th("Сумма текущих потерь");
+        $res .= $cHtml->Datatable_Th("Востановленная сумма");
+        $res .= $cHtml->Datatable_Th("Фактическая сумма потерь");
         $res .= $cHtml->Datatable_Th("Валюта");
-        $res .= $cHtml->Datatable_Th("Сумма потерь в Сомони");
+        $res .= $cHtml->Datatable_Th("Курс валюты");
+        $res .= $cHtml->Datatable_Th("Сумма номинальных потерь в Сомони");
+        $res .= $cHtml->Datatable_Th("Сумма текущих потерь в Сомони");
+        $res .= $cHtml->Datatable_Th("Востановленная сумма в Сомони");
+        $res .= $cHtml->Datatable_Th("Фактическая сумма потерь в Сомони");
         $res .= $cHtml->Datatable_Th("Ответственные лица");
         $res .= $cHtml->Datatable_Th("Подробное описание события");
         $res .= $cHtml->End_Datatable_Tr();
@@ -459,9 +504,16 @@ class cFraud_attr extends mFraud_attr
                 $res .= $cHtml->Datatable_Td($key['name_risk_category']);
                 $res .= $cHtml->Datatable_Td($key['name_risk_factor']);
                 $res .= $cHtml->Datatable_Td($key['name_loss_type']);
-                $res .= $cHtml->Datatable_Td($key['loss_amount']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_base']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_current']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_restored']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_fact']);
                 $res .= $cHtml->Datatable_Td($key['name_currency']);
-                $res .= $cHtml->Datatable_Td($key['loss_amount_tjs']);
+                $res .= $cHtml->Datatable_Td($key['rate']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_base_tjs']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_current_tjs']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_restored_tjs']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_fact_tjs']);
                 $res .= $cHtml->Datatable_Td($key['responsible_person']);
                 $res .= $cHtml->Datatable_Td($key['desc_fraud_attr']);
                 $res .= $cHtml->End_Datatable_Tr();

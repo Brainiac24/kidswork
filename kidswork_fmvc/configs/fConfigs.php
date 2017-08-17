@@ -9,6 +9,8 @@ class fConfigs
     public $struct = null;
     public $struct_end = null;
     public $struct_array = null;
+    public $menu = null;
+    public $submenu = null;
     public $validation = null;
 
     function __construct()

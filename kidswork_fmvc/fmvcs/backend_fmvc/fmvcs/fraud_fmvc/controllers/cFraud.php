@@ -61,9 +61,7 @@ class cFraud extends mFraud
         if ($menu == "3") {
             $this->Submenu();
         }
-
-        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Фрод", "?menu=3", "", $active[3]));
-
+        $this->cLeftmenu->fLeftmenu->get()->struct_array->add(array("Фрод", "?menu=3", "", $active[3], $this->fFraud->get()->submenu->get()));
     }
 
     public function Submenu()
@@ -86,9 +84,10 @@ class cFraud extends mFraud
             $this->cCenter->fCenter->get()->struct->con($this->Data_Control_View());
         }
         elseif ($submenu == "3") {
-            $this->Select_Audit_To_Table();
+            $this->Select_Fraud_To_Table();
             $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
             if ($stmt !== null) {
+                $this->cCenter->fCenter->get()->width->set("100");
                 $this->cCenter->fCenter->get()->struct->con($this->Datatable($stmt));
             }
         }
@@ -137,6 +136,7 @@ class cFraud extends mFraud
                 }
 
                 if ($this->fFraud->get()->action->get() == 2) {
+                    $this->Set_Default_1_Insert();
                     $this->Insert();
                     $res = $this->cHtml->Table_2_Td_C2("Уведомление", $this->cHtml->Action_Message_Success("Данные успешно сохранены!"));
                 }
@@ -314,6 +314,16 @@ class cFraud extends mFraud
         $this->fFraud->get()->id_fraud_actions->set("-");
     }
 
+    public function Set_Default_1_Insert()
+    {
+        if ($this->fFraud->get()->id_fraud_attr->get()=="") {
+            $this->fFraud->get()->id_fraud_attr->set('1');
+        }
+        if ($this->fFraud->get()->id_fraud_actions->get()=="") {
+            $this->fFraud->get()->id_fraud_actions->set('1');
+        }
+    }
+
     public function Set_Default_Select_View($stmt)
     {
         if ($stmt != null) {
@@ -353,4 +363,83 @@ class cFraud extends mFraud
         }
 
     }
+
+    function Datatable($stmt, $class='datatable')
+    {
+
+        $cHtml = $this->cHtml;
+        $res = '';
+        $res .= $cHtml->Start_Datatable($class);
+        $res .= $cHtml->Start_Table("table-1");
+        $res .= $cHtml->Start_Datatable_Head();
+        $res .= $cHtml->Start_Datatable_Tr();
+        $res .= $cHtml->Datatable_Th("Код");
+        $res .= $cHtml->Datatable_Th("Дата");
+        $res .= $cHtml->Datatable_Th("Код описания фрода");
+        $res .= $cHtml->Datatable_Th("Филиал");
+        $res .= $cHtml->Datatable_Th("ЦБО");
+        $res .= $cHtml->Datatable_Th("Департамент/Отдел");
+        $res .= $cHtml->Datatable_Th("Бизнес линия");
+        $res .= $cHtml->Datatable_Th("Вид риска");
+        $res .= $cHtml->Datatable_Th("Факторы риска");
+        $res .= $cHtml->Datatable_Th("Вид потерь");
+        $res .= $cHtml->Datatable_Th("Сумма номинальных потерь");
+        $res .= $cHtml->Datatable_Th("Сумма текущих потерь");
+        $res .= $cHtml->Datatable_Th("Востановленная сумма");
+        $res .= $cHtml->Datatable_Th("Фактическая сумма потерь");
+        $res .= $cHtml->Datatable_Th("Валюта");
+        $res .= $cHtml->Datatable_Th("Курс валюты");
+        $res .= $cHtml->Datatable_Th("Сумма номинальных потерь в Сомони");
+        $res .= $cHtml->Datatable_Th("Сумма текущих потерь в Сомони");
+        $res .= $cHtml->Datatable_Th("Востановленная сумма в Сомони");
+        $res .= $cHtml->Datatable_Th("Фактическая сумма потерь в Сомони");
+        $res .= $cHtml->Datatable_Th("Ответственные лица");
+        $res .= $cHtml->Datatable_Th("Подробное описание события");
+        $res .= $cHtml->Datatable_Th("Дата изменения статуса");
+        $res .= $cHtml->Datatable_Th("Предпринятые меры");
+        $res .= $cHtml->Datatable_Th("Описание предпринятых мер");
+        $res .= $cHtml->End_Datatable_Tr();
+        $res .= $cHtml->End_Datatable_Head();
+        $res .= $cHtml->Start_Datatable_Body();
+        if ($stmt != null) {
+            foreach ($stmt as $key) {
+                $res .= $cHtml->Start_Datatable_Tr();
+                $res .= $cHtml->Datatable_Td($key['id_fraud']);
+                $res .= $cHtml->Datatable_Td($key['date1']);
+                $res .= $cHtml->Datatable_Td($key['id_fraud_attr']);
+                $res .= $cHtml->Datatable_Td($key['name_divisions_filial']);
+                $res .= $cHtml->Datatable_Td($key['name_divisions_mhb']);
+                $res .= $cHtml->Datatable_Td($key['name_divisions_otdel']);
+                $res .= $cHtml->Datatable_Td($key['name_business_line']);
+                $res .= $cHtml->Datatable_Td($key['name_risk_category']);
+                $res .= $cHtml->Datatable_Td($key['name_risk_factor']);
+                $res .= $cHtml->Datatable_Td($key['name_loss_type']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_base']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_current']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_restored']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_fact']);
+                $res .= $cHtml->Datatable_Td($key['name_currency']);
+                $res .= $cHtml->Datatable_Td($key['rate']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_base_tjs']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_current_tjs']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_restored_tjs']);
+                $res .= $cHtml->Datatable_Td($key['loss_amount_fact_tjs']);
+                 $res .= $cHtml->Datatable_Td($key['responsible_person']);
+                $res .= $cHtml->Datatable_Td($key['desc_fraud_attr']);
+                $res .= $cHtml->Datatable_Td($key['date_fraud']);
+                $res .= $cHtml->Datatable_Td($key['name_fraud_action']);
+                $res .= $cHtml->Datatable_Td($key['desc_fraud']);
+                $res .= $cHtml->End_Datatable_Tr();
+            }
+        }
+
+        $res .= $cHtml->End_Datatable_Body();
+        $res .= $cHtml->End_Table();
+        $res .= $cHtml->End_Datatable();
+
+        return $res;
+    }
+
+
+
 }

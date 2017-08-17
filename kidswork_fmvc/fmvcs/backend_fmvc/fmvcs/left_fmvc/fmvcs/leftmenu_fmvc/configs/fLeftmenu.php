@@ -6,7 +6,7 @@ use \Kidswork\fConfigs;
 
 class fLeftmenu extends fConfigs
 {
-   
+    public $struct_array_child = null;
     function __construct()
     {
         parent::__construct();

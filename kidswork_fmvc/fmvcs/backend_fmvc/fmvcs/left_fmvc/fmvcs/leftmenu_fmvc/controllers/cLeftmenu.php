@@ -17,20 +17,42 @@ class cLeftmenu extends mLeftmenu
         $struct_array=null;
         //var_dump($this->fLeftmenu->get()->struct_array->get());
         foreach ($this->fLeftmenu->get()->struct_array->get() as $array) {
+            $active = '';
+            $submenu = '';
+            if (isset($array[4])) {
+                $submenu = $cHtml->Start_Left_Menu_Child();
+                foreach ($array[4] as $array2) {
+                    if (!isset($array2[3])) {
+                        $submenu .= $cHtml->Start_Left_Menu_Item($array2[0], $array2[1]);
+                    } else {
+                        //, "m-items-a"
+                        $active = "m-items-a";
+                        $submenu .= $cHtml->Start_Left_Menu_Item($array2[0], $array2[1], $active);
+                    }
+                    $submenu .= $cHtml->Left_Menu_Triangle();
+                    if (isset($array2[2]) && $array2[2]!="") {
+                        $submenu .= $cHtml->Top_Menu_Badge($array2[2]);
+                    }
+                }
+                $submenu .= $cHtml->End_Left_Menu_Child();
+            }
+
             $res = '';
+
             if (!isset($array[3])) {
-                $res .= $cHtml->Start_Left_Menu_Item($array[0], $array[1]);
-                $res .= $cHtml->Left_Menu_Triangle();
+                $res .= $cHtml->Start_Left_Menu_Item($array[0], $array[1], $active);
             } else {
                 //, "m-items-a"
-                $res .= $cHtml->Start_Left_Menu_Item($array[0], $array[1], "m-items-a");
-                $res .= $cHtml->Left_Menu_Triangle();
+                $active = "m-items-a";
+                $res .= $cHtml->Start_Left_Menu_Item($array[0], $array[1], $active);
             }
-            
+            $res .= $cHtml->Left_Menu_Triangle();
             if (isset($array[2]) && $array[2]!="") {
                 $res .= $cHtml->Top_Menu_Badge($array[2]);
             }
-            $res .= $cHtml->End_Left_Menu_Item();
+            
+
+            $res .= $cHtml->End_Left_Menu_Item($submenu);
             $struct_array[]=$res;
         }
         if ($struct_array!=null) {

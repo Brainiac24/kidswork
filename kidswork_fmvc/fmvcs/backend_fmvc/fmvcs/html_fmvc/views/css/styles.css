@@ -197,15 +197,32 @@ ul {
     border-left: 4px solid #009EFF;
     background-color: #757575;
 }
-.left-menu li:hover .m-items{
+.left-menu>li:hover>.m-items{
     background-color: #6d6d6d;
 }
 
-.left-menu li:hover .m-items-a{
+.left-menu>li:hover>.m-items-a{
    background-color: #757575;
 }
 
-.left-menu li:hover .triangle-left{
+.left-menu>li:hover>.m-items>.triangle-left{
+    display: inline-block;
+    border-right: 15px solid #868686;
+}
+
+.child-menu li .m-items{
+    background-color:  #757575;
+}
+
+.child-menu li:hover .m-items{
+    background-color:  #6f6f6f;
+}
+
+.child-menu li .m-items-a{
+   background-color: #6d6d6d;
+}
+
+.child-menu li:hover .triangle-left{
     display: inline-block;
     border-right: 15px solid #868686;
 }
@@ -259,11 +276,15 @@ ul {
     margin: 0;
     cursor: default;
     table-layout: auto;
-    height: calc(94% - 95px);
-    max-width: 98%;
+    max-height: calc(94% - 95px);
+    max-width: 100%;
     overflow: auto;
     width: auto;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+}
+
+.datatable td, .datatable-2 td{
+    border: 1px solid #e7e7e7;
 }
 
 .datatable-2{
@@ -285,7 +306,7 @@ th{
     font-weight: 500;
     border-top: 1px solid #E7E7E7;
     border-right: 1px solid #E7E7E7;
-    line-height: 24px;
+    line-height: 18px;
     padding: 2px 15px;
 }
 
@@ -307,7 +328,7 @@ th{
 }
 
 td{
-    border: 1px solid #E7E7E7;
+    /*border: 1px solid #E7E7E7;*/
     white-space: nowrap;
     padding: 4px;
     font-size: 15px;
@@ -575,10 +596,14 @@ input[type='text'] {
 }
 
 
-.center-wrap{
+.center-wrap-50{
     width: 50%;
-    margin-top: 20px;
-    margin: 1.5%;
+    padding: 1.5%;
+}
+
+.center-wrap-100{
+    width: 100%;
+    padding: 1.5%;
 }
 
 .center-box-cap-2 {
@@ -1139,12 +1164,11 @@ ul {
 
 .btn-grid{
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 1px;
+    top: 1px;
     border-left: 1px solid #e6e6e6;
-    width: 36px;
+    width: 35px;
     cursor: pointer;
-    border: 1px solid #c7c7c7;
     background-color: #ffffff;
 }
 
@@ -1223,7 +1247,7 @@ textarea{
     width: 18%;
     height: calc(100% - 84px);
     left: 18%;
-    background-color: #868686;
+    background-color: #757575;
     display: none;
     top: 84px;
     box-shadow: 3px 0px 10px 0px rgba(0,0,0,0.30);

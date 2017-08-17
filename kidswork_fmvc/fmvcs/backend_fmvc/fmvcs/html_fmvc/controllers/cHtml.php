@@ -175,9 +175,19 @@ class cHtml extends mHtml
         return $this->vHtml->Start_Left_Menu_Item($name, $url, $class);
     }
 
-    function End_Left_Menu_Item()
+    function End_Left_Menu_Item($submenu)
     {
-        return $this->vHtml->End_Left_Menu_Item();
+        return $this->vHtml->End_Left_Menu_Item($submenu);
+    }
+
+    function Start_Left_Menu_Child()
+    {
+        return $this->vHtml->Start_Left_Menu_Child();
+    }
+
+    function End_Left_Menu_Child()
+    {
+        return $this->vHtml->End_Left_Menu_Child();
     }
 
     function Left_Menu_Triangle()
@@ -360,9 +370,9 @@ class cHtml extends mHtml
         return $this->vHtml->End_Table_Sticky();
     }
 
-    function Start_Center_Wrapper()
+    function Start_Center_Wrapper($width="50")
     {
-        return $this->vHtml->Start_Center_Wrapper();
+        return $this->vHtml->Start_Center_Wrapper($width);
     }
 
     function End_Center_Wrapper()
@@ -500,6 +510,21 @@ class cHtml extends mHtml
         $res = "";
         $res .= $this->Start_Datatable_Tr($trclass);
         $res .= $this->Start_Datatable_Td($tdclass);
+        $res .= $name;
+        $res .= $this->End_Datatable_Td();
+        $res .= $this->Start_Datatable_Td("tab-text", $colspan);
+        $res .= $text;
+        $res .= $this->End_Datatable_Td();
+        $res .= $this->End_Datatable_Tr();
+
+        return $res;
+    }
+
+    public function Table_2_Row_Code($name, $text, $colspan = "",$childmodule="")
+    {
+        $res = "";
+        $res .= $this->Start_Datatable_Tr();
+        $res .= $this->Start_Datatable_Td("tab-name");
         $res .= $name;
         $res .= $this->End_Datatable_Td();
         $res .= $this->Start_Datatable_Td("tab-text", $colspan);

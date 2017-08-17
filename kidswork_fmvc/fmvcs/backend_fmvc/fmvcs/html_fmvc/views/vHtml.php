@@ -172,9 +172,19 @@ class vHtml
         return '<li><a href="' . $url . '" class="m-items ' . $class . '">' . $name . "";
     }
 
-    function End_Left_Menu_Item()
+    function End_Left_Menu_Item($submenu='')
     {
-        return '</a><div class="child-menu"></div></li>';
+        return '</a>'.$submenu.'</li>';
+    }
+
+    function Start_Left_Menu_Child()
+    {
+        return '<ul class="child-menu">';
+    }
+
+    function End_Left_Menu_Child()
+    {
+        return '</ul>';
     }
 
     function Left_Menu_Triangle()
@@ -353,9 +363,9 @@ class vHtml
             </div>';
     }
 
-    function Start_Center_Wrapper()
+    function Start_Center_Wrapper($width="50")
     {
-        return '<div class="center-wrap">';
+        return '<div class="center-wrap-'.$width.'">';
     }
 
     function End_Center_Wrapper()

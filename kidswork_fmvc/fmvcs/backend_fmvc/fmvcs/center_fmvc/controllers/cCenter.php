@@ -9,7 +9,8 @@ class cCenter extends mCenter
     {
         $cHtml = $this->cKidswork->ctrls_global->ext("cHtml");
         $cBackend = $this->cKidswork->ctrls_global->ext("cBackend");
-        $this->fCenter->get()->struct_start->set($cHtml->Start_Middle_Center().$cHtml->Start_Center_Wrapper());
+        $this->fCenter->get()->struct_start->set($cHtml->Start_Middle_Center().$cHtml->Start_Center_Wrapper($this->fCenter->get()->width->get()));
+        $this->fCenter->get()->width->set("50");
         $end_center = $cHtml->End_Center_Wrapper();
         $end_center .= $cHtml->End_Middle_Center();
         $end_center .= $cHtml->Start_Dialog_Box();
