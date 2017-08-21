@@ -647,6 +647,29 @@ function Box_Msg($this1) {
     $message.show();
 }
 
+
+$(document).delegate('input[name="loss_amount_current"]', "keyup", function () {
+    Loss_amount_fact($(this));
+});
+
+$(document).delegate('input[name="loss_amount_restored"]', "keyup", function () {
+    Loss_amount_fact($(this));
+});
+
+function Loss_amount_fact($this1) {
+    var parent = $this1.closest(".center-box-cont");
+    var a1 = parent.find('input[name="loss_amount_current"]').val();
+    var a2 = parent.find('input[name="loss_amount_restored"]').val();
+    if (a1=="") {
+        a1=0;
+    }
+    if (a2=="") {
+        a2=0;
+    }
+    var a3 = parseFloat(parseFloat(a1) - parseFloat(a2)).toFixed(2);
+    parent.find('input[name="loss_amount_fact"]').val(a3).next('.h-text').text(a3);
+}
+
 $ajax_this = null;
 $ajax_msg = null;
 

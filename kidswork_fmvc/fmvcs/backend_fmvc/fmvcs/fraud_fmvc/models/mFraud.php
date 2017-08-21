@@ -41,6 +41,7 @@ class mFraud extends mModels
         $db->query_column_names->set(array('fraud.id as id_fraud', 'id_fraud_attr','fraud.date1', 'fraud.id_fraud_actions', 'fraud.`desc`', "fraud_actions.name as name_fraud_actions"));
         $db->add_query_conditions('', 'fraud.id', '=', $this->fFraud->get()->id->get(), '', 'int', 'AND');
         $db->add_query_conditions('', 'fraud.id_fraud_actions', '=', "fraud_actions.id", '', 'con', '');
+        $db->set_query_order_by(array('fraud.id'));
         $this->cDatabase->Operation();
     }
 
@@ -102,10 +103,10 @@ class mFraud extends mModels
             "fraud_attr.loss_amount_fact AS loss_amount_fact",
             "currency.`name` AS name_currency",
             "currency_rates.`rate` AS rate",
-            "fraud_attr.loss_amount_base AS loss_amount_base_tjs",
-            "fraud_attr.loss_amount_current AS loss_amount_current_tjs",
-            "fraud_attr.loss_amount_restored AS loss_amount_restored_tjs",
-            "fraud_attr.loss_amount_fact AS loss_amount_fact_tjs",
+            "fraud_attr.loss_amount_base_tjs AS loss_amount_base_tjs",
+            "fraud_attr.loss_amount_current_tjs AS loss_amount_current_tjs",
+            "fraud_attr.loss_amount_restored_tjs AS loss_amount_restored_tjs",
+            "fraud_attr.loss_amount_fact_tjs AS loss_amount_fact_tjs",
             "fraud_attr.responsible_person AS responsible_person",
             "fraud_attr.`desc` AS desc_fraud_attr",
             "fraud.date1 as date_fraud",
@@ -131,6 +132,7 @@ class mFraud extends mModels
         $db->add_query_conditions('', 'fraud_attr.id_loss_type', '=', 'loss_type.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_currency_rates', '=', 'currency_rates.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'currency_rates.id_currency', '=', 'currency.id', '', 'con', '');
+        $db->query_order_by->set((array('fraud.id')));
         $this->cDatabase->Operation();
     }
         

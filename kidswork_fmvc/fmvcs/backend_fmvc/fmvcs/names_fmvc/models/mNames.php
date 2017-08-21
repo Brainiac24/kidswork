@@ -41,6 +41,7 @@ class mNames extends mModels
         $db->query_switcher->set('s');
         $db->query_table_names->set(array($this->fNames->get()->table->get()));
         $db->query_column_names->set(array('id', 'name'));
+        $db->query_order_by->set((array('id')));
         $this->cDatabase->Operation();
     }
 
@@ -51,6 +52,7 @@ class mNames extends mModels
         $db->query_table_names->set(array($this->fNames->get()->table->get()));
         $db->query_column_names->set(array('id', 'name'));
         $db->add_query_conditions('', 'id', '=', $this->fNames->get()->id->get(), '', 'int','');
+        $db->query_order_by->set((array('id')));
         $this->cDatabase->Operation();
     }
 

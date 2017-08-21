@@ -81,6 +81,7 @@ class mFraud_attr extends mModels
         $db->add_query_conditions('', 'fraud_attr.id_currency_rates', '=', 'currency_rates.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'currency_rates.id_currency', '=', 'currency.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id', '=', $this->fFraud_attr->get()->id->get(), '', 'int', '');
+        $db->query_order_by->set((array('fraud_attr.id')));
         $this->cDatabase->Operation();
     }
 
@@ -106,10 +107,10 @@ class mFraud_attr extends mModels
             "fraud_attr.loss_amount_fact AS loss_amount_fact",
             "currency.`name` AS name_currency",
             "currency_rates.`rate` AS rate",
-            "fraud_attr.loss_amount_base AS loss_amount_base_tjs",
-            "fraud_attr.loss_amount_current AS loss_amount_current_tjs",
-            "fraud_attr.loss_amount_restored AS loss_amount_restored_tjs",
-            "fraud_attr.loss_amount_fact AS loss_amount_fact_tjs",
+            "fraud_attr.loss_amount_base_tjs AS loss_amount_base_tjs",
+            "fraud_attr.loss_amount_current_tjs AS loss_amount_current_tjs",
+            "fraud_attr.loss_amount_restored_tjs AS loss_amount_restored_tjs",
+            "fraud_attr.loss_amount_fact_tjs AS loss_amount_fact_tjs",
             "fraud_attr.responsible_person AS responsible_person",
             "fraud_attr.`desc` AS desc_fraud_attr",
             "fraud_attr.`id_divisions_filial`",
@@ -130,6 +131,7 @@ class mFraud_attr extends mModels
         $db->add_query_conditions('', 'fraud_attr.id_loss_type', '=', 'loss_type.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_currency_rates', '=', 'currency_rates.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'currency_rates.id_currency', '=', 'currency.id', '', 'con', '');
+        $db->query_order_by->set((array('fraud_attr.id')));
         $this->cDatabase->Operation();
     }
 
@@ -147,9 +149,15 @@ class mFraud_attr extends mModels
         $db->add_query_parameters('id_risk_category', '=', $this->fFraud_attr->get()->id_risk_category->get(), 'int');
         $db->add_query_parameters('id_risk_factor', '=', $this->fFraud_attr->get()->id_risk_factor->get(), 'int');
         $db->add_query_parameters('id_loss_type', '=', $this->fFraud_attr->get()->id_loss_type->get(), 'int');
-        $db->add_query_parameters('loss_amount', '=', $this->fFraud_attr->get()->loss_amount->get(), 'int');
-        $db->add_query_parameters('id_currency', '=', $this->fFraud_attr->get()->id_currency->get(), 'int');
-        $db->add_query_parameters('loss_amount_tjs', '=', $this->fFraud_attr->get()->loss_amount_tjs->get(), 'int');
+        $db->add_query_parameters('loss_amount_base', '=', $this->fFraud_attr->get()->loss_amount_base->get(), 'int');
+        $db->add_query_parameters('loss_amount_current', '=', $this->fFraud_attr->get()->loss_amount_current->get(), 'int');
+        $db->add_query_parameters('loss_amount_restored', '=', $this->fFraud_attr->get()->loss_amount_restored->get(), 'int');
+        $db->add_query_parameters('loss_amount_fact', '=', $this->fFraud_attr->get()->loss_amount_fact->get(), 'int');
+        $db->add_query_parameters('id_currency_rates', '=', $this->fFraud_attr->get()->id_currency_rates->get(), 'int');
+        $db->add_query_parameters('loss_amount_base_tjs', '=', $this->fFraud_attr->get()->loss_amount_base_tjs->get(), 'int');
+        $db->add_query_parameters('loss_amount_current_tjs', '=', $this->fFraud_attr->get()->loss_amount_current_tjs->get(), 'int');
+        $db->add_query_parameters('loss_amount_restored_tjs', '=', $this->fFraud_attr->get()->loss_amount_restored_tjs->get(), 'int');
+        $db->add_query_parameters('loss_amount_fact_tjs', '=', $this->fFraud_attr->get()->loss_amount_fact_tjs->get(), 'int');
         $db->add_query_parameters('responsible_person', '=', $this->fFraud_attr->get()->responsible_person->get(), 'int');
         $db->add_query_parameters('desc', '=', $this->fFraud_attr->get()->desc->get(), 'str');
         $this->cDatabase->Operation();
@@ -169,9 +177,15 @@ class mFraud_attr extends mModels
         $db->add_query_parameters('id_risk_category', '=', $this->fFraud_attr->get()->id_risk_category->get(), 'int');
         $db->add_query_parameters('id_risk_factor', '=', $this->fFraud_attr->get()->id_risk_factor->get(), 'int');
         $db->add_query_parameters('id_loss_type', '=', $this->fFraud_attr->get()->id_loss_type->get(), 'int');
-        $db->add_query_parameters('loss_amount', '=', $this->fFraud_attr->get()->loss_amount->get(), 'int');
-        $db->add_query_parameters('id_currency', '=', $this->fFraud_attr->get()->id_currency->get(), 'int');
-        $db->add_query_parameters('loss_amount_tjs', '=', $this->fFraud_attr->get()->loss_amount_tjs->get(), 'int');
+        $db->add_query_parameters('loss_amount_base', '=', $this->fFraud_attr->get()->loss_amount_base->get(), 'int');
+        $db->add_query_parameters('loss_amount_current', '=', $this->fFraud_attr->get()->loss_amount_current->get(), 'int');
+        $db->add_query_parameters('loss_amount_restored', '=', $this->fFraud_attr->get()->loss_amount_restored->get(), 'int');
+        $db->add_query_parameters('loss_amount_fact', '=', $this->fFraud_attr->get()->loss_amount_fact->get(), 'int');
+        $db->add_query_parameters('id_currency_rates', '=', $this->fFraud_attr->get()->id_currency_rates->get(), 'int');
+        $db->add_query_parameters('loss_amount_base_tjs', '=', $this->fFraud_attr->get()->loss_amount_base_tjs->get(), 'int');
+        $db->add_query_parameters('loss_amount_current_tjs', '=', $this->fFraud_attr->get()->loss_amount_current_tjs->get(), 'int');
+        $db->add_query_parameters('loss_amount_restored_tjs', '=', $this->fFraud_attr->get()->loss_amount_restored_tjs->get(), 'int');
+        $db->add_query_parameters('loss_amount_fact_tjs', '=', $this->fFraud_attr->get()->loss_amount_fact_tjs->get(), 'int');
         $db->add_query_parameters('responsible_person', '=', $this->fFraud_attr->get()->responsible_person->get(), 'int');
         $db->add_query_parameters('desc', '=', $this->fFraud_attr->get()->desc->get(), 'str');
         $db->add_query_conditions('', 'id', '=', $this->fFraud_attr->get()->id->get(), '', 'int', '');

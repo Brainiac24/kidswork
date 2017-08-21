@@ -258,7 +258,7 @@ class cFraud extends mFraud
         $res .= $this->cHtml->Start_Center_Box();
         $res .= $this->cHtml->Start_Center_Box_Top();
         $res .= $this->cHtml->Start_Center_Box_Cap($this->fFraud->get()->is_child->get(), $cap);
-        $res .= $this->cHtml->C_Box_Caption_Text("Ввод данных фрода");
+        $res .= $this->cHtml->C_Box_Caption_Text("Фрод");
         $res .= $this->cHtml->Box_Menu($data_mode, $sel, $menu, $submenu);
 
         $res .= $this->cHtml->End_Center_Box_Cap();
@@ -405,7 +405,7 @@ class cFraud extends mFraud
             foreach ($stmt as $key) {
                 $res .= $cHtml->Start_Datatable_Tr();
                 $res .= $cHtml->Datatable_Td($key['id_fraud']);
-                $res .= $cHtml->Datatable_Td($key['date1']);
+                $res .= $cHtml->Datatable_Td($this->cDatabase->Convert_Date_To_Label($key['date1']));
                 $res .= $cHtml->Datatable_Td($key['id_fraud_attr']);
                 $res .= $cHtml->Datatable_Td($key['name_divisions_filial']);
                 $res .= $cHtml->Datatable_Td($key['name_divisions_mhb']);
@@ -426,7 +426,7 @@ class cFraud extends mFraud
                 $res .= $cHtml->Datatable_Td($key['loss_amount_fact_tjs']);
                  $res .= $cHtml->Datatable_Td($key['responsible_person']);
                 $res .= $cHtml->Datatable_Td($key['desc_fraud_attr']);
-                $res .= $cHtml->Datatable_Td($key['date_fraud']);
+                $res .= $cHtml->Datatable_Td($this->cDatabase->Convert_Date_To_Label($key['date_fraud']));
                 $res .= $cHtml->Datatable_Td($key['name_fraud_action']);
                 $res .= $cHtml->Datatable_Td($key['desc_fraud']);
                 $res .= $cHtml->End_Datatable_Tr();
