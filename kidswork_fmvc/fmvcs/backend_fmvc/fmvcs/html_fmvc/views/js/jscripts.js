@@ -570,6 +570,16 @@ $(document).delegate(".dialog-box", "keyup", function (e) {
     }
 });
 
+$(document).delegate(".parent-divisions", "change", function () {
+    var value = $(this).val()
+    var child = $(this).closest('.center-box-cont').find('.child-divisions');
+    var print_msg = child.closest('td');
+    var child_btn = print_msg.parent('tr').children('td').eq(0);
+    child_btn.attr('data-child-module', '?menu=13&submenu=2&id_divisions_categories=3&form_name_return=id_divisions_mhb&id_module_code=child-divisions&id_divisions_2='+value);
+    //alert(child_btn.data('child-module'));
+    SendAjax('?menu=13&ajax=4&form_name=' + child.attr('name')+'&id_divisions_2='+value, '', print_msg);
+});
+
 $(document).delegate(".fade-box", "click", function () {
     $(this).next('.center-d-box').html("");
     $('.tab-text').removeClass('active-table-id');
@@ -598,7 +608,8 @@ $(document).delegate(".ac-btn-default", "click", function () {
 
 $(document).delegate(".box-child-btn", "click", function () {
     var childnum = parseInt(($(this).closest(".center-box").find('input[name="ischild"]').val())) + 1;
-    $link = $(this).data("child-module") + "&submenu=2&ajax=2&ischild=" + childnum;
+    //alert($(this).attr("data-child-module"));
+    $link = $(this).attr("data-child-module") + "&submenu=2&ajax=2&ischild=" + childnum;
     //var pathArray = location.href.split( '/' );
     //$host =  pathArray[0] + '//' + pathArray[2] + "/" +  pathArray[3] + "/";
     //$data = $host + $link;
@@ -638,7 +649,10 @@ function Box_Msg($this1) {
     try {
         $resp = jQuery.parseJSON(JSON.stringify($ajax_msg));
         //alert($ajax_msg);
-        $this1.closest('.center-child-box').closest('.center-box').find('.box-child-btn.active-child').next('td').html($resp.cmb);
+        var cmb_parent = $this1.closest('.center-child-box').closest('.center-box').find('.box-child-btn.active-child').next('td')
+        cmb_parent.html($resp.cmb);
+        cmb_parent.find('.hiddenbox').trigger('change');
+        $resp.cmb.find
         $message.html($resp.msg);
     } catch (error) {
         //alert(error);
@@ -680,7 +694,7 @@ function SendAjax($url_mode, $data_serialize, $print_container, $callback) {
         data: $data_serialize,
         success: function (msg) {
             $ajax_msg = msg;
-            //alert(msg);
+            alert(msg);
             if ($print_container !== '') {
                 $print_container.html(msg);
             }

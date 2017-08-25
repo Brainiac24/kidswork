@@ -41,7 +41,7 @@ class mFraud extends mModels
         $db->query_column_names->set(array('fraud.id as id_fraud', 'id_fraud_attr','fraud.date1', 'fraud.id_fraud_actions', 'fraud.`desc`', "fraud_actions.name as name_fraud_actions"));
         $db->add_query_conditions('', 'fraud.id', '=', $this->fFraud->get()->id->get(), '', 'int', 'AND');
         $db->add_query_conditions('', 'fraud.id_fraud_actions', '=', "fraud_actions.id", '', 'con', '');
-        $db->set_query_order_by(array('fraud.id'));
+        $db->query_order_by->set((array('fraud.id')));
         $this->cDatabase->Operation();
     }
 

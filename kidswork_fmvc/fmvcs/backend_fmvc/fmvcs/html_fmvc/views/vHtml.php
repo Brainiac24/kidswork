@@ -717,12 +717,14 @@ class vHtml
         return '<i class="ic-add"></i>';
     }
 
-    function Box_Menu($value, $selected, $menu, $submenu)
+    function Box_Menu($value, $selected, $menu, $submenu, $form_name_return='', $id_module_code='')
     {
         return '<div class="box-menu icons ic-menu">
                     <input type="hidden" name="menu" value="' . $menu . '">
                     <input type="hidden" name="submenu" value="' . $submenu . '">
                     <input type="hidden" name="data_mode" value="' . $value . '">
+                    <input type="hidden" name="form_name_return" value="' . $form_name_return . '">
+                    <input type="hidden" name="id_module_code" value="' . $id_module_code . '">
                     <div class="dropdown">
                         <div class="b-item item-sel ' . $selected[1] . '" data-val="1"><i class="icons ic-menu-sel"></i>Просмотр</div>
                         <div class="b-item item-add ' . $selected[2] . '" data-val="2"><i class="icons ic-menu-add"></i>Добавление</div>

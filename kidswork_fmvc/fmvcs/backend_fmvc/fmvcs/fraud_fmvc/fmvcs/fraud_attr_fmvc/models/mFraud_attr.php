@@ -39,13 +39,12 @@ class mFraud_attr extends mModels
         $db = $this->cDatabase->fDatabase->get();
         $this->cDatabase->Clear();
         $db->query_switcher->set('s');
-        $db->query_table_names->set(array('fraud_attr', 'divisions_filial', 'divisions_mhb','divisions_otdel','business_line','risk_category','risk_factor','loss_type','currency_rates','currency'));
+        $db->query_table_names->set(array('fraud_attr', 'divisions as divisions_filial', 'divisions_names as divisions_filial_names', 'divisions as divisions_mhb', 'divisions_names as divisions_mhb_names','business_line','risk_category','risk_factor','loss_type','currency_rates','currency'));
         $db->query_column_names->set(array(
             "fraud_attr.id AS id_fraud_attr",
             "fraud_attr.date1 AS date1",
-            "divisions_filial.`name` AS name_divisions_filial",
-            "divisions_mhb.`name` AS name_divisions_mhb",
-            "divisions_otdel.`name` AS name_divisions_otdel",
+            "divisions_filial_names.`name` AS name_divisions_filial",
+            "divisions_mhb_names.`name` AS name_divisions_mhb",
             "business_line.`name` AS name_business_line",
             "risk_category.`name` AS name_risk_category",
             "risk_factor.`name` AS name_risk_factor",
@@ -64,7 +63,6 @@ class mFraud_attr extends mModels
             "fraud_attr.`desc` AS desc_fraud_attr",
             "fraud_attr.`id_divisions_filial`",
             "fraud_attr.`id_divisions_mhb`",
-            "fraud_attr.`id_divisions_otdel`",
             "fraud_attr.`id_business_line`",
             "fraud_attr.`id_risk_category`",
             "fraud_attr.`id_risk_factor`",
@@ -73,11 +71,13 @@ class mFraud_attr extends mModels
         ));
         $db->add_query_conditions('', 'fraud_attr.id_divisions_filial', '=', 'divisions_filial.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_divisions_mhb', '=', 'divisions_mhb.id', '', 'con', 'AND');
-        $db->add_query_conditions('', 'fraud_attr.id_divisions_otdel', '=', 'divisions_otdel.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_business_line', '=', 'business_line.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_risk_category', '=', 'risk_category.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_risk_factor', '=', 'risk_factor.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_loss_type', '=', 'loss_type.id', '', 'con', 'AND');
+        $db->add_query_conditions('', 'fraud_attr.id_currency_rates', '=', 'currency_rates.id', '', 'con', 'AND');
+        $db->add_query_conditions('', 'divisions_filial.id_divisions_names', '=', 'divisions_filial_names.id', '', 'con', 'AND');
+        $db->add_query_conditions('', 'divisions_mhb.id_divisions_names', '=', 'divisions_mhb_names.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_currency_rates', '=', 'currency_rates.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'currency_rates.id_currency', '=', 'currency.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id', '=', $this->fFraud_attr->get()->id->get(), '', 'int', '');
@@ -90,13 +90,12 @@ class mFraud_attr extends mModels
         $db = $this->cDatabase->fDatabase->get();
         $this->cDatabase->Clear();
         $db->query_switcher->set('s');
-        $db->query_table_names->set(array('fraud_attr', 'divisions_filial', 'divisions_mhb','divisions_otdel','business_line','risk_category','risk_factor','loss_type','currency_rates','currency'));
+        $db->query_table_names->set(array('fraud_attr', 'divisions as divisions_filial', 'divisions_names as divisions_filial_names', 'divisions as divisions_mhb', 'divisions_names as divisions_mhb_names','business_line','risk_category','risk_factor','loss_type','currency_rates','currency'));
         $db->query_column_names->set(array(
             "fraud_attr.id AS id_fraud_attr",
             "fraud_attr.date1 AS date1",
-            "divisions_filial.`name` AS name_divisions_filial",
-            "divisions_mhb.`name` AS name_divisions_mhb",
-            "divisions_otdel.`name` AS name_divisions_otdel",
+            "divisions_filial_names.`name` AS name_divisions_filial",
+            "divisions_mhb_names.`name` AS name_divisions_mhb",
             "business_line.`name` AS name_business_line",
             "risk_category.`name` AS name_risk_category",
             "risk_factor.`name` AS name_risk_factor",
@@ -115,7 +114,6 @@ class mFraud_attr extends mModels
             "fraud_attr.`desc` AS desc_fraud_attr",
             "fraud_attr.`id_divisions_filial`",
             "fraud_attr.`id_divisions_mhb`",
-            "fraud_attr.`id_divisions_otdel`",
             "fraud_attr.`id_business_line`",
             "fraud_attr.`id_risk_category`",
             "fraud_attr.`id_risk_factor`",
@@ -130,6 +128,8 @@ class mFraud_attr extends mModels
         $db->add_query_conditions('', 'fraud_attr.id_risk_factor', '=', 'risk_factor.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_loss_type', '=', 'loss_type.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_currency_rates', '=', 'currency_rates.id', '', 'con', 'AND');
+        $db->add_query_conditions('', 'divisions_filial.id_divisions_names', '=', 'divisions_filial_names.id', '', 'con', 'AND');
+        $db->add_query_conditions('', 'divisions_mhb.id_divisions_names', '=', 'divisions_mhb_names.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'currency_rates.id_currency', '=', 'currency.id', '', 'con', '');
         $db->query_order_by->set((array('fraud_attr.id')));
         $this->cDatabase->Operation();
@@ -144,7 +144,6 @@ class mFraud_attr extends mModels
         $db->add_query_parameters('date1', '=', $this->cDatabase->Convert_Date_To_Mysql($this->fFraud_attr->get()->date1->get()), 'str');
         $db->add_query_parameters('id_divisions_filial', '=', $this->fFraud_attr->get()->id_divisions_filial->get(), 'int');
         $db->add_query_parameters('id_divisions_mhb', '=', $this->fFraud_attr->get()->id_divisions_mhb->get(), 'int');
-        $db->add_query_parameters('id_divisions_otdel', '=', $this->fFraud_attr->get()->id_divisions_otdel->get(), 'int');
         $db->add_query_parameters('id_business_line', '=', $this->fFraud_attr->get()->id_business_line->get(), 'int');
         $db->add_query_parameters('id_risk_category', '=', $this->fFraud_attr->get()->id_risk_category->get(), 'int');
         $db->add_query_parameters('id_risk_factor', '=', $this->fFraud_attr->get()->id_risk_factor->get(), 'int');
@@ -172,7 +171,6 @@ class mFraud_attr extends mModels
         $db->add_query_parameters('date1', '=', $this->cDatabase->Convert_Date_To_Mysql($this->fFraud_attr->get()->date1->get()), 'str');
         $db->add_query_parameters('id_divisions_filial', '=', $this->fFraud_attr->get()->id_divisions_filial->get(), 'int');
         $db->add_query_parameters('id_divisions_mhb', '=', $this->fFraud_attr->get()->id_divisions_mhb->get(), 'int');
-        $db->add_query_parameters('id_divisions_otdel', '=', $this->fFraud_attr->get()->id_divisions_otdel->get(), 'int');
         $db->add_query_parameters('id_business_line', '=', $this->fFraud_attr->get()->id_business_line->get(), 'int');
         $db->add_query_parameters('id_risk_category', '=', $this->fFraud_attr->get()->id_risk_category->get(), 'int');
         $db->add_query_parameters('id_risk_factor', '=', $this->fFraud_attr->get()->id_risk_factor->get(), 'int');

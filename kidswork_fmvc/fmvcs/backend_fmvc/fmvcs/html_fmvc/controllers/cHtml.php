@@ -812,9 +812,9 @@ class cHtml extends mHtml
         return $this->vHtml->Ic_Add();
     }
 
-    function Box_Menu($value, $sel, $menu, $submenu)
+    function Box_Menu($value, $sel, $menu, $submenu, $form_name_return='', $id_module_code='')
     {
-        return $this->vHtml->Box_Menu($value, $sel, $menu, $submenu);
+        return $this->vHtml->Box_Menu($value, $sel, $menu, $submenu, $form_name_return, $id_module_code);
     }
 
     function Start_Dialog_Box()

@@ -12,6 +12,7 @@ class cFraud_attr extends mFraud_attr
     private $cNames = null;
     private $cFraud = null;
     private $cCurrency_rates = null;
+    private $cDivisions = null;
     private $box_bottom = null;
 
     function Init_Full()
@@ -24,6 +25,7 @@ class cFraud_attr extends mFraud_attr
         $this->cNames = $this->cKidswork->ctrls_global->ext("cNames");
         $this->cFraud = $this->cKidswork->ctrls_global->ext("cFraud");
         $this->cCurrency_rates = $this->cKidswork->ctrls_global->ext("cCurrency_rates");
+        $this->cDivisions = $this->cKidswork->ctrls_global->ext("cDivisions");
         $this->Menu();
     }
 
@@ -33,6 +35,7 @@ class cFraud_attr extends mFraud_attr
         $this->cCenter = $this->cKidswork->ctrls_global->ext("cCenter");
         $this->cNames = $this->cKidswork->ctrls_global->ext("cNames");
         $this->cCurrency_rates = $this->cKidswork->ctrls_global->ext("cCurrency_rates");
+        $this->cDivisions = $this->cKidswork->ctrls_global->ext("cDivisions");
         $this->Menu_Ajax();
     }
 
@@ -320,9 +323,8 @@ class cFraud_attr extends mFraud_attr
         $res = "";
         $res .= $this->cHtml->Table_2_Row_C2('Код:', $this->fFraud_attr->get()->id->get(), "2");
         $res .= $this->cHtml->Table_2_Row_C2("Дата:", $this->fFraud_attr->get()->date1->get(), "2");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Филиал:", $this->fFraud_attr->get()->id_divisions_filial->get(), "2", "", "?menu=10&module=names&table=divisions_filial&table_name=Филиал");
-        $res .= $this->cHtml->Table_Btn_Row_C2("ЦБО:", $this->fFraud_attr->get()->id_divisions_mhb->get(), "2", "", "?menu=10&module=names&table=divisions_mhb&table_name=ЦБО");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Департамент/Отдел:", $this->fFraud_attr->get()->id_divisions_otdel->get(), "2", "", "?menu=10&module=names&table=divisions_otdel&table_name=Департамент/Отдел");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Филиал:", $this->fFraud_attr->get()->id_divisions_filial->get(), "2", "", "?menu=13&submenu=2&id_divisions_categories=2&form_name_return=id_divisions_filial&id_module_code=parent-divisions");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Подразделение:", $this->fFraud_attr->get()->id_divisions_mhb->get(), "2", "", "?menu=13&submenu=2&id_divisions_categories=3&form_name_return=id_divisions_mhb&id_module_code=child-divisions");
         $res .= $this->cHtml->Table_Btn_Row_C2("Бизнес линия:", $this->fFraud_attr->get()->id_business_line->get(), "2", "", "?menu=10&module=names&table=business_line&table_name=Бизнес+линия");
         $res .= $this->cHtml->Table_Btn_Row_C2("Вид риска:", $this->fFraud_attr->get()->id_risk_category->get(), "2", "", "?menu=10&module=names&table=risk_category&table_name=Вид+риска");
         $res .= $this->cHtml->Table_Btn_Row_C2("Факторы риска:", $this->fFraud_attr->get()->id_risk_factor->get(), "2", "", "?menu=10&module=names&table=risk_factor&table_name=Факторы+риска");
@@ -331,7 +333,7 @@ class cFraud_attr extends mFraud_attr
         $res .= $this->cHtml->Table_2_Row_C2("Сумма текущих потерь:", $this->fFraud_attr->get()->loss_amount_current->get(), "2");
         $res .= $this->cHtml->Table_2_Row_C2("Востановленная сумма:", $this->fFraud_attr->get()->loss_amount_restored->get(), "2");
         $res .= $this->cHtml->Table_2_Row_C2("Фактическая сумма потерь:", $this->fFraud_attr->get()->loss_amount_fact->get(), "2");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Курс валют:", $this->fFraud_attr->get()->id_currency_rates->get(), "2", "", "?menu=12&submenu=2");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Валюта:", $this->fFraud_attr->get()->id_currency_rates->get(), "2", "", "?menu=10&module=names&table=currency&table_name=Валюта");
         //$res .= $this->cHtml->Table_2_Row_C2("Сумма номинальных потерь в Сомони:", $this->fFraud_attr->get()->loss_amount_base_tjs->get(), "2");
         //$res .= $this->cHtml->Table_2_Row_C2("Сумма текущих потерь в Сомони:", $this->fFraud_attr->get()->loss_amount_current_tjs->get(), "2");
         //$res .= $this->cHtml->Table_2_Row_C2("Востановленная сумма в Сомони:", $this->fFraud_attr->get()->loss_amount_restored_tjs->get(), "2");
@@ -345,9 +347,8 @@ class cFraud_attr extends mFraud_attr
     public function Set_Default_Form_Content_View()
     {
         $this->fFraud_attr->get()->date1->set($this->cHtml->Input_Date("date1", (new \DateTime())->format('Y-m-d')));
-        $this->fFraud_attr->get()->id_divisions_filial->set($this->cNames->Fill_Names("id_divisions_filial", "divisions_filial"));
-        $this->fFraud_attr->get()->id_divisions_mhb->set($this->cNames->Fill_Names("id_divisions_mhb", "divisions_mhb"));
-        $this->fFraud_attr->get()->id_divisions_otdel->set($this->cNames->Fill_Names("id_divisions_otdel", "divisions_otdel"));
+        $this->fFraud_attr->get()->id_divisions_filial->set($this->cDivisions->Fill_Names("","id_divisions_filial",'parent-divisions'));
+        $this->fFraud_attr->get()->id_divisions_mhb->set($this->cDivisions->Fill_Names("","id_divisions_mhb",'child-divisions'));
         $this->fFraud_attr->get()->id_business_line->set($this->cNames->Fill_Names("id_business_line", "business_line"));
         $this->fFraud_attr->get()->id_risk_category->set($this->cNames->Fill_Names("id_risk_category", "risk_category"));
         $this->fFraud_attr->get()->id_risk_factor->set($this->cNames->Fill_Names("id_risk_factor", "risk_factor"));
@@ -356,7 +357,7 @@ class cFraud_attr extends mFraud_attr
         $this->fFraud_attr->get()->loss_amount_current->set($this->cHtml->Input_Text("loss_amount_current"));
         $this->fFraud_attr->get()->loss_amount_restored->set($this->cHtml->Input_Text("loss_amount_restored"));
         $this->fFraud_attr->get()->loss_amount_fact->set($this->cHtml->Input_Hidden("loss_amount_fact", "", "-"));
-        $this->fFraud_attr->get()->id_currency_rates->set($this->cCurrency_rates->Fill_Id_Currency_Rates(null,false));
+        $this->fFraud_attr->get()->id_currency_rates->set($this->cNames->Fill_Names("id_currency", "currency"));
         $this->fFraud_attr->get()->loss_amount_base_tjs->set($this->cHtml->Input_Hidden("loss_amount_base_tjs", "", "-"));
         $this->fFraud_attr->get()->loss_amount_current_tjs->set($this->cHtml->Input_Hidden("loss_amount_current_tjs", "", "-"));
         $this->fFraud_attr->get()->loss_amount_restored_tjs->set($this->cHtml->Input_Hidden("loss_amount_restored_tjs", "", "-"));
@@ -370,7 +371,6 @@ class cFraud_attr extends mFraud_attr
         $this->fFraud_attr->get()->date1->set("-");
         $this->fFraud_attr->get()->id_divisions_filial->set("-");
         $this->fFraud_attr->get()->id_divisions_mhb->set("-");
-        $this->fFraud_attr->get()->id_divisions_otdel->set("-");
         $this->fFraud_attr->get()->id_business_line->set("-");
         $this->fFraud_attr->get()->id_risk_category->set("-");
         $this->fFraud_attr->get()->id_risk_factor->set("-");
@@ -403,9 +403,6 @@ class cFraud_attr extends mFraud_attr
         }
         if ($this->fFraud_attr->get()->id_divisions_mhb->get() == "") {
             $this->fFraud_attr->get()->id_divisions_mhb->set('1');
-        }
-        if ($this->fFraud_attr->get()->id_divisions_otdel->get() == "") {
-            $this->fFraud_attr->get()->id_divisions_otdel->set('1');
         }
         if ($this->fFraud_attr->get()->id_business_line->get() == "") {
             $this->fFraud_attr->get()->id_business_line->set('1');
@@ -469,7 +466,6 @@ class cFraud_attr extends mFraud_attr
                     $this->fFraud_attr->get()->date1->set($key["date1"]);
                     $this->fFraud_attr->get()->id_divisions_filial->set($key["name_divisions_filial"]);
                     $this->fFraud_attr->get()->id_divisions_mhb->set($key["name_divisions_mhb"]);
-                    $this->fFraud_attr->get()->id_divisions_otdel->set($key["name_divisions_otdel"]);
                     $this->fFraud_attr->get()->id_business_line->set($key["name_business_line"]);
                     $this->fFraud_attr->get()->id_risk_category->set($key["name_risk_category"]);
                     $this->fFraud_attr->get()->id_risk_factor->set($key["name_risk_factor"]);
@@ -501,7 +497,6 @@ class cFraud_attr extends mFraud_attr
                     $this->fFraud_attr->get()->date1->set($this->cHtml->Input_Date("date1", $key["date1"]));
                     $this->fFraud_attr->get()->id_divisions_filial->set($this->cNames->Fill_Names("id_divisions_filial", "divisions_filial", $key["id_divisions_filial"]));
                     $this->fFraud_attr->get()->id_divisions_mhb->set($this->cNames->Fill_Names("id_divisions_mhb", "divisions_mhb", $key["id_divisions_mhb"]));
-                    $this->fFraud_attr->get()->id_divisions_otdel->set($this->cNames->Fill_Names("id_divisions_otdel", "divisions_otdel", $key["id_divisions_otdel"]));
                     $this->fFraud_attr->get()->id_business_line->set($this->cNames->Fill_Names("id_business_line", "business_line", $key["id_business_line"]));
                     $this->fFraud_attr->get()->id_risk_category->set($this->cNames->Fill_Names("id_risk_category", "risk_category", $key["id_risk_category"]));
                     $this->fFraud_attr->get()->id_risk_factor->set($this->cNames->Fill_Names("id_risk_factor", "risk_factor", $key["id_risk_factor"]));
@@ -563,7 +558,6 @@ class cFraud_attr extends mFraud_attr
                 $res .= $cHtml->Datatable_Td($this->cDatabase->Convert_Date_To_Label($key['date1']));
                 $res .= $cHtml->Datatable_Td($key['name_divisions_filial']);
                 $res .= $cHtml->Datatable_Td($key['name_divisions_mhb']);
-                $res .= $cHtml->Datatable_Td($key['name_divisions_otdel']);
                 $res .= $cHtml->Datatable_Td($key['name_business_line']);
                 $res .= $cHtml->Datatable_Td($key['name_risk_category']);
                 $res .= $cHtml->Datatable_Td($key['name_risk_factor']);
