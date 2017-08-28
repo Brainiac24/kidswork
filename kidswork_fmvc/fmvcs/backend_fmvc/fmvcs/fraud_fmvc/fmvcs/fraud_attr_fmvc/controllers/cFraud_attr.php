@@ -323,7 +323,7 @@ class cFraud_attr extends mFraud_attr
         $res = "";
         $res .= $this->cHtml->Table_2_Row_C2('Код:', $this->fFraud_attr->get()->id->get(), "2");
         $res .= $this->cHtml->Table_2_Row_C2("Дата:", $this->fFraud_attr->get()->date1->get(), "2");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Филиал:", $this->fFraud_attr->get()->id_divisions_filial->get(), "2", "", "?menu=13&submenu=2&id_divisions_categories=2&form_name_return=id_divisions_filial&id_module_code=parent-divisions");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Филиал:", $this->fFraud_attr->get()->id_divisions_filial->get(), "2", "", "?menu=13&submenu=2&id_divisions_categories=2&form_name_return=id_divisions_filial&id_module_code=parent-divisions&id_divisions_2=1");
         $res .= $this->cHtml->Table_Btn_Row_C2("Подразделение:", $this->fFraud_attr->get()->id_divisions_mhb->get(), "2", "", "?menu=13&submenu=2&id_divisions_categories=3&form_name_return=id_divisions_mhb&id_module_code=child-divisions");
         $res .= $this->cHtml->Table_Btn_Row_C2("Бизнес линия:", $this->fFraud_attr->get()->id_business_line->get(), "2", "", "?menu=10&module=names&table=business_line&table_name=Бизнес+линия");
         $res .= $this->cHtml->Table_Btn_Row_C2("Вид риска:", $this->fFraud_attr->get()->id_risk_category->get(), "2", "", "?menu=10&module=names&table=risk_category&table_name=Вид+риска");
@@ -347,8 +347,8 @@ class cFraud_attr extends mFraud_attr
     public function Set_Default_Form_Content_View()
     {
         $this->fFraud_attr->get()->date1->set($this->cHtml->Input_Date("date1", (new \DateTime())->format('Y-m-d')));
-        $this->fFraud_attr->get()->id_divisions_filial->set($this->cDivisions->Fill_Names("","id_divisions_filial",'parent-divisions'));
-        $this->fFraud_attr->get()->id_divisions_mhb->set($this->cDivisions->Fill_Names("","id_divisions_mhb",'child-divisions'));
+        $this->fFraud_attr->get()->id_divisions_filial->set($this->cDivisions->Fill_Names("","id_divisions_filial",'parent-divisions','2'));
+        $this->fFraud_attr->get()->id_divisions_mhb->set($this->cDivisions->Fill_Names("","id_divisions_mhb",'child-divisions','3'));
         $this->fFraud_attr->get()->id_business_line->set($this->cNames->Fill_Names("id_business_line", "business_line"));
         $this->fFraud_attr->get()->id_risk_category->set($this->cNames->Fill_Names("id_risk_category", "risk_category"));
         $this->fFraud_attr->get()->id_risk_factor->set($this->cNames->Fill_Names("id_risk_factor", "risk_factor"));

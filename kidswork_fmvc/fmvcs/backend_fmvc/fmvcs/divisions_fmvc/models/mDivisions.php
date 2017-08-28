@@ -69,7 +69,11 @@ class mDivisions extends mModels
         $db->add_query_conditions('', 'divisions.id_divisions_names', '=', 'divisions_names.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'divisions.id_divisions_2', '=', 'divisions_2.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'divisions_2.id_divisions_names', '=', 'divisions_names_2.id', '', 'con', 'AND');
+        if ($this->fDivisions->get()->id_divisions_2->get()!='') {
+            $db->add_query_conditions('', 'divisions.id_divisions_2', '=', $this->fDivisions->get()->id_divisions_2->get(), '', 'int', 'AND');
+        }
         $db->add_query_conditions('', 'divisions.id', '=', $this->fDivisions->get()->id->get(), '', 'int', '');
+        
         $db->query_order_by->set((array('divisions.id')));
         $this->cDatabase->Operation();
     }
@@ -94,6 +98,9 @@ class mDivisions extends mModels
         $db->add_query_conditions('', 'divisions.id_divisions_categories', '=', 'divisions_categories.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'divisions.id_divisions_names', '=', 'divisions_names.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'divisions.id_divisions_2', '=', 'divisions_2.id', '', 'con', 'AND');
+        if ($this->fDivisions->get()->id_divisions_2->get()!='') {
+            $db->add_query_conditions('', 'divisions.id_divisions_2', '=', $this->fDivisions->get()->id_divisions_2->get(), '', 'int', 'AND');
+        }
         $db->add_query_conditions('', 'divisions_2.id_divisions_names', '=', 'divisions_names_2.id', '', 'con', '');
         $db->query_order_by->set((array('divisions.id')));
         $this->cDatabase->Operation();

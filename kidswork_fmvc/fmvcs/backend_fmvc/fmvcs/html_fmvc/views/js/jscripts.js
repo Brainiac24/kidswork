@@ -625,10 +625,10 @@ $(document).delegate(".btn-grid", "click", function () {
     var parent = $(this).closest('tr');
     if (typeof (parent.children('.box-child-btn')) !== 'undefined') {
         
-        $link = parent.children('.box-child-btn').data('child-module') + "&submenu=3&ajax=3";
+        $link = parent.children('.box-child-btn').attr('data-child-module') + "&submenu=3&ajax=3";
     } else {
-        if (parent.children('.tab-name').data('child-module')!=="") {
-            $link = parent.children('.tab-name').data('child-module') + "&submenu=3&ajax=3";
+        if (parent.children('.tab-name').attr('data-child-module')!=="") {
+            $link = parent.children('.tab-name').attr('data-child-module') + "&submenu=3&ajax=3";
         }
         
     }
