@@ -24,6 +24,7 @@ class fFraud_attr extends fConfigs
     public $loss_amount_current = array("validation" => array("loss_amount_current" => array("rules" => array(0 => "float|required", 2 => ""))));
     public $loss_amount_restored = array("validation" => array("loss_amount_restored" => array("rules" => array(0 => "float|required", 2 => ""))));
     public $loss_amount_fact = array("validation" => array("loss_amount_fact" => array("rules" => array(0 => "float|required", 2 => ""))));
+    public $id_currency = array("validation" => array("id_currency" => array("rules" => array(0 => "int|required", 2 => ""))));
     public $id_currency_rates = array("validation" => array("id_currency_rates" => array("rules" => array(0 => "int|required", 2 => ""))));
     public $loss_amount_base_tjs = array("validation" => array("loss_amount_base" => array("rules" => array(0 => "float|required", 2 => ""))));
     public $loss_amount_current_tjs = array("validation" => array("loss_amount_current" => array("rules" => array(0 => "float|required", 2 => ""))));

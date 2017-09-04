@@ -33,7 +33,7 @@ class mDivisions extends mModels
         $this->cDatabase->Operation();
     }
 
-    function Select_Names($id_divisions_2='') {
+    function Select_Names($id_divisions_2='', $id_divisions_categories='') {
         $db = $this->cDatabase->fDatabase->get();
         $this->cDatabase->Clear();
         $db->query_switcher->set('s');
@@ -41,6 +41,9 @@ class mDivisions extends mModels
         $db->query_column_names->set(array("divisions.id as id",'divisions_names.name as name'));
         if ($id_divisions_2!='') {
             $db->add_query_conditions('', 'divisions.id_divisions_2', '=', $id_divisions_2, '', 'int', 'AND');
+        }
+        if ($id_divisions_categories!='') {
+            $db->add_query_conditions('', 'divisions.id_divisions_categories', '=', $id_divisions_categories, '', 'int', 'AND');
         }
         $db->add_query_conditions('', 'divisions.id_divisions_names', '=', 'divisions_names.id', '', 'con', '');
         $db->query_order_by->set((array('divisions.id')));
@@ -69,9 +72,9 @@ class mDivisions extends mModels
         $db->add_query_conditions('', 'divisions.id_divisions_names', '=', 'divisions_names.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'divisions.id_divisions_2', '=', 'divisions_2.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'divisions_2.id_divisions_names', '=', 'divisions_names_2.id', '', 'con', 'AND');
-        if ($this->fDivisions->get()->id_divisions_2->get()!='') {
+        /*if ($this->fDivisions->get()->id_divisions_2->get()!='') {
             $db->add_query_conditions('', 'divisions.id_divisions_2', '=', $this->fDivisions->get()->id_divisions_2->get(), '', 'int', 'AND');
-        }
+        }*/
         $db->add_query_conditions('', 'divisions.id', '=', $this->fDivisions->get()->id->get(), '', 'int', '');
         
         $db->query_order_by->set((array('divisions.id')));
@@ -100,6 +103,10 @@ class mDivisions extends mModels
         $db->add_query_conditions('', 'divisions.id_divisions_2', '=', 'divisions_2.id', '', 'con', 'AND');
         if ($this->fDivisions->get()->id_divisions_2->get()!='') {
             $db->add_query_conditions('', 'divisions.id_divisions_2', '=', $this->fDivisions->get()->id_divisions_2->get(), '', 'int', 'AND');
+        }
+        
+        if ($this->fDivisions->get()->id_divisions_categories->get()!='') {
+            $db->add_query_conditions('', 'divisions.id_divisions_categories', '=', $this->fDivisions->get()->id_divisions_categories->get(), '', 'int', 'AND');
         }
         $db->add_query_conditions('', 'divisions_2.id_divisions_names', '=', 'divisions_names_2.id', '', 'con', '');
         $db->query_order_by->set((array('divisions.id')));

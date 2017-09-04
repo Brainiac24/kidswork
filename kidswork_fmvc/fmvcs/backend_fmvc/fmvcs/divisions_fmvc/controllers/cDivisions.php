@@ -159,7 +159,7 @@ class cDivisions extends mDivisions
         return $id;
     }
 
-    public function Fill_Names($selected_value = "", $form_name = "id_divisions", $id_module_code = "", $id_divisions_2='')
+    public function Fill_Names($selected_value = "", $form_name = "id_divisions", $id_module_code = "", $id_divisions_2='', $id_divisions_categories='')
     {
         $value = '';
         if ($form_name == "id_divisions") {
@@ -176,6 +176,13 @@ class cDivisions extends mDivisions
             }else{
                 $value = $this->fDivisions->get()->id_divisions_2->get();
             }
+        }elseif ($form_name == "id_divisions_categories"){
+            if ($selected_value != "") {
+                $this->fDivisions->get()->id_divisions_categories->set($selected_value);
+                $value = $selected_value;
+            }else{
+                $value = $this->fDivisions->get()->id_divisions_categories->get();
+            }
         }else{
             if ($selected_value != "") {
                 $this->fDivisions->get()->id->set($selected_value);
@@ -184,10 +191,8 @@ class cDivisions extends mDivisions
                 $value = $this->fDivisions->get()->id->get();
             }
         }
-        //$id_module_code = "id_module_code";
-        //\var_dump($id_divisions_2);
         $id = $this->cHtml->Start_Select_Element($id_module_code, $form_name, $value, "listselectbox-2");
-        $this->Select_Names($id_divisions_2);
+        $this->Select_Names($id_divisions_2, $id_divisions_categories);
         $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
         if ($stmt !== null) {
             foreach ($stmt as $key) {
@@ -209,7 +214,7 @@ class cDivisions extends mDivisions
             $form_name = $this->fDivisions->get()->form_name_return->get();
         }
         //$res0 = $this->fDivisions->get()->id->get();
-        $res0 = $this->Fill_Names($this->fDivisions->get()->id->get(), $form_name, $this->fDivisions->get()->id_module_code->get(), $this->fDivisions->get()->id_divisions_2->get());
+        $res0 = $this->Fill_Names($this->fDivisions->get()->id->get(), $form_name, $this->fDivisions->get()->id_module_code->get(), $this->fDivisions->get()->id_divisions_2->get(),$this->fDivisions->get()->id_divisions_categories->get());
         $res1 = $this->cHtml->Table_2_Td_C2("Уведомление", $this->cHtml->Action_Message_Success("Данные успешно сохранены!"));
         header("Content-Type: application/json;charset=utf-8");
         $res = \json_encode(array('cmb' => $res0, 'msg' => $res1));

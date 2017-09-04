@@ -377,8 +377,7 @@ class cFraud extends mFraud
         $res .= $cHtml->Datatable_Th("Дата");
         $res .= $cHtml->Datatable_Th("Код описания фрода");
         $res .= $cHtml->Datatable_Th("Филиал");
-        $res .= $cHtml->Datatable_Th("ЦБО");
-        $res .= $cHtml->Datatable_Th("Департамент/Отдел");
+        $res .= $cHtml->Datatable_Th("Подразделение");
         $res .= $cHtml->Datatable_Th("Бизнес линия");
         $res .= $cHtml->Datatable_Th("Вид риска");
         $res .= $cHtml->Datatable_Th("Факторы риска");
@@ -409,7 +408,6 @@ class cFraud extends mFraud
                 $res .= $cHtml->Datatable_Td($key['id_fraud_attr']);
                 $res .= $cHtml->Datatable_Td($key['name_divisions_filial']);
                 $res .= $cHtml->Datatable_Td($key['name_divisions_mhb']);
-                $res .= $cHtml->Datatable_Td($key['name_divisions_otdel']);
                 $res .= $cHtml->Datatable_Td($key['name_business_line']);
                 $res .= $cHtml->Datatable_Td($key['name_risk_category']);
                 $res .= $cHtml->Datatable_Td($key['name_risk_factor']);

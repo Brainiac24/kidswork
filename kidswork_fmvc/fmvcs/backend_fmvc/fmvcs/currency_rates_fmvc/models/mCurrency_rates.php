@@ -8,7 +8,7 @@ class mCurrency_rates extends mModels
     public $fCurrency_rates;
     public $cRouter;
     public $fAudit;
-    public $cDatabase; 
+    public $cDatabase;
 
     public function __construct($cKidswork)
     {
@@ -31,9 +31,10 @@ Select_To_Table
 Insert
 Update
 Delete
-*/
+     */
 
-    function Select_Ids() {
+    function Select_Ids()
+    {
         $db = $this->cDatabase->fDatabase->get();
         $this->cDatabase->Clear();
         $db->query_switcher->set('s');
@@ -41,19 +42,34 @@ Delete
         $db->query_column_names->set(array("id"));
         $this->cDatabase->Operation();
     }
-    
-    function Select_By_Id($id="") {
-        if ($id!="") {
+
+    function Select_By_Id($id = "")
+    {
+        if ($id != "") {
             $this->fCurrency_rates->get()->id->set($id);
         }
         $db = $this->cDatabase->fDatabase->get();
         $this->cDatabase->Clear();
         $db->query_switcher->set('s');
         $db->query_table_names->set(array('currency_rates', 'currency'));
-        $db->query_column_names->set(array('currency_rates.id AS id_currency_rates', 'currency.id AS id_currency', 'currency_rates.date1 AS date1','currency.`name` AS name_currency', 'currency_rates.`rate` AS rate'));
+        $db->query_column_names->set(array('currency_rates.id AS id_currency_rates', 'currency.id AS id_currency', 'currency_rates.date1 AS date1', 'currency.`name` AS name_currency', 'currency_rates.`rate` AS rate'));
         $db->add_query_conditions('', 'currency_rates.id_currency', '=', 'currency.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'currency_rates.id', '=', $this->fCurrency_rates->get()->id->get(), '', 'int', '');
-        $db->query_order_by->set((array('currency_rates.id')));
+        $db->query_order_by->set( (array('currency_rates.id')));
+        $this->cDatabase->Operation();
+    }
+
+    function Select_By_Name_Id_And_Date($name_id, $date)
+    {
+        $db = $this->cDatabase->fDatabase->get();
+        $this->cDatabase->Clear();
+        $db->query_switcher->set('s');
+        $db->query_table_names->set(array('currency_rates', 'currency'));
+        $db->query_column_names->set(array('currency_rates.id AS id_currency_rates', 'currency.id AS id_currency', 'currency_rates.date1 AS date1', 'currency.`name` AS name_currency', 'currency_rates.`rate` AS rate'));
+        $db->add_query_conditions('', 'currency_rates.id_currency', '=', 'currency.id', '', 'con', 'AND');
+        $db->add_query_conditions('', 'currency_rates.id_currency', '=', $name_id, '', 'int', 'AND');
+        $db->add_query_conditions('', 'currency_rates.date1', '=', $this->cDatabase->Convert_Date_To_Mysql($date), '', 'str', '');
+        $db->query_order_by->set( (array('currency_rates.id')));
         $this->cDatabase->Operation();
     }
 
@@ -70,11 +86,12 @@ Delete
             "currency_rates.`rate` AS rate"
         ));
         $db->add_query_conditions('', 'currency_rates.id_currency', '=', 'currency.id', '', 'con', '');
-        $db->query_order_by->set((array('currency_rates.id')));
+        $db->query_order_by->set( (array('currency_rates.id')));
         $this->cDatabase->Operation();
     }
 
-    function Insert() {
+    function Insert()
+    {
         $db = $this->cDatabase->fDatabase->get();
         $this->cDatabase->Clear();
         $db->query_switcher->set('i');
@@ -85,7 +102,8 @@ Delete
         $this->cDatabase->Operation();
     }
 
-    function Update() {
+    function Update()
+    {
         $db = $this->cDatabase->fDatabase->get();
         $this->cDatabase->Clear();
         $db->query_switcher->set('u');
@@ -97,7 +115,8 @@ Delete
         $this->cDatabase->Operation();
     }
 
-    function Delete() {
+    function Delete()
+    {
         $db = $this->cDatabase->fDatabase->get();
         $this->cDatabase->Clear();
         $db->query_switcher->set('d');

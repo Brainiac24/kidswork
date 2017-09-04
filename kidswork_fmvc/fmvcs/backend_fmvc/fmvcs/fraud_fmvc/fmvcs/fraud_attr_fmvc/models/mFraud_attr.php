@@ -122,7 +122,6 @@ class mFraud_attr extends mModels
         ));
         $db->add_query_conditions('', 'fraud_attr.id_divisions_filial', '=', 'divisions_filial.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_divisions_mhb', '=', 'divisions_mhb.id', '', 'con', 'AND');
-        $db->add_query_conditions('', 'fraud_attr.id_divisions_otdel', '=', 'divisions_otdel.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_business_line', '=', 'business_line.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_risk_category', '=', 'risk_category.id', '', 'con', 'AND');
         $db->add_query_conditions('', 'fraud_attr.id_risk_factor', '=', 'risk_factor.id', '', 'con', 'AND');

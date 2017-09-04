@@ -152,7 +152,6 @@ class cFraud_attr extends mFraud_attr
 
     function Data_Control_Action()
     {
-
         $res = "";
         switch ($this->fFraud_attr->get()->data_mode->get()) {
             case 1 :
@@ -323,8 +322,8 @@ class cFraud_attr extends mFraud_attr
         $res = "";
         $res .= $this->cHtml->Table_2_Row_C2('Код:', $this->fFraud_attr->get()->id->get(), "2");
         $res .= $this->cHtml->Table_2_Row_C2("Дата:", $this->fFraud_attr->get()->date1->get(), "2");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Филиал:", $this->fFraud_attr->get()->id_divisions_filial->get(), "2", "", "?menu=13&submenu=2&id_divisions_categories=2&form_name_return=id_divisions_filial&id_module_code=parent-divisions&id_divisions_2=1");
-        $res .= $this->cHtml->Table_Btn_Row_C2("Подразделение:", $this->fFraud_attr->get()->id_divisions_mhb->get(), "2", "", "?menu=13&submenu=2&id_divisions_categories=3&form_name_return=id_divisions_mhb&id_module_code=child-divisions");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Филиал:", $this->fFraud_attr->get()->id_divisions_filial->get(), "2", "", "?menu=13&submenu=2&id_divisions_categories=2&form_name_return=id_divisions_filial&id_module_code=parent-divisions&id_divisions_categories=2");
+        $res .= $this->cHtml->Table_Btn_Row_C2("Подразделение:", $this->fFraud_attr->get()->id_divisions_mhb->get(), "2", "", "?menu=13&submenu=2&id_divisions_categories=3&form_name_return=id_divisions_mhb&id_module_code=child-divisions&id_divisions_categories=3");
         $res .= $this->cHtml->Table_Btn_Row_C2("Бизнес линия:", $this->fFraud_attr->get()->id_business_line->get(), "2", "", "?menu=10&module=names&table=business_line&table_name=Бизнес+линия");
         $res .= $this->cHtml->Table_Btn_Row_C2("Вид риска:", $this->fFraud_attr->get()->id_risk_category->get(), "2", "", "?menu=10&module=names&table=risk_category&table_name=Вид+риска");
         $res .= $this->cHtml->Table_Btn_Row_C2("Факторы риска:", $this->fFraud_attr->get()->id_risk_factor->get(), "2", "", "?menu=10&module=names&table=risk_factor&table_name=Факторы+риска");
@@ -428,14 +427,15 @@ class cFraud_attr extends mFraud_attr
         if ($this->fFraud_attr->get()->loss_amount_fact->get() == "") {
             $this->fFraud_attr->get()->loss_amount_fact->set('0');
         }
-        if ($this->fFraud_attr->get()->id_currency_rates->get() == "") {
-            $this->fFraud_attr->get()->id_currency_rates->set('1');
+        if ($this->fFraud_attr->get()->id_currency->get() == "") {
+            $this->fFraud_attr->get()->id_currency->set('1');
         }
         else {
-            $this->cCurrency_rates->Select_By_Id($this->fFraud_attr->get()->id_currency_rates->get());
+            $this->cCurrency_rates->Select_By_Name_Id_And_Date($this->fFraud_attr->get()->id_currency->get(), $this->fFraud_attr->get()->date1->get());
             $stmt = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
             if ($stmt != null) {
                 foreach ($stmt as $key) {
+                    $this->fFraud_attr->get()->id_currency_rates->set($key['id_currency_rates']);
                     $rate = \doubleval($key['rate']);
                     $loss_amount_base = \doubleval(\str_replace(",", ".",$this->fFraud_attr->get()->loss_amount_base->get()) );
                     $loss_amount_current = \doubleval(\str_replace(",", ".",$this->fFraud_attr->get()->loss_amount_current->get()));
@@ -453,6 +453,8 @@ class cFraud_attr extends mFraud_attr
         $this->fFraud_attr->get()->loss_amount_current_tjs->set($loss_amount_current_tjs);
         $this->fFraud_attr->get()->loss_amount_restored_tjs->set($loss_amount_restored_tjs);
         $this->fFraud_attr->get()->loss_amount_fact_tjs->set($loss_amount_fact_tjs);
+
+
 
     }
 
@@ -530,8 +532,7 @@ class cFraud_attr extends mFraud_attr
         $res .= $cHtml->Datatable_Th("Код");
         $res .= $cHtml->Datatable_Th("Дата");
         $res .= $cHtml->Datatable_Th("Филиал");
-        $res .= $cHtml->Datatable_Th("ЦБО");
-        $res .= $cHtml->Datatable_Th("Департамент/Отдел");
+        $res .= $cHtml->Datatable_Th("Подразделение");
         $res .= $cHtml->Datatable_Th("Бизнес линия");
         $res .= $cHtml->Datatable_Th("Вид риска");
         $res .= $cHtml->Datatable_Th("Факторы риска");

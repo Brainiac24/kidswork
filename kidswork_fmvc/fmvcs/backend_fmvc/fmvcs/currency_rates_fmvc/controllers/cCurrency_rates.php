@@ -109,7 +109,7 @@ class cCurrency_rates extends mCurrency_rates
         }
     }
 
-    public function Fill_Id_Currency_Rates($selected_value = "", $self = true)
+    public function Fill_Ids($selected_value = "", $self = true)
     {
         if ($selected_value != "") {
             $this->fCurrency_rates->get()->id->set($selected_value);
@@ -137,7 +137,7 @@ class cCurrency_rates extends mCurrency_rates
 
     public function Fill_Ids_Parent()
     {
-        $res0 = $this->Fill_Ids($this->fDivisions->get()->id->get(), false);
+        $res0 = $this->Fill_Ids($this->fCurrency_rates->get()->id->get(), false);
         $res1 = $this->cHtml->Table_2_Td_C2("Уведомление", $this->cHtml->Action_Message_Success("Данные успешно сохранены!"));
         header("Content-Type: application/json;charset=utf-8");
         $res = \json_encode(array('cmb' => $res0, 'msg' => $res1));
@@ -235,7 +235,7 @@ class cCurrency_rates extends mCurrency_rates
     {
         switch ($this->fCurrency_rates->get()->data_mode->get()) {
             case 1 :
-                $this->fCurrency_rates->get()->id->set($this->Fill_Id_Currency_Rates());
+                $this->fCurrency_rates->get()->id->set($this->Fill_Ids());
                 $this->Set_Default_Select_View($stmt);
                 break;
             case 2 :
@@ -245,14 +245,14 @@ class cCurrency_rates extends mCurrency_rates
                 $this->box_bottom = $this->cHtml->Table_2_Row_C3("Действие:", $this->cHtml->Action_Buttons_Add("Добавить"), $this->cHtml->Action_Buttons_Default("Отмена"), "center-box-btn");
                 break;
             case 3 :
-                $this->fCurrency_rates->get()->id->set($this->Fill_Id_Currency_Rates());
+                $this->fCurrency_rates->get()->id->set($this->Fill_Ids());
                 $this->Set_Default_Update_View($stmt);
                 $this->box_bottom = $this->cHtml->Table_2_Row_C3("Действие:", $this->cHtml->Action_Buttons_Edit("Изменить"), $this->cHtml->Action_Buttons_Default("Отмена"), "center-box-btn");
                 break;
             case 4 :
                 $this->Select_By_Id();
                 $stmt2 = $this->cDatabase->fDatabase->get()->pdo_stmt->get();
-                $this->fCurrency_rates->get()->id->set($this->Fill_Id_Currency_Rates());
+                $this->fCurrency_rates->get()->id->set($this->Fill_Ids());
                 $this->Set_Default_Select_View($stmt);
                 $this->box_bottom = $this->cHtml->Table_2_Row_C3("Действие:", $this->cHtml->Action_Buttons_Delete("Удалить"), $this->cHtml->Action_Buttons_Default("Отмена"), "center-box-btn");
                 break;
