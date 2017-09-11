@@ -265,7 +265,7 @@ class cFraud_attr extends mFraud_attr
         $menu = $this->cRouter->fRouter->get()->menu->get();
         $submenu = $this->cRouter->fRouter->get()->submenu->get();
         $data_mode = $this->fFraud_attr->get()->data_mode->get();
-        $sel = array(1 => null, 2 => null, 3 => null, 4 => null);
+        $sel = array(1 => null, 2 => null, 3 => null, 4 => null, 5 => null);
         $cap = "";
 
         if ($data_mode == "1") {

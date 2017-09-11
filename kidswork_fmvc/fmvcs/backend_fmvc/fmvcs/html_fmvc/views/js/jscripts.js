@@ -38,7 +38,7 @@ $(document).ready(function () {
     $('.sticky-table-headers.noactive').StickyTableHeaders();
 
     setTimeout(function () {
-        $('.sticky-table-headers').StickyTableHeaders('refresh');
+        //$('.sticky-table-headers').StickyTableHeaders('refresh');
     }, 1000);
 
 });
@@ -498,6 +498,8 @@ $(document).delegate('.b-item', "click", function () {
         $(this).addClass("item-upd-a");
     } else if (value == "4") {
         $(this).addClass("item-del-a");
+    } else if (value == "5") {
+        $(this).addClass("item-imp-a");
     } else if (value == "0") {
         var is_child = parseInt($(this).closest('.center-box').find('input[name="ischild"]').val());
         //alert(is_child);
@@ -536,6 +538,9 @@ $(document).delegate('input[name="data_mode"]', "change", function () {
     } else if ($(this).val() == "4") {
         $data = $(this).closest(".center-box").find('input').serialize();
         $(this).closest(".center-box").find('.center-box-cap').eq(0).attr("class", "center-box-cap").addClass("cap-del");
+    } else if ($(this).val() == "5") {
+        $data = $(this).closest(".center-box").find('input').serialize();
+        $(this).closest(".center-box").find('.center-box-cap').eq(0).attr("class", "center-box-cap").addClass("cap-imp");
     }
 
     SendAjax("?ajax=1", $data, $(this).closest(".center-box").find(".center-box-cont"));
@@ -581,7 +586,7 @@ $(document).delegate(".parent-divisions", "change", function () {
 });
 
 $(document).delegate(".fade-box", "click", function () {
-    $(this).next('.center-d-box').html("");
+    $(this).next('.center-d-box').html(""); 
     $('.tab-text').removeClass('active-table-id');
     $(this).parent(".dialog-box").hide();
 });
@@ -694,7 +699,7 @@ function SendAjax($url_mode, $data_serialize, $print_container, $callback) {
         data: $data_serialize,
         success: function (msg) {
             $ajax_msg = msg;
-            alert(msg);
+            //alert(msg);
             if ($print_container !== '') {
                 $print_container.html(msg);
             }

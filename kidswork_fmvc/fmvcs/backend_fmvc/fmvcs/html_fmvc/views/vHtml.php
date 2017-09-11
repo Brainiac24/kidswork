@@ -541,6 +541,10 @@ class vHtml
     {
         return '<input type="text" class="w-100 ' . $class . '" name="' . $name . '" value="' . $value . '" />';
     }
+    function Input_File($name, $value, $class = "")
+    {
+        return '<input type="file" class="w-100 ' . $class . '" name="' . $name . '" value="' . $value . '" />';
+    }
 
     function Input_RichText($name, $value, $class = "")
     {
@@ -575,6 +579,11 @@ class vHtml
     function Action_Buttons_Delete($text)
     {
         return '<button class="ac-btn-del">' . $text . '</button>';
+    }
+
+    function Action_Buttons_Import($text)
+    {
+        return '<button class="ac-btn-imp">' . $text . '</button>';
     }
 
     function Start_Action_Buttons($class = "")
@@ -730,6 +739,7 @@ class vHtml
                         <div class="b-item item-add ' . $selected[2] . '" data-val="2"><i class="icons ic-menu-add"></i>Добавление</div>
                         <div class="b-item item-upd ' . $selected[3] . '" data-val="3"><i class="icons ic-menu-upd"></i>Изменение</div>
                         <div class="b-item item-del ' . $selected[4] . '" data-val="4"><i class="icons ic-menu-del"></i>Удаление</div>
+                        <div class="b-item item-import ' . $selected[5] . '"" data-val="5"><i class="icons ic-menu-import"></i>Импорт</div>
                         <div class="b-item item-close" data-val="0"><i class="icons ic-menu-close"></i>Закрыть</div>
                     </div>
                 </div>';

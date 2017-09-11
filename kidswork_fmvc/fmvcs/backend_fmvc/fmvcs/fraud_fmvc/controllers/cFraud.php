@@ -11,6 +11,7 @@ class cFraud extends mFraud
     private $cCenter = null;
     private $cNames = null;
     private $cFraud_attr = null;
+    private $cDatatable = null;
     private $box_bottom = null;
 
     function Init_Full()
@@ -22,6 +23,7 @@ class cFraud extends mFraud
         $this->cCenter = $this->cKidswork->ctrls_global->ext("cCenter");
         $this->cNames = $this->cKidswork->ctrls_global->ext("cNames");
         $this->cFraud_attr = $this->cKidswork->ctrls_global->ext("cFraud_attr");
+        $this->cDatatable = $this->cKidswork->ctrls_global->ext("cDatatable");
         $this->Menu();
     }
 
@@ -32,6 +34,7 @@ class cFraud extends mFraud
         $this->cCenter = $this->cKidswork->ctrls_global->ext("cCenter");
         $this->cNames = $this->cKidswork->ctrls_global->ext("cNames");
         $this->cFraud_attr = $this->cKidswork->ctrls_global->ext("cFraud_attr");
+        $this->cDatatable = $this->cKidswork->ctrls_global->ext("cDatatable");
         $this->Menu_Ajax();
     }
 
@@ -191,6 +194,21 @@ class cFraud extends mFraud
                     $res .= $this->cHtml->Table_2_Row_C2("Уведомление:", "", "2", "center-box-msg");
                 }
                 break;
+            case 5 :
+                if ($this->fFraud->get()->action->get() == 5) {
+                    //$this->Delete();
+                    $res = $this->cHtml->Table_2_Td_C2("Уведомление", $this->cHtml->Action_Message_Success("Данные успешно сохранены!"));
+                }
+                else {
+                    
+                    $this->Data_Control_Switcher();
+                    
+
+                    $res = $this->Box_Content_Import_View();
+                    $res .= $this->box_bottom;
+                    $res .= $this->cHtml->Table_2_Row_C2("Уведомление:", "", "2", "center-box-msg");
+                }
+                break;
             default :
                 break;
         }
@@ -223,6 +241,10 @@ class cFraud extends mFraud
                 $this->Set_Default_Select_View($stmt);
                 $this->box_bottom = $this->cHtml->Table_2_Row_C3("Действие:", $this->cHtml->Action_Buttons_Delete("Удалить"), $this->cHtml->Action_Buttons_Default("Отмена"), "center-box-btn");
                 break;
+            case 5 :
+                $this->Set_Default_Import_View();
+                $this->box_bottom = $this->cHtml->Table_2_Row_C3("Действие:", $this->cHtml->Action_Buttons_Import("Импорт"), $this->cHtml->Action_Buttons_Default("Отмена"), "center-box-btn");
+                break;
             default :
                 break;
         }
@@ -233,7 +255,7 @@ class cFraud extends mFraud
         $menu = $this->cRouter->fRouter->get()->menu->get();
         $submenu = $this->cRouter->fRouter->get()->submenu->get();
         $data_mode = $this->fFraud->get()->data_mode->get();
-        $sel = array(1 => null, 2 => null, 3 => null, 4 => null);
+        $sel = array(1 => null, 2 => null, 3 => null, 4 => null, 5 => null);
         $cap = "";
 
         if ($data_mode == "1") {
@@ -251,6 +273,10 @@ class cFraud extends mFraud
         elseif ($data_mode == "4") {
             $sel[$data_mode] = "item-del-a";
             $cap = "cap-del";
+        }
+        elseif ($data_mode == "5") {
+            $sel[$data_mode] = "item-import-a";
+            $cap = "cap-imp";
         }
 
 
@@ -298,6 +324,13 @@ class cFraud extends mFraud
         return $res;
     }
 
+    public function Box_Content_Import_View()
+    {
+        $res = "";
+        $res .= $this->cHtml->Table_2_Row_C2('Импорт (.xlsx):', $this->fFraud->get()->imported_file->get(), "2");
+        return $res;
+    }
+
     public function Set_Default_Form_Content_View()
     {
         $this->fFraud->get()->id_fraud_attr->set($this->cFraud_attr->Fill_Id_Fraud_Attr(null,false));    
@@ -341,6 +374,11 @@ class cFraud extends mFraud
         }
     }
 
+    public function Set_Default_Import_View()
+    {
+        $this->fFraud->get()->imported_file->set($this->cHtml->Input_File('imported_file','','m-t-b-15px'));
+    }
+
     public function Set_Default_Update_View($stmt)
     {
         if ($stmt !== null) {
@@ -364,9 +402,15 @@ class cFraud extends mFraud
 
     }
 
+    
+
     function Datatable($stmt, $class='datatable')
     {
-
+        $res = '';
+        $res .= $this->cHtml->Start_Datatable($class." sticky-table-headers noactive");
+        $res .= $this->cDatatable->DataTable($this->fFraud->get()->colls);
+        $res .= $this->cHtml->End_Datatable();
+        /*
         $cHtml = $this->cHtml;
         $res = '';
         $res .= $cHtml->Start_Datatable($class);
@@ -434,7 +478,7 @@ class cFraud extends mFraud
         $res .= $cHtml->End_Datatable_Body();
         $res .= $cHtml->End_Table();
         $res .= $cHtml->End_Datatable();
-
+        */
         return $res;
     }
 

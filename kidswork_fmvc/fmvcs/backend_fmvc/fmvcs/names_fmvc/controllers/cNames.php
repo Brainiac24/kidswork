@@ -274,7 +274,7 @@ class cNames extends mNames
         $submenu = $this->cRouter->fRouter->get()->submenu->get();
         $data_mode = $this->fNames->get()->data_mode->get();
         //\var_dump($data_mode);
-        $sel = array(1 => null, 2 => null, 3 => null, 4 => null);
+        $sel = array(1 => null, 2 => null, 3 => null, 4 => null, 5 => null);
         $cap = "";
 
         if ($data_mode == "1") {

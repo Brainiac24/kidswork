@@ -601,6 +601,10 @@ class cHtml extends mHtml
         return $this->vHtml->Input_Text($name, $value, $class);
     }
 
+    function Input_File($name, $value = "", $class = "")
+    {
+        return $this->vHtml->Input_File($name, $value, $class);
+    }
 
     function Input_RichText($name, $value, $class = "")
     {
@@ -635,6 +639,11 @@ class cHtml extends mHtml
     function Action_Buttons_Delete($text)
     {
         return $this->vHtml->Action_Buttons_Delete($text);
+    }
+
+    function Action_Buttons_Import($text)
+    {
+        return $this->vHtml->Action_Buttons_Import($text);
     }
 
     function Start_Action_Buttons($class = "")

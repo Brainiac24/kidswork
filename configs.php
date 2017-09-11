@@ -11,7 +11,7 @@ require_once __DIR__ . "/kidswork_fmvc/views/vKidswork.php";
 
 class Configs
 {
-    public $pdo_dsn = 'mysql:dbname=dbr_kir;host=127.0.0.1';
+    public $pdo_dsn = 'mysql:dbname=dbr_kir_front;host=127.0.0.1';
     public $pdo_username = 'root';
     public $pdo_password = '123';
     public $admin_key = 'daler';

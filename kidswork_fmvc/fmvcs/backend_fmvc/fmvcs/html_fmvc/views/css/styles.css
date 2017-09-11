@@ -57,7 +57,6 @@ body a{
 i, .icons:before, .icons:after{
     font-family: "Material";
     font-style: normal;
-    float: right;
     margin: -2px 0;
 }
 
@@ -149,7 +148,7 @@ div{
     position: fixed;
     color: white;
     margin-top: 45px;
-    z-index: 999;
+    z-index: 99999;
 }
 
 .middle-center{
@@ -281,6 +280,8 @@ ul {
     overflow: auto;
     width: auto;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+    position: relative;
+    float: none;
 }
 
 .datatable td, .datatable-2 td{
@@ -306,8 +307,9 @@ th{
     font-weight: 500;
     border-top: 1px solid #E7E7E7;
     border-right: 1px solid #E7E7E7;
-    line-height: 18px;
+    line-height: 24px;
     padding: 2px 15px;
+    white-space: nowrap;
 }
 
 .table-1{
@@ -360,11 +362,18 @@ td{
     margin: 0px 4px 0 7px;
 }
 
+.f-m-cont input[type="date"]{
+    width: 100%;
+    border: 0;
+    padding: 5px;
+}
+
 
 .sticky-cont {
     overflow: auto;
-    max-height: 100%;
-    min-height: 250px;
+    max-height: calc(94% - 110px);
+    min-height: 200px;
+    float: none;
 }
 
 .sticky-headers {
@@ -421,7 +430,7 @@ td{
 
 .f-m-cont li {
     border-bottom: 1px solid #f0f0f0;
-    height: 27px;
+    height: 35px;
 }
 
 .f-m-cont select {
@@ -429,10 +438,11 @@ td{
     font-size: 15px;
     text-align-last: center;
     padding: 2px;
-    height: 26px;
+    height: 33px;
     border: 0;
     font-size: 15px;
     outline: 0;
+    cursor: pointer;
 }
 
 .f-m-cont input[type="text"] {
@@ -441,7 +451,7 @@ td{
     padding: 2px;
     padding-right: 15px;
     font-size: 15px;
-    height: 26px;
+    height: 34px;
     font-weight: 500;
     outline: 0;
 }
@@ -540,6 +550,7 @@ td{
     padding: 6px 5px 5px 5px;
     color: #8E8E8E;
     font-size: 19px;
+    top: 2px;
 }
 
 input[type='text'] {
@@ -595,6 +606,10 @@ input[type='text'] {
     border-left: 5px solid #ff5c5c;
 }
 
+.cap-imp {
+    border-left: 5px solid #b86bff;
+}
+
 
 .center-wrap-50{
     width: 50%;
@@ -603,7 +618,7 @@ input[type='text'] {
 
 .center-wrap-100{
     width: 100%;
-    padding: 1.5%;
+    padding: 1.5% 1.5% 0 1.5%;
 }
 
 .center-box-cap-2 {
@@ -825,7 +840,7 @@ ul {
     border-right: 1px solid #eee;
 }
 
-.ac-btn-add, .ac-btn-edit, .ac-btn-del, .ac-btn-default{
+.ac-btn-add, .ac-btn-edit, .ac-btn-del, .ac-btn-default, .ac-btn-imp{
     outline: none;
     display: inline-block;
     padding: 6px;
@@ -852,6 +867,12 @@ ul {
     background: -webkit-linear-gradient(top,#ff4e3c,#d61d1d);
 }
 
+.ac-btn-imp{
+    border: 1px solid #b86bff;
+    background: #b86bff;
+    background: -webkit-linear-gradient(top,#b86bff,#a64bfb);
+}
+
 .ac-btn-default{
     border: 1px solid #4285f4;
     background: #ffffff;
@@ -859,12 +880,12 @@ ul {
     color: black;
 }
 
-.ac-btn-add:hover, .ac-btn-default:hover, .ac-btn-edit:hover, .ac-btn-del:hover{
+.ac-btn-add:hover, .ac-btn-default:hover, .ac-btn-edit:hover, .ac-btn-del:hover, .ac-btn-imp:hover{
     box-shadow: 0 1px 1px rgba(0,0,0,.15);
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.15);
 }
 
-.ac-btn-add:active, .ac-btn-default:active, .ac-btn-edit:active, .ac-btn-del:active{
+.ac-btn-add:active, .ac-btn-default:active, .ac-btn-edit:active, .ac-btn-del:active, .ac-btn-imp:active{
     -webkit-box-shadow: inset 0 2px 0 rgba(0,0,0,.15);
     box-shadow: inset 0 1px 2px rgba(0,0,0,.15);
 }
@@ -1080,6 +1101,21 @@ ul {
     content: '\E5D4';
     color:  #909090;
     font-size: 30px;
+    margin: -2px 0px -2px -3px;
+}
+
+.ic-menu-2{
+    position: absolute;
+    top: 2px;
+    left: 0;
+    padding-top: 2px;
+    border-right: 1px solid #eee;
+    cursor: pointer;
+}
+.ic-menu-2:before{
+    content: '\E5D4';
+    color:  #909090;
+    font-size: 26px;
     margin: -2px 0px;
 }
 
@@ -1094,11 +1130,13 @@ ul {
     background-color: #f5f4f4;
 }
 
-.ic-menu-sel, .ic-menu-add, .ic-menu-upd, .ic-menu-del, .ic-menu-close{
+.ic-menu-sel, .ic-menu-add, .ic-menu-upd, .ic-menu-del, .ic-menu-close, .ic-menu-import{
     float: left;
     margin-right: 8px;
     
 }
+
+
 
 .item-sel:hover, .item-sel-a{
     border-left: 5px solid #505050; 
@@ -1116,9 +1154,11 @@ ul {
     border-left: 5px solid #ff5c5c;
 }
 
-.item-close:hover, .item-close-a{
-    border-left: 5px solid #8500ff;
+.item-import:hover, .item-imp-a{
+    border-left: 5px solid #b86bff;
 }
+
+
 
 .ic-menu-sel:before{
     content: '\E5CA';
@@ -1156,6 +1196,14 @@ ul {
 
 .ic-menu-close:before{
     content: '\E14C';
+    color:  #676767;
+    font-size: 24px;
+    margin: -2px 0px;
+    float: left;
+}
+
+.ic-menu-import:before{
+    content: '\E884';
     color:  #676767;
     font-size: 24px;
     margin: -2px 0px;
@@ -1258,6 +1306,9 @@ textarea{
     display: inline-block;
 }
 
+.m-t-b-15px{
+    margin: 15px 0;
+}
 
 
 

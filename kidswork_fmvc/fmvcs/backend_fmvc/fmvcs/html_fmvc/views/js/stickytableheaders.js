@@ -134,10 +134,10 @@
                 $('tr', header).find('th').each(function () {
                     header_arr.push($(this).data('type'));
                     //alert($(this).text().match('^Сумма'));
-                    if (($(this).data('type') === 'DOUBLE') && ($(this).text() !== null)) {
+                    if (($(this).data('type') === 'summ') && ($(this).text() !== null)) {
                         summary[$(this).index()] = 0;
                         summary_sum[$(this).index()] = true;
-                    } else if ($(this).data('type') === 'LONG') {
+                    } else if ($(this).data('type') === 'count') {
                         summary[$(this).index()] = 0;
                     } else {
                         summary[$(this).index()] = '';
@@ -151,10 +151,10 @@
                     var this2 = $(this)
                     $.each(header_arr, function (key, value) {
                         //alert(key);
-                        if (value === 'LONG') {
+                        if (value === 'count') {
                             summary[key] = summary[key] + 1;
                             //alert(summary[this2.index()]);    
-                        } else if (value === 'DOUBLE' && summary_sum[key]) {
+                        } else if (value === 'summ' && summary_sum[key]) {
                             summary[key] = summary[key] + parseFloat(this2.parent('tr').find('td').eq(key).text());
                         }
                     });
@@ -211,7 +211,7 @@
         var input_filter = '';
         var id = 0;
         $('th', base_thead.children('tr')).each(function () {
-            if ($(this).data('type') === 'DATETIME' || $(this).data('type') === 'DATE') {
+            if ($(this).data('type') === 'date' || $(this).data('type') === 'date') {
                 input_filters = '</select></li>' +
                     '<li > <input class="search-date s-text" type="date" data-type="date"  /></li>';
                 input_filter = '<input type="date" data-type="date"  />';
@@ -223,9 +223,9 @@
 
             new_headers += '<div style="display: inline-block; width:' + $(this).outerWidth() + 'px">' + $(this).text() + '</div>';
             new_filters += '<div class="f-menu" style="width:' + $(this).outerWidth() + 'px"> ' +
-                '<i data-id="' + id + '" class="mdi mdi-filter-outline f-ico" ></i>' + input_filter +
+                '<i data-id="' + id + '" class="icons ic-menu-2" ></i>' + input_filter +
                 '</div>';
-            new_filters_cont += '<div id="f-m-' + id + '" data-id="' + id + '" class="f-cont" style="left:' + $(this).position().left + 'px">' +
+            new_filters_cont += '<div id="f-m-' + id + '" data-id="' + id + '" class="f-cont" style="width:auto; left:' + $(this).position().left + 'px">' +
                 '<ul class="f-m-cont">' +
                 '<li><select class="filter-menu-list">' +
                 '<option value="0">Содержит:</option>' +
@@ -305,7 +305,7 @@
 
 
 
-    $(document).on('click', '.f-ico', function () {
+    $(document).on('click', '.ic-menu-2', function () {
         var id = $(this).data('id');
         $('.f-cont:not([id="f-m-' + id + '"])').hide();
         $('#f-m-' + id).toggle();
